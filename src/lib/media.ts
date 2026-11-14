@@ -14,3 +14,13 @@ export function hasMedia(file: string): boolean {
 export function mediaSrc(file: string): string {
   return `/media/${file}`;
 }
+
+/** A media slot as the components receive it: the expected filename, and its URL once the file exists. */
+export type MediaSlot = {
+  file: string;
+  src: string | null;
+};
+
+export function resolveSlot(file: string): MediaSlot {
+  return { file, src: hasMedia(file) ? mediaSrc(file) : null };
+}

@@ -658,6 +658,250 @@
   }
 }
 
+@layer components {
+  /* ----------------------------------------------------------------- PageHero */
+
+  /* Clears the fixed header, then the standard section rhythm below */
+  .page-hero {
+    padding-top: 160px;
+    padding-bottom: var(--section-y);
+  }
+}
+
+/*
+  The seam position of a CompareSlider, as a percentage from the left edge. Registered so
+  that keyboard moves can transition it. MOTION.md 6
+*/
+@property --pos {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 38%;
+}
+
+@layer components {
+  /* --------------------------------------------------------------- MediaFrame */
+
+  /*
+    DESIGN.md 5. A 10px frame, a beam-12 hairline, no shadow. The photo is never shown
+    raw: the filter stack sits mixed phone photos together, a night overlay at 18 percent
+    multiplies over it, and a tint marks before and after. On hover the overlay goes to 0
+    and the filter relaxes, over 640ms. That is the clarity on hover move.
+    The overlay opacity itself is set in base.css, where it follows the clarity curve.
+  */
+  .media-frame {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid var(--beam-12);
+    border-radius: var(--radius-card);
+    background-color: var(--smoke);
+  }
+
+  .media-frame[data-flush="true"] {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .media-frame > img {
+    object-fit: cover;
+    filter: saturate(0.88) contrast(1.06) brightness(0.96);
+    transition: filter var(--dur-3) var(--ease-beam);
+  }
+
+  .media-frame::before,
+  .media-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* The night overlay */
+  .media-frame::before {
+    background-color: var(--night);
+    mix-blend-mode: multiply;
+    transition: opacity var(--dur-3) var(--ease-beam);
+  }
+
+  .media-frame:is(:hover, [data-preview~="hover"])::before {
+    opacity: 0;
+  }
+
+  .media-frame:is(:hover, [data-preview~="hover"]) > img {
+    filter: saturate(1) contrast(1.02) brightness(1);
+  }
+
+  /* Before images carry oxide at 14 percent, after images xenon at 8 percent */
+  .media-frame[data-tone="before"]::after {
+    background-color: var(--oxide);
+    mix-blend-mode: color;
+    opacity: 0.14;
+  }
+
+  .media-frame[data-tone="after"]::after {
+    background-color: var(--xenon);
+    mix-blend-mode: color;
+    opacity: 0.08;
+  }
+
+  /* An empty slot shows its PlaceholderFrame, which needs no overlay and no second border */
+  .media-frame-empty {
+    border: 0;
+  }
+
+  .media-frame-empty::before {
+    content: none;
+  }
+
+  .media-frame-empty[data-flush="true"] .placeholder-frame {
+    border-radius: 0;
+  }
+
+  /* In an empty slider each placeholder label keeps to its own side of the seam */
+  .compare-layer .placeholder-frame {
+    justify-items: start;
+  }
+
+  .compare-after .placeholder-frame {
+    justify-items: end;
+  }
+
+  /*
+    Under the cursor ring, the haze overlay is cut away. The Cursor component writes the
+    ring position to --ring-x and --ring-y on the frame it is over. DESIGN.md 6
+    The ring is 96px across, so the hole has a 48px radius. Any opaque colour works as
+    the kept part of a mask.
+  */
+  .media-frame[data-cursor-over]::before {
+    -webkit-mask-image: radial-gradient(circle at var(--ring-x, 50%) var(--ring-y, 50%), transparent 48px, var(--night) 48px);
+    mask-image: radial-gradient(circle at var(--ring-x, 50%) var(--ring-y, 50%), transparent 48px, var(--night) 48px);
+  }
+
+  /* ------------------------------------------------------------ CompareSlider */
+
+  /* MOTION.md 6 */
+  .compare {
+    --pos: 38%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--beam-12);
+    border-radius: var(--radius-card);
+    background-color: var(--smoke);
+    cursor: ew-resize;
+    touch-action: pan-y; /* a sideways drag moves the seam and never scrolls the page */
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: --pos var(--dur-2) var(--ease-beam);
+  }
+
+  /* No transition on the seam while it is being dragged or while the intro runs */
+  .compare:is([data-dragging="true"], [data-intro="true"]) {
+    transition: none;
+  }
+
+  .compare-layer {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* The after image sits on top and is clipped from the left edge to the seam */
+  .compare-after {
+    clip-path: inset(0 0 0 var(--pos));
+  }
+
+  /*
+    The handle is a box the size of the slider, moved to the seam with a transform. Its
+    left edge is the seam. Moving it by transform, not by left, means the intro and every
+    drag stay off the layout and never register as layout shift.
+  */
+  .compare-handle {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    translate: var(--pos) 0;
+    pointer-events: none;
+  }
+
+  /* A 2px beam line with the beam glow */
+  .compare-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    translate: -50% 0;
+    background-color: var(--beam);
+    box-shadow: var(--glow-beam);
+  }
+
+  /* A 44px knob, because that is the minimum touch target */
+  .compare-knob {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    translate: -50% -50%;
+    border: 1px solid var(--beam-12);
+    border-radius: var(--radius-pill);
+    background-color: var(--smoke);
+    color: var(--beam);
+  }
+
+  /* BEFORE in oxide, bottom left. AFTER in xenon, bottom right. */
+  .compare-label {
+    position: absolute;
+    bottom: 16px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .compare-label-before {
+    left: 16px;
+  }
+
+  .compare-label-after {
+    right: 16px;
+  }
+
+  .caps.compare-label-before {
+    color: var(--oxide);
+  }
+
+  .caps.compare-label-after {
+    color: var(--xenon);
+  }
+
+  /* ------------------------------------------------------------------ Gallery */
+
+  /* A filter is a Pill that is also a button. Its label goes xenon while it is active. */
+  button.pill {
+    cursor: pointer;
+    transition: color var(--dur-2) var(--ease-beam);
+  }
+}
+
+/*
+  With script enabled the seam waits at 100 percent, showing only the before image, until
+  the slider has been seen and the intro can run. If script has not taken over within a
+  second, it settles at its resting place on its own.
+*/
+html[data-js] .compare:not([data-ready]) {
+  --pos: 100%;
+  animation: compare-failsafe 0s 1s forwards;
+}
+
+@keyframes compare-failsafe {
+  to {
+    --pos: 38%;
+  }
+}
+
 /* Styleguide only: the two glow tokens shown on a plain surface. DESIGN.md 2.4 */
 .glow-specimen-xenon {
   box-shadow: var(--glow-xenon);
@@ -696,6 +940,16 @@
   .menu-toggle-lines::before,
   .menu-toggle-lines::after {
     transition: none;
+  }
+
+  /* The slider is a control, so it still works. Its seam simply does not glide. */
+  .compare {
+    transition: none;
+  }
+
+  html[data-js] .compare:not([data-ready]) {
+    --pos: 38%;
+    animation: none;
   }
 
   /* The one static frame takes the single dur-2 fade that replaces every scrub */

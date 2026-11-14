@@ -11,3 +11,11 @@ export const hero = {
   ],
   cue: "SEE THE DIFFERENCE",
 } as const;
+
+// 3.5 Before and after
+export const beforeAfter = {
+  eyebrow: "PREVIOUS WORK",
+  title: { plain: "Drag it.", accent: "That is the same lens." },
+  body: "Every pair here was restored on site, in one visit, with no parts replaced.",
+  button: "See the full gallery",
+} as const;
