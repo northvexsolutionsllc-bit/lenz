@@ -373,6 +373,14 @@
     cursor: pointer;
   }
 
+  /*
+    The menu needs script to open. Without script the button is not offered, because it
+    could do nothing: the same links are in the footer of every page.
+  */
+  html:not([data-js]) .menu-toggle {
+    display: none;
+  }
+
   .menu-toggle-lines {
     position: relative;
     width: 24px;
@@ -665,6 +673,300 @@
   .page-hero {
     padding-top: 160px;
     padding-bottom: var(--section-y);
+  }
+}
+
+@layer components {
+  /* ----------------------------------------------------------------- TodoChip */
+
+  /* A small oxide chip. Text on oxide is night, never beam. DESIGN.md 2.3 */
+  .todo-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: var(--radius-chip);
+    background-color: var(--oxide);
+    vertical-align: middle;
+    cursor: help;
+  }
+
+  .caps.todo-chip {
+    color: var(--night);
+  }
+
+  /* ---------------------------------------------------------------- Rule list */
+
+  /* Rows separated by beam-12 hairlines: services, booking steps, inclusions */
+  .rule-list > * {
+    padding-block: 24px;
+    border-top: 1px solid var(--beam-12);
+  }
+
+  .rule-list > :last-child {
+    border-bottom: 1px solid var(--beam-12);
+  }
+
+  .step-row-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* An inclusion: a check in xenon, a title and a line of copy */
+  .check-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 16px;
+    align-items: start;
+  }
+
+  .check-row-icon {
+    margin-top: 8px;
+    color: var(--xenon);
+  }
+
+  /* ------------------------------------------------------------------ Caution */
+
+  /* Oxide border, and an oxide chip with night text. CONTENT.md 3.8 */
+  .caution {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    border: 1px solid var(--oxide);
+    border-radius: var(--radius-card);
+  }
+
+  .caution-chip {
+    padding: 4px 8px;
+    border-radius: var(--radius-chip);
+    background-color: var(--oxide);
+  }
+
+  .caps.caution-chip {
+    color: var(--night);
+  }
+
+  /* ------------------------------------------------------------------ Kinetic */
+
+  /*
+    Full bleed: one word to a row, centred on the page with no gutter. The column is a
+    flex container so that a word wider than a very narrow screen overhangs both edges
+    evenly, and the section clips the overhang.
+  */
+  .kinetic-section {
+    overflow: hidden;
+  }
+
+  .kinetic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  /* ------------------------------------------------------------------ Reviews */
+
+  .review-stars {
+    display: flex;
+    gap: 4px;
+    color: var(--xenon);
+  }
+
+  .review-placeholder {
+    min-height: 200px;
+  }
+
+  /* ------------------------------------------------------------------ Process */
+
+  /*
+    MOTION.md 5.4. The heading scrolls past, then the stage pins for three viewports.
+    data-mode is "animated" only once script has built the timeline. In static mode,
+    which is also what reduced motion and no script get, the stage is an ordinary block.
+  */
+  .process {
+    padding-block: var(--section-y);
+  }
+
+  .process-head {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 48px;
+  }
+
+  .process-foot {
+    padding-top: 32px;
+  }
+
+  .process-grid {
+    display: grid;
+    align-items: center;
+    gap: 32px 24px;
+  }
+
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .process-figure {
+    order: -1;
+  }
+
+  .process[data-mode="animated"] .process-stage {
+    display: grid;
+    align-content: center;
+    min-height: 100svh;
+    padding-block: 32px;
+  }
+
+  @media (min-width: 1024px) {
+    .process-grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .process-steps {
+      grid-column: 1 / span 5;
+    }
+
+    .process-figure {
+      grid-column: 6 / span 7;
+      order: 0;
+    }
+  }
+
+  /* One stage is active at a time. While pinned, the others drop to beam-24. */
+  .process .step-row :is(h3, p),
+  .process .step-row::before {
+    transition: color var(--dur-2) var(--ease-swap), opacity var(--dur-2) var(--ease-swap);
+  }
+
+  .process[data-pinned="true"] .step-row[data-current="false"] :is(h3, p),
+  .process[data-pinned="true"] .step-row[data-current="false"]::before {
+    color: var(--beam-24);
+  }
+
+  /*
+    Where the four rows will not fit one viewport, on narrow or short screens, the rows
+    fold: the four titles stay in a list, and the four bodies share one cell underneath,
+    cross-fading as the stage changes. The cell is as tall as the longest body, so
+    nothing moves when they swap.
+  */
+  @media (max-width: 1023px), (max-height: 760px) {
+    .process[data-mode="animated"] .process-steps {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 12px 16px;
+    }
+
+    .process[data-mode="animated"] .step-row,
+    .process[data-mode="animated"] .step-row-copy {
+      display: contents;
+    }
+
+    .process[data-mode="animated"] .step-row::before {
+      grid-column: 1;
+    }
+
+    .process[data-mode="animated"] .step-row h3 {
+      grid-column: 2;
+    }
+
+    .process[data-mode="animated"] .step-row:nth-child(1)::before,
+    .process[data-mode="animated"] .step-row:nth-child(1) h3 {
+      grid-row: 1;
+    }
+
+    .process[data-mode="animated"] .step-row:nth-child(2)::before,
+    .process[data-mode="animated"] .step-row:nth-child(2) h3 {
+      grid-row: 2;
+    }
+
+    .process[data-mode="animated"] .step-row:nth-child(3)::before,
+    .process[data-mode="animated"] .step-row:nth-child(3) h3 {
+      grid-row: 3;
+    }
+
+    .process[data-mode="animated"] .step-row:nth-child(4)::before,
+    .process[data-mode="animated"] .step-row:nth-child(4) h3 {
+      grid-row: 4;
+    }
+
+    .process[data-mode="animated"] .step-row p {
+      grid-column: 1 / -1;
+      grid-row: 5;
+      align-self: start;
+      padding-top: 12px;
+      opacity: 0;
+    }
+
+    .process[data-mode="animated"] .step-row[data-current="true"] p {
+      opacity: 1;
+    }
+  }
+
+  /* The lens cross-section. Stroked, never filled, token colours only. */
+  .lens-figure {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .lens-figure :is(path, circle) {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .lens-structure {
+    stroke: var(--beam-54);
+    stroke-width: 1.5;
+  }
+
+  .lens-shell {
+    stroke: var(--beam);
+    stroke-width: 2;
+  }
+
+  /*
+    The four layers and the glow. Their resting state here is the finished lens:
+    oxidation gone, scratches gone, coat on, light out. Script rewinds them to the
+    start before the timeline runs.
+  */
+  #layer-oxidation {
+    stroke: var(--oxide);
+    stroke-width: 7;
+    opacity: 0;
+  }
+
+  /* 26 is SCRATCH_LENGTH. With this pattern an offset of 0 hides a scratch and 26 shows it. */
+  #layer-scratches {
+    stroke: var(--beam-24);
+    stroke-width: 1.5;
+    stroke-dasharray: 0 26 26;
+    stroke-dashoffset: 0;
+  }
+
+  /* The sweep has passed by the time the lens is finished, so at rest it is not shown */
+  #layer-polish {
+    stroke: var(--beam);
+    stroke-width: 26;
+    opacity: 0;
+  }
+
+  #layer-coating {
+    stroke: var(--xenon);
+    stroke-width: 3;
+  }
+
+  #lens-glow {
+    stroke: var(--beam);
+    stroke-width: 1.5;
   }
 }
 

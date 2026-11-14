@@ -1,0 +1,427 @@
+/
+
+  1. CONTENT.md, read against the page
+     3.1 Hero
+       ok       MOBILE SERVICE, EAST CONTRA COSTA
+       ok       Bring clarity
+       ok       back to the road.
+       ok       Cloudy headlights cut how far you can see at night. We restore the lens you already have, at your driveway, for a fraction of what new assemblies cost.
+       ok       Text a photo for a quote
+       ok       Call 925-812-5524
+       ok       $125
+       ok       STARTING PRICE
+       ok       3 YR
+       ok       GUARANTEE
+       ok       1 HR
+       ok       TYPICAL VISIT
+       ok       SEE THE DIFFERENCE
+     3.2 The problem
+       ok       WHY IT MATTERS
+       ok       A hazy lens is not
+       ok       only a looks problem.
+       ok       Headlight plastic is coated at the factory. Sun and road grit wear that coating off, the plastic underneath oxidizes, and the lens goes yellow and milky. The bulb is still working. The light just cannot get out.
+       ok       Night
+       ok       You see less of the road
+       ok       A badly oxidized lens scatters light instead of throwing it forward. The part of the road you lose is the part furthest away, which is the part you need.
+       ok       Resale
+       ok       It ages the whole car
+       ok       Yellow headlights read as neglect. On a clean car they are the first thing a buyer or an appraiser notices.
+       ok       Cost
+       ok       New assemblies are expensive
+       ok       Replacement housings on a common SUV run several hundred dollars per side before labor. Restoration is a fraction of that on the same lens.
+     3.3 Kinetic line
+       ok       RESTORE. PROTECT. REPEAT.
+     3.4 Services
+       ok       WHAT WE DO
+       ok       Three services.
+       ok       One standard.
+       ok       Headlight restoration
+       ok       Multi-step sanding, compound, polish and a UV protective coating, done on the car. This is the job most people book.
+       ok       See the process
+       ok       Fog light restoration
+       ok       Added to a headlight booking when the fog lights have gone the same way. Same process, same coating, same guarantee.
+       ok       Add to a quote
+       ok       Dealer and auction
+       ok       Consistent reconditioning before a vehicle goes on the lot or through the lane. We come to you and we work a row, not a car.
+       ok       Trade pricing
+     3.5 Before and after
+       ok       PREVIOUS WORK
+       ok       Drag it.
+       ok       That is the same lens.
+       ok       Every pair here was restored on site, in one visit, with no parts replaced.
+       ok       See the full gallery
+     3.6 Process
+       ok       THE CORRECTION
+       ok       Four stages.
+       ok       In that order.
+       ok       Sand
+       ok       Wet sanding through progressive grits takes off the dead factory coating and the oxidized layer under it. This is the step that actually removes the yellow.
+       ok       Compound
+       ok       Machine compounding pulls out the sanding marks and brings the plastic back to a level surface.
+       ok       Polish
+       ok       A finer polish takes the surface from level to optically clear, so light passes straight through instead of scattering.
+       ok       Protect
+       ok       A UV protective coating goes on last. Without it a restored lens yellows again within a year. This is the step cheap jobs skip.
+       ok       Skipping stage four is why a thirty dollar kit lasts a season.
+     3.7 Booking
+       ok       SIMPLE FROM START TO FINISH
+       ok       Three steps.
+       ok       One clear result.
+       ok       Send photos
+       ok       Text clear pictures of both headlights in daylight. That is enough for us to tell you what we are working with.
+       ok       Get your quote
+       ok       A real number, not a range, usually the same day.
+       ok       We come to you
+       ok       Driveway, work parking lot, wherever the car is. You do not have to be there the whole time.
+     3.8 Pricing
+       ok       PRICING
+       ok       $125
+       ok       and up, depending on
+       ok       the lens.
+       ok       Final price depends on lens size and how far the oxidation has gone. Larger housings and heavily pitted lenses take longer. Send photos and you get a firm number before anyone books anything.
+       ok       Multi-step correction
+       ok       Sand, compound and polish, not a one-pass wipe
+       ok       UV protective coating
+       ok       The step that makes it last
+       ok       Fog lights can be added
+       ok       Priced per vehicle
+       ok       3 year guarantee
+       ok       Free touch-ups inside the coverage period
+       ok       PLEASE NOTE
+       ok       Results vary with the condition of the plastic. A lens with cracks, internal moisture or damage below the surface may not come back to like new. We will tell you that before we take the job, not after.
+     3.9 Guarantee
+       ok       THE GUARANTEE
+       ok       Three years.
+       ok       In writing.
+       ok       If a lens we restored starts hazing inside the coverage period, we come back and touch it up at no charge.
+     3.10 Story
+       ok       OUR STORY
+       ok       LOCAL SMALL BUSINESS
+       ok       Started after school.
+       ok       Run like a trade.
+       ok       Lenz Rescue is run by Adain, who started it at seventeen to earn his own money, and who learned the process properly before taking a single paying car. He turns up when he says he will, he tells you honestly when a lens is too far gone, and he does the fourth step every time. When you book Lenz Rescue you are backing a young local tradesman building something real.
+     3.12 Final CTA
+       ok       Let's bring your headlights
+       ok       back to life.
+       ok       Text photos of both headlights and you will have a price back today.
+       ok       Text a photo for a quote
+       ok       Call 925-812-5524
+       ok       Antioch
+       ok       Brentwood
+       ok       Pittsburg
+       ok       Oakley
+       ok       Discovery Bay
+       ok       Bay Point
+     3.11 Reviews (must not be on the page: kept out of the page order until real reviews exist, DECISIONS.md 11)
+       absent   WHAT PEOPLE SAY
+       absent   Ask the
+       absent   neighbours.
+       absent   Read all reviews on Google
+     2 Global
+       ok       LENZ RESCUE
+       ok       Mobile headlight restoration
+       ok       Text a photo for a quote
+       ok       925-812-5524
+       ok       LenzRescue@gmail.com
+       ok       Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area
+       ok       Services
+       ok       Gallery
+       ok       Vehicle guide
+       ok       About
+       ok       Contact
+       ok       link tel:+19258125524
+       ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (4 on the page)
+
+  2. The page, read against CONTENT.md
+     content (110)
+       "LENZ RESCUE" x2
+           CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
+       "Services" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Gallery" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Vehicle guide" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "About" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Contact" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "925-812-5524" x3
+           CONTENT.md section 2, first at div.shell > div.flex > a.nav-link
+       "Text a photo for a quote" x4
+           CONTENT.md line 45, first at a.btn > span.btn-face > span.caps
+       "Bring clarity back to the road."
+           CONTENT.md strings in sequence, as aria-label, first at div.hero-title > div.hero-title-blend > h1#hero-title
+       "Bring clarity"
+           CONTENT.md line 65, first at div.line-mask > div.line > span.block
+       "back to the road."
+           CONTENT.md line 65, first at div.line-mask > div.line > span.accent
+       "MOBILE SERVICE, EAST CONTRA COSTA"
+           CONTENT.md line 64, first at div.hero-layout > div.hero-pitch > p.eyebrow
+       "Cloudy headlights cut how far you can see at night. We restore the lens you already have, at your driveway, for a fraction of what new assemblies cost."
+           CONTENT.md line 66, first at div.hero-layout > div.hero-pitch > p.body-l
+       "Call 925-812-5524" x2
+           CONTENT.md line 46, first at a.btn > span.btn-face > span.caps
+       "STARTING PRICE"
+           CONTENT.md line 69, first at dl.hero-stats > div.hero-stat > dt.caps
+       "$125" x6
+           CONTENT.md line 69, first at dd > span.counter > span.sr-only
+       "GUARANTEE"
+           CONTENT.md line 70, first at dl.hero-stats > div.hero-stat > dt.caps
+       "3 YR" x3
+           CONTENT.md line 70, first at dd > span.counter > span.sr-only
+       "TYPICAL VISIT"
+           CONTENT.md line 71, first at dl.hero-stats > div.hero-stat > dt.caps
+       "1 HR" x3
+           CONTENT.md line 71, first at dd > span.counter > span.sr-only
+       "SEE THE DIFFERENCE"
+           CONTENT.md line 72, first at section.hero > div.hero-layout > a.hero-cue
+       "WHY IT MATTERS"
+           CONTENT.md line 76, first at div.shell > div.flex > p.eyebrow
+       "A hazy lens is not"
+           CONTENT.md line 77, first at div.shell > div.flex > h2#problem-title
+       "only a looks problem."
+           CONTENT.md line 77, first at div.flex > h2#problem-title > span.accent
+       "Headlight plastic is coated at the factory. Sun and road grit wear that coating off, the plastic underneath oxidizes, and the lens goes yellow and milky. The bulb is still working. The light just cannot get out."
+           CONTENT.md line 78, first at div.shell > div.flex > p.body
+       "Night"
+           CONTENT.md line 80, first at li > div.glass-card > p.numeral
+       "You see less of the road"
+           CONTENT.md line 80, first at li > div.glass-card > h3.h3
+       "A badly oxidized lens scatters light instead of throwing it forward. The part of the road you lose is the part furthest away, which is the part you need."
+           CONTENT.md line 80, first at li > div.glass-card > p.body
+       "Resale"
+           CONTENT.md line 81, first at li > div.glass-card > p.numeral
+       "It ages the whole car"
+           CONTENT.md line 81, first at li > div.glass-card > h3.h3
+       "Yellow headlights read as neglect. On a clean car they are the first thing a buyer or an appraiser notices."
+           CONTENT.md line 81, first at li > div.glass-card > p.body
+       "Cost"
+           CONTENT.md line 82, first at li > div.glass-card > p.numeral
+       "New assemblies are expensive"
+           CONTENT.md line 82, first at li > div.glass-card > h3.h3
+       "Replacement housings on a common SUV run several hundred dollars per side before labor. Restoration is a fraction of that on the same lens."
+           CONTENT.md line 82, first at li > div.glass-card > p.body
+       "RESTORE."
+           part of "RESTORE. PROTECT. REPEAT.", CONTENT.md line 88, first at section.section > p.kinetic > span
+       "PROTECT."
+           part of "RESTORE. PROTECT. REPEAT.", CONTENT.md line 88, first at section.section > p.kinetic > span
+       "REPEAT."
+           part of "RESTORE. PROTECT. REPEAT.", CONTENT.md line 88, first at section.section > p.kinetic > span
+       "WHAT WE DO"
+           CONTENT.md line 92, first at div.shell > div.flex > p.eyebrow
+       "Three services."
+           CONTENT.md line 93, first at div.shell > div.flex > h2#services-title
+       "One standard."
+           CONTENT.md line 93, first at div.flex > h2#services-title > span.accent
+       "Headlight restoration"
+           CONTENT.md line 94, first at li.step-row > div.step-row-copy > h3.h3
+       "Multi-step sanding, compound, polish and a UV protective coating, done on the car. This is the job most people book."
+           CONTENT.md line 94, first at li.step-row > div.step-row-copy > p.body
+       "See the process"
+           CONTENT.md line 94, first at div.step-row-copy > a.text-link > span.text-link-label
+       "Fog light restoration" x2
+           CONTENT.md line 95, first at li.step-row > div.step-row-copy > h3.h3
+       "Added to a headlight booking when the fog lights have gone the same way. Same process, same coating, same guarantee."
+           CONTENT.md line 95, first at li.step-row > div.step-row-copy > p.body
+       "Add to a quote"
+           CONTENT.md line 95, first at div.step-row-copy > a.text-link > span.text-link-label
+       "Dealer and auction" x2
+           CONTENT.md line 96, first at li.step-row > div.step-row-copy > h3.h3
+       "Consistent reconditioning before a vehicle goes on the lot or through the lane. We come to you and we work a row, not a car."
+           CONTENT.md line 96, first at li.step-row > div.step-row-copy > p.body
+       "Trade pricing"
+           CONTENT.md line 96, first at div.step-row-copy > a.text-link > span.text-link-label
+       "PREVIOUS WORK"
+           CONTENT.md line 100, first at div.grid > div.flex > p.eyebrow
+       "Drag it."
+           CONTENT.md line 101, first at div.grid > div.flex > h2#before-after-title
+       "That is the same lens."
+           CONTENT.md line 101, first at div.flex > h2#before-after-title > span.accent
+       "Every pair here was restored on site, in one visit, with no parts replaced."
+           CONTENT.md line 102, first at div.grid > div.flex > p.body
+       "See the full gallery"
+           CONTENT.md line 104, first at a.btn > span.btn-face > span.caps
+       "THE CORRECTION"
+           CONTENT.md line 108, first at section.process > div.shell > p.eyebrow
+       "Four stages."
+           CONTENT.md line 109, first at section.process > div.shell > h2#process-title
+       "In that order."
+           CONTENT.md line 109, first at div.shell > h2#process-title > span.accent
+       "Sand"
+           CONTENT.md line 110, first at li.step-row > div.step-row-copy > h3.h3
+       "Wet sanding through progressive grits takes off the dead factory coating and the oxidized layer under it. This is the step that actually removes the yellow."
+           CONTENT.md line 110, first at li.step-row > div.step-row-copy > p.body
+       "Compound"
+           CONTENT.md line 111, first at li.step-row > div.step-row-copy > h3.h3
+       "Machine compounding pulls out the sanding marks and brings the plastic back to a level surface."
+           CONTENT.md line 111, first at li.step-row > div.step-row-copy > p.body
+       "Polish"
+           CONTENT.md line 112, first at li.step-row > div.step-row-copy > h3.h3
+       "A finer polish takes the surface from level to optically clear, so light passes straight through instead of scattering."
+           CONTENT.md line 112, first at li.step-row > div.step-row-copy > p.body
+       "Protect"
+           CONTENT.md line 113, first at li.step-row > div.step-row-copy > h3.h3
+       "A UV protective coating goes on last. Without it a restored lens yellows again within a year. This is the step cheap jobs skip."
+           CONTENT.md line 113, first at li.step-row > div.step-row-copy > p.body
+       "Skipping stage four is why a thirty dollar kit lasts a season."
+           CONTENT.md line 114, first at section.process > div.shell > p.small
+       "SIMPLE FROM START TO FINISH"
+           CONTENT.md line 118, first at div.shell > div.flex > p.eyebrow
+       "Three steps."
+           CONTENT.md line 119, first at div.shell > div.flex > h2#booking-title
+       "One clear result."
+           CONTENT.md line 119, first at div.flex > h2#booking-title > span.accent
+       "Send photos"
+           CONTENT.md line 120, first at li.step-row > div.step-row-copy > h3.h3
+       "Text clear pictures of both headlights in daylight. That is enough for us to tell you what we are working with."
+           CONTENT.md line 120, first at li.step-row > div.step-row-copy > p.body
+       "Get your quote"
+           CONTENT.md line 121, first at li.step-row > div.step-row-copy > h3.h3
+       "A real number, not a range, usually the same day."
+           CONTENT.md line 121, first at li.step-row > div.step-row-copy > p.body
+       "We come to you"
+           CONTENT.md line 122, first at li.step-row > div.step-row-copy > h3.h3
+       "Driveway, work parking lot, wherever the car is. You do not have to be there the whole time."
+           CONTENT.md line 122, first at li.step-row > div.step-row-copy > p.body
+       "PRICING"
+           CONTENT.md line 126, first at div.shell > div.flex > p.eyebrow
+       "and up, depending on"
+           CONTENT.md line 127, first at div.shell > div.flex > h2#pricing-title
+       "the lens."
+           CONTENT.md line 127, first at div.flex > h2#pricing-title > span.accent
+       "Final price depends on lens size and how far the oxidation has gone. Larger housings and heavily pitted lenses take longer. Send photos and you get a firm number before anyone books anything."
+           CONTENT.md line 128, first at div.shell > div.flex > p.body
+       "Multi-step correction"
+           CONTENT.md line 130, first at li.check-row > div.flex > h3.h3
+       "Sand, compound and polish, not a one-pass wipe"
+           CONTENT.md line 130, first at li.check-row > div.flex > p.body
+       "UV protective coating"
+           CONTENT.md line 131, first at li.check-row > div.flex > h3.h3
+       "The step that makes it last"
+           CONTENT.md line 131, first at li.check-row > div.flex > p.body
+       "Fog lights can be added"
+           CONTENT.md line 132, first at li.check-row > div.flex > h3.h3
+       "Priced per vehicle"
+           CONTENT.md line 132, first at li.check-row > div.flex > p.body
+       "3 year guarantee"
+           CONTENT.md line 133, first at li.check-row > div.flex > h3.h3
+       "Free touch-ups inside the coverage period"
+           CONTENT.md line 133, first at li.check-row > div.flex > p.body
+       "PLEASE NOTE"
+           CONTENT.md line 134, first at div.flex > aside.caution > p.caution-chip
+       "Results vary with the condition of the plastic. A lens with cracks, internal moisture or damage below the surface may not come back to like new. We will tell you that before we take the job, not after."
+           CONTENT.md line 135, first at div.flex > aside.caution > p.body
+       "THE GUARANTEE"
+           CONTENT.md line 139, first at div.shell > div.flex > p.eyebrow
+       "Three years."
+           CONTENT.md line 140, first at div.shell > div.flex > h2#guarantee-title
+       "In writing."
+           CONTENT.md line 140, first at div.flex > h2#guarantee-title > span.accent
+       "If a lens we restored starts hazing inside the coverage period, we come back and touch it up at no charge."
+           CONTENT.md line 141, first at div.shell > div.flex > p.body-l
+       "OUR STORY"
+           CONTENT.md line 146, first at div.shell > div.flex > p.eyebrow
+       "LOCAL SMALL BUSINESS"
+           CONTENT.md line 147, first at div.flex > div > span.pill
+       "Started after school."
+           CONTENT.md line 148, first at div.shell > div.flex > h2#story-title
+       "Run like a trade."
+           CONTENT.md line 148, first at div.flex > h2#story-title > span.accent
+       "Lenz Rescue is run by Adain, who started it at seventeen to earn his own money, and who learned the process properly before taking a single paying car. He turns up when he says he will, he tells you honestly when a lens is too far gone, and he does the fourth step every time. When you book Lenz Rescue you are backing a young local tradesman building something real."
+           CONTENT.md line 149, first at div.shell > div.flex > p.body
+       "Let's bring your headlights"
+           CONTENT.md line 167, first at section#contact > div.shell > h2#contact-title
+       "back to life."
+           CONTENT.md line 167, first at div.shell > h2#contact-title > span.accent
+       "Text photos of both headlights and you will have a price back today."
+           CONTENT.md line 168, first at section#contact > div.shell > p.body-l
+       "Antioch" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Brentwood" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Pittsburg" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Oakley" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Discovery Bay"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Bay Point"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Mobile headlight restoration"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "LenzRescue@gmail.com"
+           CONTENT.md section 2, first at li > a.text-link > span.text-link-label
+     owner note (7)
+       "TODO" x6
+           the TODO(owner) text in CONTENT.md, verbatim, first at div.hero-stat > dt.caps > span.todo-chip
+       "likely: 45 to 60 minutes for a standard pair" x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.hero-stat > dt.caps > span.todo-chip
+       "likely: quote a real replacement price for one common local vehicle so this line has a number in it" x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.glass-card > p.body > span.todo-chip
+       "the year, make, model and city for each of the existing five photos." x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body > span.todo-chip
+       "likely: a flat add-on such as $40 per pair" x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body > span.todo-chip
+       "the guarantee has no published terms anywhere. Needed before launch: what is covered, what voids it, whether it transfers with the vehicle, and whether it covers physical damage. likely: covers oxidation and coating failure only, does not cover cracks, impact damage or internal moisture, stays with the original customer." x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body-l > span.todo-chip
+       "confirm the last two are actually served" x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
+     pattern (8)
+       "Oxidized yellow headlight on a gray vehicle before restoration"
+           CONTENT.md line 272, vehicle details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+       "The same gray vehicle headlight after multi-step restoration and UV coating"
+           CONTENT.md line 273, vehicle details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+       "Oxidized yellow headlight on a gray vehicle before restoration. The same gray vehicle headlight after multi-step restoration and UV coating."
+           CONTENT.md section 9 patterns, vehicle details still TODO(owner), first at div.grid > div.lg:col-span-8 > p#_R_ilbqlb_
+       "Red vehicle headlights restored on site"
+           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+       "White vehicle headlights restored on site"
+           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+       "Dark red vehicle headlights restored on site"
+           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+       "Maroon vehicle headlights restored on site"
+           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+       "Gray vehicle headlights restored on site"
+           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+     interface (16)
+       "Skip to content"
+           supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
+       "Primary"
+           supplied in build: name of the header navigation landmark, as aria-label, first at header.site-header > div.shell > nav.hidden
+       "Open menu"
+           supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
+       "Menu"
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div#_R_1lb_ > div.shell > nav
+       "Reveal the restored headlight"
+           MOTION.md 6, as aria-label, first at div.grid > div.lg:col-span-8 > div.compare
+       "38 percent before, 62 percent after"
+           supplied in build: slider value for screen readers, as aria-valuetext, first at div.grid > div.lg:col-span-8 > div.compare
+       "BEFORE"
+           MOTION.md 6, first at div.compare > div.compare-layer > span.pill
+       "AFTER"
+           MOTION.md 6, first at div.compare > div.compare-layer > span.pill
+       "gallery-06.jpg"
+           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
+       "4/3"
+           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
+       "Cross-section of a headlight: the reflector, the bulb and the lens, with the layers the four stages work on"
+           supplied in build: name of the process figure, as aria-label, first at div.shell > figure.process-figure > svg.lens-figure
+       "owner.jpg"
+           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
+       "4/5"
+           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
+       "Footer"
+           supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
+       "Lenz Rescue on Facebook"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+       "Lenz Rescue on Instagram"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+
+  3. Document metadata
+       title        Lenz Rescue | Mobile headlight restoration
+       description  (none)
+
+  PASS: 141 distinct strings on the page, 0 problems.

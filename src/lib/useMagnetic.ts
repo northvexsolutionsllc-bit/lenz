@@ -35,7 +35,8 @@ export function useMagnetic(ref: RefObject<HTMLElement | null>) {
       el.removeEventListener("pointermove", onMove);
       el.removeEventListener("pointerleave", onLeave);
       gsap.killTweensOf(el);
-      gsap.set(el, { x: 0, y: 0 });
+      // Back to no transform at all, so nothing is left on the element
+      gsap.set(el, { clearProps: "transform" });
     };
   }, [ref, reduced]);
 }

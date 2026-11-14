@@ -222,12 +222,12 @@ export function CompareSlider({ before, after, beforeAlt, afterAlt, sizes, class
       >
         <div className="compare-layer">
           <MediaFrame slot={before} ratio="3/2" alt={beforeAlt} tone="before" sizes={sizes} flush className="h-full" />
-          <span className="pill caps compare-label compare-label-before">Before</span>
+          <span className="pill caps compare-label compare-label-before">BEFORE</span>
         </div>
 
         <div className="compare-layer compare-after">
           <MediaFrame slot={after} ratio="3/2" alt={afterAlt} tone="after" sizes={sizes} flush className="h-full" />
-          <span className="pill caps compare-label compare-label-after">After</span>
+          <span className="pill caps compare-label compare-label-after">AFTER</span>
         </div>
 
         <div className="compare-handle" aria-hidden="true">

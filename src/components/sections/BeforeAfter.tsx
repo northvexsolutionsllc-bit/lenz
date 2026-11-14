@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GalleryGrid } from "@/components/ui/GalleryGrid";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
 import { Section } from "@/components/ui/Section";
+import { TodoChip } from "@/components/ui/TodoChip";
 import { beforeAfter } from "@/content/home";
 import { FEATURED_PAIR } from "@/content/media";
 import { getGalleryTiles, getPair } from "@/lib/gallery";
@@ -23,6 +24,7 @@ export function BeforeAfter() {
             </h2>
             <p className="body" data-reveal>
               {beforeAfter.body}
+              <TodoChip note={beforeAfter.todo} className="ml-8" />
             </p>
           </div>
 

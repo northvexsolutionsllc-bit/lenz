@@ -11,13 +11,17 @@ type CounterProps = {
   prefix?: string;
   suffix?: string;
   className?: string;
+  /** Digits after the decimal point, for a figure such as a 4.9 rating. */
+  decimals?: number;
+  /** Render the final value and never count. One switch, if a number should hold still. */
+  still?: boolean;
 };
 
 // DESIGN.md 6: numeral, counts from 0 to its target when it enters the viewport,
 // 1200ms, ease-beam. It counts once. The final value is what the server renders, what
 // assistive technology reads, and what shows under reduced motion or without script.
 // A hidden copy of the final value reserves the width, so nothing shifts while it counts.
-export function Counter({ value, prefix = "", suffix = "", className }: CounterProps) {
+export function Counter({ value, prefix = "", suffix = "", className, decimals = 0, still = false }: CounterProps) {
   const reduced = useReducedMotion();
   const liveRef = useRef<HTMLSpanElement>(null);
   const played = useRef(false);
@@ -28,7 +32,7 @@ export function Counter({ value, prefix = "", suffix = "", className }: CounterP
     if (!live || !text) return;
 
     const write = (n: number) => {
-      text.nodeValue = `${prefix}${n}${suffix}`;
+      text.nodeValue = `${prefix}${n.toFixed(decimals)}${suffix}`;
     };
 
     // Script arrived after the CSS failsafe had already shown the final value, and the
@@ -38,7 +42,7 @@ export function Counter({ value, prefix = "", suffix = "", className }: CounterP
       getComputedStyle(live).visibility === "visible" &&
       live.getBoundingClientRect().top < window.innerHeight;
 
-    if (reduced || played.current || shownByFailsafe) {
+    if (still || reduced || played.current || shownByFailsafe) {
       played.current = true;
       write(value);
       live.setAttribute("data-ready", "");
@@ -59,7 +63,7 @@ export function Counter({ value, prefix = "", suffix = "", className }: CounterP
           n: value,
           duration: DUR.d4,
           ease: EASE.beam,
-          onUpdate: () => write(Math.round(state.n)),
+          onUpdate: () => write(state.n),
         });
       },
       { threshold: 0.5 },
@@ -71,9 +75,9 @@ export function Counter({ value, prefix = "", suffix = "", className }: CounterP
       tween?.kill();
       write(value);
     };
-  }, [value, prefix, suffix, reduced]);
+  }, [value, prefix, suffix, decimals, reduced, still]);
 
-  const final = `${prefix}${value}${suffix}`;
+  const final = `${prefix}${value.toFixed(decimals)}${suffix}`;
 
   return (
     <span className={cx("counter numeral", className)}>

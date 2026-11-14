@@ -7,17 +7,29 @@ type StepRowProps = {
   title: string;
   children: ReactNode;
   as?: "li" | "div";
+  /** Anything that follows the copy: a link, for example. */
+  action?: ReactNode;
+  /** Marks the row that is active, where a sequence steps through its rows. */
+  current?: boolean;
+  /** Takes part in its section's reveal. MOTION.md 5.5 */
+  reveal?: boolean;
   className?: string;
 };
 
 // DESIGN.md 6: a numbered process row. Numeral in xenon at 40 percent, h3 title, body copy.
 // The numeral is drawn by CSS from data-numeral. Order is carried by the list it sits in.
-export function StepRow({ number, title, children, as: Tag = "li", className }: StepRowProps) {
+export function StepRow({ number, title, children, as: Tag = "li", action, current, reveal = false, className }: StepRowProps) {
   return (
-    <Tag className={cx("step-row", className)} data-numeral={String(number).padStart(2, "0")}>
-      <div className="flex flex-col gap-8">
+    <Tag
+      className={cx("step-row", className)}
+      data-numeral={String(number).padStart(2, "0")}
+      data-current={current === undefined ? undefined : String(current)}
+      data-reveal={reveal ? "" : undefined}
+    >
+      <div className="step-row-copy">
         <h3 className="h3">{title}</h3>
         <p className="body">{children}</p>
+        {action}
       </div>
     </Tag>
   );

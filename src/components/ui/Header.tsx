@@ -260,7 +260,8 @@ export function MenuSheet({ ref, id, pathname, open, specimen = false, navLabel 
           </ul>
         </nav>
 
-        <div className="menu-sheet-item flex flex-col items-start gap-24" style={{ "--i": site.nav.length } as CSSProperties}>
+        {/* Not part of the stagger. The phone number and the primary CTA never animate. MOTION.md 8 */}
+        <div className="flex flex-col items-start gap-24">
           <a href={site.phone.href} className="nav-link caps">
             {site.phone.display}
           </a>

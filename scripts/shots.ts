@@ -15,12 +15,10 @@
 // Without --base it starts "next start" on its own port, so run "npm run build" first.
 // Set CHROMIUM_PATH to use a Chromium binary other than the one Playwright installed.
 
-import { spawn, type ChildProcess } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { chromium, type Browser } from "@playwright/test";
-
-const PORT = 3210;
+import { startServer } from "./server";
 
 const VIEWPORTS = [
   { name: "1440x900", width: 1440, height: 900, scale: 1, mobile: false },
@@ -60,37 +58,6 @@ function parseArgs(argv: string[]): Options {
 function slug(route: string): string {
   const clean = route.replace(/^\/+|\/+$/g, "");
   return clean === "" ? "home" : clean.replace(/\//g, "__");
-}
-
-async function reachable(url: string): Promise<boolean> {
-  try {
-    const response = await fetch(url, { redirect: "manual" });
-    return response.status < 500;
-  } catch {
-    return false;
-  }
-}
-
-async function startServer(): Promise<{ base: string; stop: () => void }> {
-  const base = `http://127.0.0.1:${PORT}`;
-  // Reuse a server that is already answering on the port
-  if (await reachable(base)) return { base, stop: () => undefined };
-
-  if (!fs.existsSync(path.join(".next", "BUILD_ID"))) {
-    throw new Error('No production build found. Run "npm run build" first, or pass --base=<url>.');
-  }
-  const next = path.join("node_modules", "next", "dist", "bin", "next");
-  const child: ChildProcess = spawn(process.execPath, [next, "start", "-p", String(PORT)], {
-    stdio: ["ignore", "ignore", "inherit"],
-    env: { ...process.env, NEXT_TELEMETRY_DISABLED: "1" },
-  });
-  const deadline = Date.now() + 60_000;
-  while (Date.now() < deadline) {
-    if (await reachable(base)) return { base, stop: () => child.kill() };
-    await new Promise((resolve) => setTimeout(resolve, 300));
-  }
-  child.kill();
-  throw new Error("The production server did not start within 60 seconds.");
 }
 
 async function capture(browser: Browser, base: string, route: string, options: Options) {

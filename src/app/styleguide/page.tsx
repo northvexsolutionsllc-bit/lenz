@@ -1,19 +1,27 @@
 import type { Metadata } from "next";
+import { ReviewPlaceholder } from "@/components/sections/Reviews";
 import { Specimen, State } from "@/components/styleguide/Specimen";
+import { CompareSlider } from "@/components/ui/CompareSlider";
 import { Counter } from "@/components/ui/Counter";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Footer } from "@/components/ui/Footer";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { HeaderBar, MenuSheet } from "@/components/ui/Header";
+import { Icon } from "@/components/ui/Icon";
 import { Marquee } from "@/components/ui/Marquee";
+import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Pill } from "@/components/ui/Pill";
 import { PlaceholderFrame } from "@/components/ui/PlaceholderFrame";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
 import { StepRow } from "@/components/ui/StepRow";
 import { TextLink } from "@/components/ui/TextLink";
+import { TodoChip } from "@/components/ui/TodoChip";
+import { hero, pricing } from "@/content/home";
+import { FEATURED_PAIR } from "@/content/media";
 import { site } from "@/content/site";
 import { tokens, type ColourToken } from "@/generated/tokens";
+import { getPair } from "@/lib/gallery";
 
 export const metadata: Metadata = {
   title: "Styleguide",
@@ -63,6 +71,8 @@ const REVERSE: Array<{ pair: string; ratio: string; verdict: string }> = [
 const MARQUEE_ITEMS = ["Antioch", "Brentwood", "Pittsburg", "Oakley", "Discovery Bay", "Bay Point"] as const;
 
 export default function StyleguidePage() {
+  const pair = getPair(FEATURED_PAIR);
+  const todoStat = hero.stats.find((stat) => stat.todo !== null);
   return (
     <div className="shell flex flex-col gap-96 pt-160 pb-96">
       <header className="flex flex-col gap-16">
@@ -508,6 +518,76 @@ export default function StyleguidePage() {
             <PlaceholderFrame file="before-01.jpg" ratio="3/2" />
             <PlaceholderFrame file="owner.jpg" ratio="4/5" />
           </div>
+        </Specimen>
+
+        <Specimen
+          title="CompareSlider"
+          spec="Before underneath, after clipped on top. Drag anywhere, click to position, arrows 4 percent, shift 12, Home and End. A 2px beam seam with the beam glow and a 44px smoke handle. BEFORE in oxide, AFTER in xenon. Opens from 100 to 38 once, on first scroll into view."
+        >
+          <div className="w-full">
+            <CompareSlider
+              before={pair.before}
+              after={pair.after}
+              beforeAlt={pair.beforeAlt}
+              afterAlt={pair.afterAlt}
+              sizes="(min-width: 1024px) 42vw, 100vw"
+            />
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="MediaFrame"
+          spec="10px frame, beam-12 hairline, no shadow. Filter stack and a night multiply overlay, oxide tint on before images, xenon tint on after images. Hover lifts the overlay and relaxes the filter over 640ms. An empty slot shows its PlaceholderFrame."
+        >
+          <div className="grid w-full grid-cols-2 gap-16">
+            <State label="Before">
+              <MediaFrame slot={pair.before} ratio="3/2" alt={pair.beforeAlt} tone="before" sizes="(min-width: 1024px) 21vw, 50vw" className="w-full" />
+            </State>
+            <State label="After">
+              <MediaFrame slot={pair.after} ratio="3/2" alt={pair.afterAlt} tone="after" sizes="(min-width: 1024px) 21vw, 50vw" className="w-full" />
+            </State>
+          </div>
+        </Specimen>
+
+        <Specimen
+          title="TodoChip"
+          spec="A small oxide chip reading TODO, with night text, beside every TODO(owner) item in CONTENT.md. The note is its tooltip. Removed in the final pass."
+        >
+          {todoStat?.todo ? (
+            <p className="caps flex items-center gap-8">
+              {todoStat.label}
+              <TodoChip note={todoStat.todo} />
+            </p>
+          ) : null}
+        </Specimen>
+
+        <Specimen
+          title="Check row and caution callout"
+          spec="An inclusion: a xenon check, an h3 title and a line of body copy, between beam-12 hairlines. The caution has an oxide border and an oxide chip. Text on oxide is night, never beam."
+        >
+          <ul className="rule-list w-full">
+            {pricing.inclusions.slice(0, 2).map((item) => (
+              <li key={item.title} className="check-row">
+                <Icon name="check" size={20} className="check-row-icon" />
+                <div className="flex flex-col gap-4">
+                  <h4 className="h3">{item.title}</h4>
+                  <p className="body">{item.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <aside className="caution">
+            <p className="caution-chip caps">{pricing.caution.chip}</p>
+            <p className="body">{pricing.caution.body}</p>
+          </aside>
+        </Specimen>
+
+        <Specimen
+          title="Reviews, placeholder state"
+          spec="The state the reviews section holds until the client supplies the Google profile, the rating, the count and three review texts. It is kept out of the page order and only appears here."
+          stacked
+        >
+          <ReviewPlaceholder />
         </Specimen>
 
         <Specimen

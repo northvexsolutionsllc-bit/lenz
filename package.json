@@ -13,6 +13,7 @@
     "prelint": "npm run generate",
     "lint": "eslint",
     "audit:design": "tsx scripts/audit.ts",
+    "audit:copy": "tsx scripts/copy.ts",
     "shots": "tsx scripts/shots.ts"
   },
   "dependencies": {

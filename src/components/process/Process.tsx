@@ -1,0 +1,134 @@
+"use client";
+
+import { useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { StepRow } from "@/components/ui/StepRow";
+import { process } from "@/content/home";
+import { cx } from "@/lib/cx";
+import { DUR, EASE } from "@/lib/gsap";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useReveal } from "@/lib/useReveal";
+import { LensCrossSection, SCRATCH_LENGTH } from "./LensCrossSection";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+// Where on the timeline each stage's copy takes over. The timeline runs 2.9 units:
+// oxidation 0 to 1, scratches 0.3 to 1.3, polish 1.3 to 2.5, coating 1.5 to 2.7,
+// glow 2.1 to 2.9.
+const STAGE_STARTS = [0, 0.6, 1.3, 1.9];
+
+const stageAt = (time: number) => STAGE_STARTS.reduce((stage, start, index) => (time >= start ? index : stage), 0);
+
+type ProcessProps = {
+  /** Sits on the pine band instead of the night ground. */
+  band?: boolean;
+};
+
+// The four stage correction, as the pinned lens cross-section. CONTENT.md 3.6, MOTION.md 5.4
+//
+// The stage is pinned for 300 percent of the viewport while the timeline from MOTION.md
+// scrubs through the four layers of the SVG. The stage copy steps in sync: one stage is
+// active at a time and, while pinned, the others drop to beam-24.
+//
+// Without script, and under reduced motion, there is no pin and no timeline. The figure
+// shows the finished lens and all four stages read as a plain list. Under reduced motion
+// the scrub is replaced by a single fade over dur-2, played once. MOTION.md 2
+export function Process({ band = false }: ProcessProps) {
+  const reduced = useReducedMotion();
+  const ref = useReveal<HTMLElement>();
+  const faded = useRef(false);
+  const [animated, setAnimated] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const [stage, setStage] = useState(0);
+
+  useGSAP(
+    () => {
+      if (reduced) {
+        if (faded.current) return;
+        gsap.from(".process-stage", {
+          opacity: 0,
+          duration: DUR.d2,
+          ease: EASE.beam,
+          scrollTrigger: { trigger: ".process-stage", start: "top 78%", once: true },
+          onComplete: () => {
+            faded.current = true;
+          },
+        });
+        return;
+      }
+
+      // Start from the lens as it arrives: oxidized, scratched, dark
+      gsap.set("#layer-oxidation", { opacity: 1 });
+      gsap.set("#layer-scratches", { strokeDashoffset: SCRATCH_LENGTH });
+      gsap.set("#layer-coating", { strokeDasharray: (i, el) => (el as SVGPathElement).getTotalLength() });
+      gsap.set("#lens-glow", { opacity: 0 });
+      setAnimated(true);
+
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: "#process", start: "top top", end: "+=300%", pin: true, scrub: 0.8 },
+      });
+
+      tl.to("#layer-oxidation", { opacity: 0, duration: 1 })
+        .to("#layer-scratches", { strokeDashoffset: 0, duration: 1 }, "<0.3")
+        .fromTo("#layer-polish", { xPercent: -120, opacity: 0 }, { xPercent: 120, opacity: 1, duration: 1.2 })
+        .fromTo("#layer-coating", { strokeDashoffset: (i, el) => (el as SVGPathElement).getTotalLength() },
+                { strokeDashoffset: 0, duration: 1.2 }, "<0.2")
+        .to("#lens-glow", { opacity: 1, duration: 0.8 }, "<0.6");
+
+      // The copy follows the playhead, and only dims while the stage is actually pinned
+      tl.eventCallback("onUpdate", () => setStage(stageAt(tl.time())));
+      ScrollTrigger.create({
+        trigger: "#process",
+        start: "top top",
+        end: "+=300%",
+        onToggle: (self) => setPinned(self.isActive),
+      });
+
+      return () => {
+        setAnimated(false);
+        setPinned(false);
+        setStage(0);
+      };
+    },
+    { dependencies: [reduced], scope: ref, revertOnUpdate: true },
+  );
+
+  return (
+    <section
+      ref={ref}
+      className={cx("process", band && "section-band")}
+      aria-labelledby="process-title"
+      data-mode={animated ? "animated" : "static"}
+      data-pinned={pinned}
+    >
+      <div className="shell process-head">
+        <Eyebrow reveal>{process.eyebrow}</Eyebrow>
+        <h2 id="process-title" className="h2" data-reveal>
+          {process.title.plain} <span className="accent">{process.title.accent}</span>
+        </h2>
+      </div>
+
+      <div id="process" className="process-stage">
+        <div className="shell process-grid">
+          <ol className="process-steps">
+            {process.stages.map((item, index) => (
+              <StepRow key={item.title} number={index + 1} title={item.title} current={animated ? stage === index : undefined}>
+                {item.body}
+              </StepRow>
+            ))}
+          </ol>
+          <figure className="process-figure">
+            <LensCrossSection />
+          </figure>
+        </div>
+      </div>
+
+      <div className="shell process-foot">
+        <p className="small">{process.caption}</p>
+      </div>
+    </section>
+  );
+}
