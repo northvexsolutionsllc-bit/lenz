@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useId, useRef, useState, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -9,6 +9,7 @@ import { StepRow } from "@/components/ui/StepRow";
 import { process } from "@/content/home";
 import { cx } from "@/lib/cx";
 import { DUR, EASE } from "@/lib/gsap";
+import { afterQuiet } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useReveal } from "@/lib/useReveal";
 import { LensCrossSection, SCRATCH_LENGTH } from "./LensCrossSection";
@@ -25,6 +26,14 @@ const stageAt = (time: number) => STAGE_STARTS.reduce((stage, start, index) => (
 type ProcessProps = {
   /** Sits on the pine band instead of the night ground. */
   band?: boolean;
+  /**
+   * "pinned" is the set piece: the stage pins and the lens is worked through as you
+   * scroll. "still" is the same content as an ordinary section with the finished lens,
+   * for pages that are meant to stay short.
+   */
+  variant?: "pinned" | "still";
+  /** Anything that follows the caption, inside the same section. */
+  after?: ReactNode;
 };
 
 // The four stage correction, as the pinned lens cross-section. CONTENT.md 3.6, MOTION.md 5.4
@@ -36,28 +45,37 @@ type ProcessProps = {
 // Without script, and under reduced motion, there is no pin and no timeline. The figure
 // shows the finished lens and all four stages read as a plain list. Under reduced motion
 // the scrub is replaced by a single fade over dur-2, played once. MOTION.md 2
-export function Process({ band = false }: ProcessProps) {
+export function Process({ band = false, variant = "pinned", after }: ProcessProps) {
+  const titleId = useId();
   const reduced = useReducedMotion();
   const ref = useReveal<HTMLElement>();
   const faded = useRef(false);
+  const still = variant === "still";
   const [animated, setAnimated] = useState(false);
   const [pinned, setPinned] = useState(false);
   const [stage, setStage] = useState(0);
 
   useGSAP(
-    () => {
+    (_context, contextSafe) => {
+      // The still variant is not a set piece. Its rows take the default section reveal.
+      if (still) return;
+
       if (reduced) {
-        if (faded.current) return;
-        gsap.from(".process-stage", {
-          opacity: 0,
-          duration: DUR.d2,
-          ease: EASE.beam,
-          scrollTrigger: { trigger: ".process-stage", start: "top 78%", once: true },
-          onComplete: () => {
-            faded.current = true;
-          },
-        });
-        return;
+        if (faded.current || !contextSafe) return;
+        // Set up outside the 200ms after a route change. MOTION.md 8
+        return afterQuiet(
+          contextSafe(() => {
+            gsap.from(".process-stage", {
+              opacity: 0,
+              duration: DUR.d2,
+              ease: EASE.beam,
+              scrollTrigger: { trigger: ".process-stage", start: "top 78%", once: true },
+              onComplete: () => {
+                faded.current = true;
+              },
+            });
+          }),
+        );
       }
 
       // Start from the lens as it arrives: oxidized, scratched, dark
@@ -93,20 +111,20 @@ export function Process({ band = false }: ProcessProps) {
         setStage(0);
       };
     },
-    { dependencies: [reduced], scope: ref, revertOnUpdate: true },
+    { dependencies: [reduced, still], scope: ref, revertOnUpdate: true },
   );
 
   return (
     <section
       ref={ref}
       className={cx("process", band && "section-band")}
-      aria-labelledby="process-title"
+      aria-labelledby={titleId}
       data-mode={animated ? "animated" : "static"}
       data-pinned={pinned}
     >
       <div className="shell process-head">
         <Eyebrow reveal>{process.eyebrow}</Eyebrow>
-        <h2 id="process-title" className="h2" data-reveal>
+        <h2 id={titleId} className="h2" data-reveal>
           {process.title.plain} <span className="accent">{process.title.accent}</span>
         </h2>
       </div>
@@ -115,19 +133,28 @@ export function Process({ band = false }: ProcessProps) {
         <div className="shell process-grid">
           <ol className="process-steps">
             {process.stages.map((item, index) => (
-              <StepRow key={item.title} number={index + 1} title={item.title} current={animated ? stage === index : undefined}>
+              <StepRow
+                key={item.title}
+                number={index + 1}
+                title={item.title}
+                current={animated ? stage === index : undefined}
+                reveal={still}
+              >
                 {item.body}
               </StepRow>
             ))}
           </ol>
-          <figure className="process-figure">
+          <figure className="process-figure" data-reveal={still ? "" : undefined}>
             <LensCrossSection />
           </figure>
         </div>
       </div>
 
       <div className="shell process-foot">
-        <p className="small">{process.caption}</p>
+        <p className="small" data-reveal={still ? "" : undefined}>
+          {process.caption}
+        </p>
+        {after}
       </div>
     </section>
   );

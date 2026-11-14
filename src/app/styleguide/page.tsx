@@ -3,6 +3,7 @@ import { ReviewPlaceholder } from "@/components/sections/Reviews";
 import { Specimen, State } from "@/components/styleguide/Specimen";
 import { CompareSlider } from "@/components/ui/CompareSlider";
 import { Counter } from "@/components/ui/Counter";
+import { EnquiryForm } from "@/components/ui/EnquiryForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Footer } from "@/components/ui/Footer";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -14,10 +15,12 @@ import { Pill } from "@/components/ui/Pill";
 import { PlaceholderFrame } from "@/components/ui/PlaceholderFrame";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
+import { Stats } from "@/components/ui/Stats";
 import { StepRow } from "@/components/ui/StepRow";
 import { TextLink } from "@/components/ui/TextLink";
 import { TodoChip } from "@/components/ui/TodoChip";
 import { hero, pricing } from "@/content/home";
+import { dealer, guide } from "@/content/pages";
 import { FEATURED_PAIR } from "@/content/media";
 import { site } from "@/content/site";
 import { tokens, type ColourToken } from "@/generated/tokens";
@@ -580,6 +583,46 @@ export default function StyleguidePage() {
             <p className="caution-chip caps">{pricing.caution.chip}</p>
             <p className="body">{pricing.caution.body}</p>
           </aside>
+        </Specimen>
+
+        <Specimen
+          title="Stats"
+          spec="A row of figures: a numeral over its caps label, each one a Counter. Used for the price and the guarantee."
+        >
+          <Stats items={hero.stats.slice(0, 2)} />
+        </Specimen>
+
+        <Specimen
+          title="Tier"
+          spec="A tier of the vehicle guide: a smoke card whose short rule and numeral take the tier's assigned accent. Xenon restores well, beam takes extra work, oxide is replace instead."
+        >
+          <ol className="flex w-full flex-col gap-16">
+            {guide.tiers.map((tier, index) => (
+              <li key={tier.title} className="tier" data-accent={tier.accent}>
+                <div className="tier-copy">
+                  <p className="numeral tier-numeral" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <h4 className="h3">{tier.title}</h4>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Specimen>
+
+        <Specimen
+          title="Form"
+          spec="Smoke fields, a beam-12 hairline, 10px radius, caps labels. On focus: the focus ring and a 160ms border colour change to xenon, nothing more. The submit is a PrimaryButton."
+        >
+          {(ground) => (
+            <div className="w-full">
+              <EnquiryForm
+                subject={`${dealer.cta}, specimen on ${ground}`}
+                submit={dealer.cta}
+                fields={dealer.form.slice(0, 2).map((label) => ({ label }))}
+              />
+            </div>
+          )}
         </Specimen>
 
         <Specimen

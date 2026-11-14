@@ -1,3 +1,4 @@
+import { AnchorLink } from "@/components/ui/AnchorLink";
 import { Counter } from "@/components/ui/Counter";
 import { DisplayHeading } from "@/components/ui/DisplayHeading";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -58,10 +59,10 @@ export function Hero() {
           ))}
         </dl>
 
-        <a href="#before-after" className="hero-cue caps">
+        <AnchorLink target="before-after" className="hero-cue caps">
           {hero.cue}
           <Icon name="arrow-down" size={16} />
-        </a>
+        </AnchorLink>
       </div>
     </section>
   );

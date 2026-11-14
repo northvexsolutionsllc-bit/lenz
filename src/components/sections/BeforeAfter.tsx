@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { CompareSlider } from "@/components/ui/CompareSlider";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GalleryGrid } from "@/components/ui/GalleryGrid";
@@ -8,18 +9,24 @@ import { beforeAfter } from "@/content/home";
 import { FEATURED_PAIR } from "@/content/media";
 import { getGalleryTiles, getPair } from "@/lib/gallery";
 
-// Home, before and after. CONTENT.md 3.5
+type BeforeAfterProps = {
+  /** The id the hero's scroll cue points at. Only the home page sets it. */
+  id?: string;
+};
+
+// Before and after. CONTENT.md 3.5
 // The slider, then a six tile grid, then the way through to the full gallery.
-export function BeforeAfter() {
+export function BeforeAfter({ id }: BeforeAfterProps) {
+  const titleId = useId();
   const pair = getPair(FEATURED_PAIR);
 
   return (
-    <Section id="before-after" labelledBy="before-after-title">
+    <Section id={id} labelledBy={titleId}>
       <div className="shell flex flex-col gap-64">
         <div className="grid gap-x-24 gap-y-48 lg:grid-cols-12 lg:items-end">
           <div className="flex flex-col gap-24 lg:col-span-4">
             <Eyebrow reveal>{beforeAfter.eyebrow}</Eyebrow>
-            <h2 id="before-after-title" className="h2" data-reveal>
+            <h2 id={titleId} className="h2" data-reveal>
               {beforeAfter.title.plain} <span className="accent">{beforeAfter.title.accent}</span>
             </h2>
             <p className="body" data-reveal>

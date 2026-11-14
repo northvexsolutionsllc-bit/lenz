@@ -1,0 +1,125 @@
+/dealer-and-auction
+
+  1. CONTENT.md, read against the page
+     6 /dealer-and-auction
+       ok       Reconditioning that
+       ok       holds up on the lot.
+       ok       Dealer and Auction Headlight Reconditioning | Lenz Rescue
+       ok       Mobile headlight reconditioning for dealers and auction lots in East Contra Costa. Per unit pricing, we work your row on site, consistent finish across the inventory.
+       ok       Yellow headlights take money off a windshield price before anyone opens the door. We come to the lot, work the row, and leave every unit matching.
+       ok       Per unit pricing
+       ok       We work on your lot
+       ok       Consistent across the row
+       ok       Request trade pricing
+     Taken from other sections
+       ok       PRICING
+     2 Global
+       ok       LENZ RESCUE
+       ok       Mobile headlight restoration
+       ok       Text a photo for a quote
+       ok       925-812-5524
+       ok       LenzRescue@gmail.com
+       ok       Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area
+       ok       Services
+       ok       Gallery
+       ok       Vehicle guide
+       ok       About
+       ok       Contact
+       ok       link tel:+19258125524
+       ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (2 on the page)
+
+  2. The page, read against CONTENT.md
+     content (26)
+       "LENZ RESCUE" x2
+           CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
+       "Services" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Gallery" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Vehicle guide" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "About" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Contact" x4
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "925-812-5524" x3
+           CONTENT.md section 2, first at div.shell > div.flex > a.nav-link
+       "Text a photo for a quote" x2
+           CONTENT.md line 45, first at a.btn > span.btn-face > span.caps
+       "Reconditioning that holds up on the lot."
+           CONTENT.md strings in sequence, as aria-label, first at section.page-hero > div.shell > h1.display
+       "Reconditioning that"
+           CONTENT.md line 210, first at h1.display > div.line-mask > div.line
+       "holds up on the lot."
+           CONTENT.md line 210, first at div.line-mask > div.line > span.accent
+       "Yellow headlights take money off a windshield price before anyone opens the door. We come to the lot, work the row, and leave every unit matching."
+           CONTENT.md line 213, first at section.page-hero > div.shell > p.body-l
+       "Request trade pricing" x4
+           CONTENT.md line 217, first at a.btn > span.btn-face > span.caps
+       "Per unit pricing"
+           CONTENT.md line 214, first at li > div.glass-card > h2.h3
+       "We work on your lot"
+           CONTENT.md line 214, first at li > div.glass-card > h2.h3
+       "Consistent across the row"
+           CONTENT.md line 214, first at li > div.glass-card > h2.h3
+       "PRICING"
+           CONTENT.md line 126, first at section.section > div.shell > p.eyebrow
+       "Mobile headlight restoration"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Fog light restoration"
+           CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Dealer and auction"
+           CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "Antioch"
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Brentwood"
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Pittsburg"
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Oakley"
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "LenzRescue@gmail.com"
+           CONTENT.md section 2, first at li > a.text-link > span.text-link-label
+     label (4)
+       "Volume pricing"
+           CONTENT.md 6, field name, first at section.section > div.shell > h2.h2
+       "Dealership"
+           CONTENT.md 6, form field, first at form.form > label.field > span.caps
+       "Lot address"
+           CONTENT.md 6, form field, first at form.form > label.field > span.caps
+       "Approximate units per month"
+           CONTENT.md 6, form field, first at form.form > label.field > span.caps
+     owner note (2)
+       "TODO"
+           the TODO(owner) text in CONTENT.md, verbatim, first at div.shell > h2.h2 > span.todo-chip
+       "blocking for this page. Needed: per unit price at 5, 10 and 20+ units, minimum booking, and typical turnaround for a 20 car row." x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.shell > h2.h2 > span.todo-chip
+     interface (10)
+       "Skip to content"
+           supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
+       "Primary"
+           supplied in build: name of the header navigation landmark, as aria-label, first at header.site-header > div.shell > nav.hidden
+       "Open menu"
+           supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
+       "Menu"
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
+       "01"
+           DESIGN.md 6: the number of an item in a list, with its leading zero, first at li > div.glass-card > p.numeral
+       "02"
+           DESIGN.md 6: the number of an item in a list, with its leading zero, first at li > div.glass-card > p.numeral
+       "03"
+           DESIGN.md 6: the number of an item in a list, with its leading zero, first at li > div.glass-card > p.numeral
+       "Footer"
+           supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
+       "Lenz Rescue on Facebook"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+       "Lenz Rescue on Instagram"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+
+  3. Document metadata
+       title        Dealer and Auction Headlight Reconditioning | Lenz Rescue
+       description  Mobile headlight reconditioning for dealers and auction lots in East Contra Costa. Per unit pricing, we work your row on site, consistent finish across the inventory.
+
+  PASS: 42 distinct strings (26 content, 4 label, 2 owner note, 10 interface), 0 problems.

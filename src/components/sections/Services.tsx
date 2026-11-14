@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Section } from "@/components/ui/Section";
 import { StepRow } from "@/components/ui/StepRow";
@@ -6,12 +7,14 @@ import { services } from "@/content/home";
 
 // Home, services. CONTENT.md 3.4
 export function Services() {
+  const titleId = useId();
+
   return (
-    <Section band labelledBy="services-title">
+    <Section band labelledBy={titleId}>
       <div className="shell grid gap-x-24 gap-y-48 lg:grid-cols-12">
         <div className="flex flex-col gap-24 lg:col-span-5">
           <Eyebrow reveal>{services.eyebrow}</Eyebrow>
-          <h2 id="services-title" className="h2" data-reveal>
+          <h2 id={titleId} className="h2" data-reveal>
             {services.title.plain} <span className="accent">{services.title.accent}</span>
           </h2>
         </div>

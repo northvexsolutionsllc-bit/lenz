@@ -3,11 +3,12 @@
 //
 //   1. Every string CONTENT.md gives for the route is on the page, word for word.
 //   2. Every string on the page comes from CONTENT.md word for word. The exceptions are
-//      the interface labels listed in INTERFACE below, each with where it comes from.
+//      listed below, each with where it comes from: labels CONTENT.md uses without code
+//      quotes, interface labels, and the four location openings, which are drafts.
 //
-//   npm run audit:copy -- /
-//   npm run audit:copy -- / /gallery --print      also list every rendered string
-//   npm run audit:copy -- / --out=docs/qa         also save the report beside the captures
+//   npm run audit:copy                            every route
+//   npm run audit:copy -- / /gallery --print      these routes, listing every string
+//   npm run audit:copy -- --out=docs/qa           also save each report beside the captures
 //
 // The page is read in a real browser from the production build, with script on, so run
 // "npm run build" first. Exit code 1 if a string is missing or cannot be accounted for.
@@ -15,6 +16,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { chromium } from "@playwright/test";
+import { locations } from "../src/content/locations";
 import { startServer } from "./server";
 
 const CONTENT_FILE = path.join("docs", "CONTENT.md");
@@ -22,20 +24,62 @@ const CONTENT_FILE = path.join("docs", "CONTENT.md");
 // ---------------------------------------------------------------------------------------
 // Which part of CONTENT.md each route renders
 
+/** One string of a section, picked out by how it starts */
+type Pick = { section: string; startsWith: string };
+
 type RouteSpec = {
   /** CONTENT.md headings whose strings must all be on the page, by number */
   sections: string[];
+  /** Single strings from other headings that must be on the page too */
+  strings?: Pick[];
   /** Headings whose strings must not be on the page, with the reason */
   absent?: Array<{ section: string; reason: string }>;
 };
 
+const pick = (section: string, ...starts: string[]): Pick[] => starts.map((startsWith) => ({ section, startsWith }));
+
+// What a location page takes from the home page's sections
+const LOCATION_SHARED: Pick[] = [
+  ...pick("3.1", "$125", "STARTING PRICE", "3 YR", "GUARANTEE"),
+  ...pick("3.4", "See the process"),
+  ...pick("3.5", "PREVIOUS WORK", "Drag it.", "That is the same lens."),
+  ...pick("3.6", "THE CORRECTION", "Four stages.", "In that order.", "Sand", "Compound", "Polish", "Protect"),
+];
+
 const ROUTES: Record<string, RouteSpec> = {
   "/": {
     sections: ["3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10", "3.12"],
-    absent: [
-      { section: "3.11", reason: "kept out of the page order until real reviews exist, DECISIONS.md 11" },
+    absent: [{ section: "3.11", reason: "kept out of the page order until real reviews exist, DECISIONS.md 11" }],
+  },
+  "/headlight-restoration": {
+    sections: ["4", "3.5", "3.6", "3.7", "3.8", "3.9", "3.12"],
+    strings: [
+      ...pick("3.2", "WHY IT MATTERS", "Headlight plastic is coated"),
+      ...pick("3.4", "Headlight restoration"),
+      ...pick("7", "Replace instead", "Cracks through the lens"),
     ],
   },
+  "/fog-light-restoration": { sections: ["5", "3.6", "3.9", "3.12"], strings: pick("3.8", "PRICING") },
+  "/dealer-and-auction": { sections: ["6"], strings: pick("3.8", "PRICING") },
+  "/gallery": {
+    sections: [],
+    strings: [
+      ...pick("3.5", "PREVIOUS WORK", "Drag it.", "That is the same lens.", "Every pair here"),
+      ...pick("3.4", "Headlight restoration", "Fog light restoration", "Dealer and auction"),
+    ],
+  },
+  "/vehicle-guide": { sections: ["7"] },
+  "/about": { sections: ["3.10", "3.12"] },
+  "/contact": { sections: ["3.12"], strings: pick("3.7", "Get your quote") },
+  ...Object.fromEntries(
+    locations.map((location) => [
+      `/${location.slug}`,
+      {
+        sections: ["3.12"],
+        strings: [...pick("8", location.title.plain, location.title.accent), ...LOCATION_SHARED],
+      } satisfies RouteSpec,
+    ]),
+  ),
 };
 
 // CONTENT.md section 2. These are not in code quotes there, so they are listed here and
@@ -54,21 +98,46 @@ const GLOBAL = [
   "Contact",
 ];
 
-// Service names used as links and filters. They are CONTENT.md 3.4 strings.
 const LINKS = { tel: "tel:+19258125524", smsPrefix: "sms:+19258125524?&body=" };
 
+// Words CONTENT.md uses without code quotes that the site shows as labels. Each is
+// checked against the document before use. A section name is shown in sentence case, so
+// those are compared without regard to case.
+const LABELS: Array<{ text: string; source: string; anyCase?: boolean }> = [
+  { text: "What oxidation actually is", source: "CONTENT.md 4, section name", anyCase: true },
+  { text: "What it will not fix", source: "CONTENT.md 4, section name", anyCase: true },
+  { text: "FAQ", source: "CONTENT.md 4, section name" },
+  { text: "Volume pricing", source: "CONTENT.md 6, field name" },
+  { text: "Dealership", source: "CONTENT.md 6, form field" },
+  { text: "Lot address", source: "CONTENT.md 6, form field" },
+  { text: "Approximate units per month", source: "CONTENT.md 6, form field" },
+  { text: "Phone", source: "CONTENT.md 2, field name" },
+  { text: "Email", source: "CONTENT.md 2, field name" },
+  { text: "Hours", source: "CONTENT.md 2, field name" },
+  ...locations.flatMap((location) =>
+    location.neighbourhoods.map((place) => ({ text: place, source: "CONTENT.md 8, the location table" })),
+  ),
+];
+
+// Written in build, not taken from CONTENT.md: the four location openings. CONTENT.md 8
+// gives a brief for each and no text. They are reported apart from everything else.
+const DRAFTS = new Map(locations.map((location) => [location.opening, `${location.city}, to the brief "${location.mustMention}"`]));
+
 // Strings in code quotes in CONTENT.md that are not copy: tokens, routes, files, markup
-const NOT_COPY = [/^--/, /^\//, /^TODO\(owner\)$/, /^likely:$/, /^tel:/, /^sms:/, /^alt=/, /\.(jpg|svg)$/, /^@type/];
+const NOT_COPY = [/^--/, /^\//, /^TODO\(owner\)$/, /^likely:$/, /^tel:/, /^sms:/, /^alt=/, /\.(jpg|svg)$/, /^@type/, /\[City\]/];
 const COMPONENT_NAMES = new Set(["ReviewPlaceholder", "Counter", "LocalBusiness", "Service", "FAQPage", "BreadcrumbList", "GeoCircle", "City"]);
 
 // Interface labels. None of these is marketing copy. Each names the document that gives
 // it, or says that the build supplied it because no document does.
 const INTERFACE: Array<{ match: string | RegExp; source: string }> = [
   { match: "TODO", source: "PROMPTS.md, Prompt 4: the owner chips" },
+  { match: /^0\d$/, source: "DESIGN.md 6: the number of an item in a list, with its leading zero" },
   { match: "BEFORE", source: "MOTION.md 6" },
   { match: "AFTER", source: "MOTION.md 6" },
   { match: "Reveal the restored headlight", source: "MOTION.md 6" },
   { match: /^(hero-poster|owner|before-\d\d|after-\d\d|gallery-\d\d|process-\d\d)\.jpg$/, source: "DESIGN.md 5, slot filename" },
+  { match: /^(before|after)-01\.jpg \.\. -06\.jpg$/, source: "DESIGN.md 5, the pair slots as it lists them" },
+  { match: /^guide-\d\d\.jpg$/, source: "supplied in build: slot filename for a vehicle guide photo, which DESIGN.md 5 does not name" },
   { match: /^(16\/9|4\/3|3\/2|4\/5)$/, source: "DESIGN.md 5, slot ratio" },
   { match: /^\d+ percent before, \d+ percent after$/, source: "supplied in build: slider value for screen readers" },
   { match: "Skip to content", source: "supplied in build: skip link" },
@@ -81,6 +150,9 @@ const INTERFACE: Array<{ match: string | RegExp; source: string }> = [
   { match: "Lenz Rescue on Instagram", source: "supplied in build: icon link name" },
   { match: "All", source: "supplied in build: gallery filter" },
   { match: "Filter the gallery by service", source: "supplied in build: name of the filter group" },
+  { match: "Name", source: "supplied in build: contact form field. CONTENT.md lists no fields for this form." },
+  { match: "Vehicle", source: "supplied in build: contact form field. CONTENT.md lists no fields for this form." },
+  { match: "Message", source: "supplied in build: contact form field. CONTENT.md lists no fields for this form." },
   {
     match: "Cross-section of a headlight: the reflector, the bulb and the lens, with the layers the four stages work on",
     source: "supplied in build: name of the process figure",
@@ -108,6 +180,7 @@ function readContent() {
       titles.set(section, heading[2].replace(/`/g, ""));
       return;
     }
+    // A sub-heading without a number, such as the FAQ list, stays in its section
     for (const match of line.matchAll(/`([^`]+)`/g)) {
       quoted.push({ text: normalise(match[1]), line: index + 1, section });
     }
@@ -122,11 +195,13 @@ const isCopy = (text: string) => !NOT_COPY.some((pattern) => pattern.test(text))
 
 // A CONTENT.md 9 pattern such as "... on a [year] [make] [model] before restoration in
 // [city]" as a test. The vehicle and the city are still TODO(owner), so the city is
-// optional and the vehicle is any description.
+// optional and the vehicle is any description. A closing ", [what is visible]" is
+// optional too: it can only be written once the photo exists.
 function patternTest(pattern: string): RegExp {
   const escaped = pattern
     .replace(/[.*+?^${}()|\\]/g, "\\$&")
     .replace(/ in \[city\]/g, "( in .+)?")
+    .replace(/, \[what is visible\]/g, "(, .+)?")
     .replace(/\[[^\]]+\]( \[[^\]]+\])*/g, ".+");
   return new RegExp(`^${escaped}$`);
 }
@@ -167,14 +242,14 @@ async function readPage(base: string, route: string) {
         const parts: string[] = [];
         for (let node: Element | null = el; node && node !== document.body && parts.length < 3; node = node.parentElement) {
           const first = node.classList[0];
-          parts.unshift(node.tagName.toLowerCase() + (node.id ? `#${node.id}` : first ? `.${first}` : ""));
+          parts.unshift(node.tagName.toLowerCase() + (node.id && !node.id.startsWith("_") ? `#${node.id}` : first ? `.${first}` : ""));
         }
         return parts.join(" > ");
       };
 
       const context = (el: Element) => {
         const out: string[] = [];
-        for (let node: Element | null = el, depth = 0; node && node !== document.body && depth < 3; node = node.parentElement, depth += 1) {
+        for (let node: Element | null = el, depth = 0; node && node !== document.body && depth < 4; node = node.parentElement, depth += 1) {
           const text = squash(node.textContent ?? "");
           if (text.length <= 400) out.push(text);
         }
@@ -218,7 +293,8 @@ async function readPage(base: string, route: string) {
 // ---------------------------------------------------------------------------------------
 // The audit
 
-type Verdict = { status: "content" | "owner note" | "pattern" | "interface" | "UNKNOWN"; note: string };
+type Status = "content" | "label" | "owner note" | "pattern" | "interface" | "DRAFT" | "UNKNOWN";
+type Verdict = { status: Status; note: string };
 
 function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof readPage>>, content: ReturnType<typeof readContent>) {
   const out: string[] = [];
@@ -230,52 +306,83 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
     if (!content.prose.includes(text)) throw new Error(`"${text}" is listed as a global string but is not in ${CONTENT_FILE}.`);
     if (!approved.has(text)) approved.set(text, { text, line: 0, section: "2" });
   }
+  for (const label of LABELS) {
+    const found = label.anyCase ? content.prose.toLowerCase().includes(label.text.toLowerCase()) : content.prose.includes(label.text);
+    if (!found) throw new Error(`"${label.text}" is listed as a label from CONTENT.md but is not in ${CONTENT_FILE}.`);
+  }
   const patterns = content.quoted.filter((item) => item.section === "9" && /\[[^\]]+\]/.test(item.text));
 
+  const approvedList = [...approved.keys()];
   const rendered = new Set(page.strings.map((item) => item.text));
+  rendered.add(page.title);
+  if (page.description) rendered.add(page.description);
+  const renderedList = [...rendered];
   const fullText = normalise(page.strings.filter((item) => item.kind === "text").flatMap((item) => [item.text, ...item.context]).join(" \n "));
-  const onPage = (text: string) => rendered.has(text) || fullText.includes(text);
 
-  // Can the string be read as approved strings one after another?
-  const sequence = (text: string): boolean => {
+  // Can the string be read as strings from `pool` one after another?
+  const sequence = (text: string, pool: string[]): boolean => {
     if (text === "") return true;
-    for (const candidate of approved.keys()) {
+    for (const candidate of pool) {
       if (text === candidate) return true;
-      if (text.startsWith(`${candidate} `) && sequence(text.slice(candidate.length + 1))) return true;
+      if (text.startsWith(`${candidate} `) && sequence(text.slice(candidate.length + 1), pool)) return true;
     }
     return false;
   };
 
+  const onPage = (text: string) => rendered.has(text) || fullText.includes(text) || sequence(text, renderedList);
+
+  // Is the text a run of whole words, three or more, out of one approved string? A
+  // heading and the sentence after it can be one string in CONTENT.md.
+  const within = (text: string) =>
+    text.split(" ").length >= 3
+      ? approvedList.find((whole) => whole.startsWith(`${text} `) || whole.endsWith(` ${text}`) || whole.includes(` ${text} `))
+      : undefined;
+
   const classify = (item: Rendered): Verdict => {
+    const draft = DRAFTS.get(item.text);
+    if (draft) return { status: "DRAFT", note: `written in build for ${draft}. Awaiting owner confirmation.` };
     const known = approved.get(item.text);
     if (known) return { status: "content", note: known.line ? `CONTENT.md line ${known.line}` : "CONTENT.md section 2" };
     if (item.chip && content.prose.includes(item.text)) return { status: "owner note", note: "the TODO(owner) text in CONTENT.md, verbatim" };
     const whole = item.context.find((text) => approved.has(text));
-    if (whole) return { status: "content", note: `part of "${whole}", CONTENT.md line ${approved.get(whole)!.line}` };
-    const label = INTERFACE.find((entry) => (typeof entry.match === "string" ? entry.match === item.text : entry.match.test(item.text)));
-    if (label) return { status: "interface", note: label.source };
-    const pattern = patterns.find((entry) =>
-      item.text.split(/(?<=[a-z])\. (?=[A-Z])/).every((piece) => patternTest(entry.text).test(piece.replace(/\.$/, ""))) ||
-      patternTest(entry.text).test(item.text),
-    );
-    if (pattern) return { status: "pattern", note: `CONTENT.md line ${pattern.line}, vehicle details still TODO(owner)` };
+    if (whole) return { status: "content", note: `part of "${whole.slice(0, 60)}", CONTENT.md line ${approved.get(whole)!.line}` };
+    // One line of a heading that the type reveal has split into lines
+    const heading = item.context.find((text) => sequence(text, approvedList));
+    if (heading) return { status: "content", note: `part of "${heading.slice(0, 60)}", which is CONTENT.md strings in sequence` };
+    const containing = within(item.text);
+    if (containing) return { status: "content", note: `part of "${containing.slice(0, 60)}", CONTENT.md line ${approved.get(containing)!.line}` };
+    const label = LABELS.find((entry) => entry.text === item.text);
+    if (label) return { status: "label", note: label.source };
+    const ui = INTERFACE.find((entry) => (typeof entry.match === "string" ? entry.match === item.text : entry.match.test(item.text)));
+    if (ui) return { status: "interface", note: ui.source };
+    const pattern = patterns.find((entry) => patternTest(entry.text).test(item.text));
+    if (pattern) return { status: "pattern", note: `CONTENT.md line ${pattern.line}, details still TODO(owner)` };
     const pieces = item.text.split(/(?<=[a-z])\. (?=[A-Z])/).map((piece) => piece.replace(/\.$/, ""));
     if (pieces.length > 1 && pieces.every((piece) => patterns.some((entry) => patternTest(entry.text).test(piece)))) {
-      return { status: "pattern", note: "CONTENT.md section 9 patterns, vehicle details still TODO(owner)" };
+      return { status: "pattern", note: "CONTENT.md section 9 patterns, details still TODO(owner)" };
     }
-    if (sequence(item.text)) return { status: "content", note: "CONTENT.md strings in sequence" };
-    return { status: "UNKNOWN", note: "not in CONTENT.md and not a listed interface label" };
+    if (sequence(item.text, approvedList)) return { status: "content", note: "CONTENT.md strings in sequence" };
+    return { status: "UNKNOWN", note: "not in CONTENT.md and not a listed label" };
   };
 
   out.push(`${route}`);
   out.push("");
   out.push("  1. CONTENT.md, read against the page");
+  const row = (text: string) => {
+    const found = onPage(text);
+    if (!found) failures += 1;
+    out.push(`       ${found ? "ok     " : "MISSING"}  ${text}`);
+  };
   for (const section of spec.sections) {
     out.push(`     ${section} ${content.titles.get(section) ?? ""}`);
-    for (const item of content.quoted.filter((entry) => entry.section === section && isCopy(entry.text))) {
-      const found = onPage(item.text);
-      if (!found) failures += 1;
-      out.push(`       ${found ? "ok     " : "MISSING"}  ${item.text}`);
+    content.quoted.filter((entry) => entry.section === section && isCopy(entry.text)).forEach((item) => row(item.text));
+  }
+  if (spec.strings?.length) {
+    out.push("     Taken from other sections");
+    for (const wanted of spec.strings) {
+      const item = content.quoted.find((entry) => entry.section === wanted.section && entry.text.startsWith(wanted.startsWith));
+      if (!item) throw new Error(`CONTENT.md ${wanted.section} has no string starting "${wanted.startsWith}".`);
+      row(item.text);
     }
   }
   for (const { section, reason } of spec.absent ?? []) {
@@ -288,11 +395,7 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
   }
 
   out.push("     2 Global");
-  for (const text of GLOBAL) {
-    const found = onPage(text);
-    if (!found) failures += 1;
-    out.push(`       ${found ? "ok     " : "MISSING"}  ${text}`);
-  }
+  GLOBAL.forEach(row);
   const sms = content.quoted.find((item) => item.text.startsWith(LINKS.smsPrefix))?.text ?? "";
   const smsOnPage = page.hrefs.filter((href) => href.startsWith("sms:")).map((href) => decodeURIComponent(href));
   const smsOk = sms !== "" && smsOnPage.length > 0 && smsOnPage.every((href) => href === sms);
@@ -310,11 +413,13 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
     if (existing) existing.count += 1;
     else distinct.set(item.text, { item, verdict: classify(item), count: 1 });
   }
-  const order: Verdict["status"][] = ["UNKNOWN", "content", "owner note", "pattern", "interface"];
+  const order: Status[] = ["UNKNOWN", "DRAFT", "content", "label", "owner note", "pattern", "interface"];
+  const counts: string[] = [];
   for (const status of order) {
     const group = [...distinct.values()].filter((entry) => entry.verdict.status === status);
     if (group.length === 0) continue;
     if (status === "UNKNOWN") failures += group.length;
+    counts.push(`${group.length} ${status}`);
     out.push(`     ${status} (${group.length})`);
     for (const { item, verdict, count } of group) {
       out.push(`       "${item.text}"${count > 1 ? ` x${count}` : ""}`);
@@ -328,17 +433,33 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
   out.push(`       description  ${page.description ?? "(none)"}`);
 
   out.push("");
-  out.push(`  ${failures === 0 ? "PASS" : "FAIL"}: ${distinct.size} distinct strings on the page, ${failures} problem${failures === 1 ? "" : "s"}.`);
-  return { report: out, failures, summary: [...distinct.values()] };
+  out.push(`  ${failures === 0 ? "PASS" : "FAIL"}: ${distinct.size} distinct strings (${counts.join(", ")}), ${failures} problem${failures === 1 ? "" : "s"}.`);
+  return { report: out, failures };
+}
+
+// Without --print, part 2 of a report is cut down to what needs a decision
+function brief(report: string[]): string[] {
+  const start = report.indexOf("  2. The page, read against CONTENT.md");
+  const end = report.indexOf("  3. Document metadata");
+  const keep = new Set<number>();
+  let showing = false;
+  report.forEach((line, index) => {
+    if (index <= start || index >= end - 1) keep.add(index);
+    else if (/^ {5}\S/.test(line)) {
+      showing = /^ {5}(UNKNOWN|DRAFT)/.test(line);
+      if (showing) keep.add(index);
+    } else if (showing) keep.add(index);
+  });
+  return report.filter((_, index) => keep.has(index));
 }
 
 async function main() {
   const args = process.argv.slice(2);
-  const routes = args.filter((arg) => arg.startsWith("/"));
+  const named = args.filter((arg) => arg.startsWith("/"));
+  const routes = named.length > 0 ? named : Object.keys(ROUTES);
   const print = args.includes("--print");
   const outDir = args.find((arg) => arg.startsWith("--out="))?.slice(6) ?? null;
   const baseArg = args.find((arg) => arg.startsWith("--base="))?.slice(7).replace(/\/$/, "") ?? null;
-  if (routes.length === 0) throw new Error("Give at least one route, for example: npm run audit:copy -- /");
 
   const content = readContent();
   const server = baseArg ? { base: baseArg, stop: () => undefined } : await startServer();
@@ -352,27 +473,14 @@ async function main() {
       const result = audit(route, spec, page, content);
       failures += result.failures;
 
-      const text = result.report.join("\n");
       if (outDir) {
         const clean = route.replace(/^\/+|\/+$/g, "");
         const dir = path.join(outDir, clean === "" ? "home" : clean.replace(/\//g, "__"));
         fs.mkdirSync(dir, { recursive: true });
-        fs.writeFileSync(path.join(dir, "copy.txt"), `${text}\n`);
+        fs.writeFileSync(path.join(dir, "copy.txt"), `${result.report.join("\n")}\n`);
         console.info(`saved ${path.join(dir, "copy.txt")}`);
       }
-      // Without --print, section 2 of the report is cut down to the problems
-      const shown = print
-        ? result.report
-        : result.report.filter((line, index, all) => {
-            const start = all.indexOf("  2. The page, read against CONTENT.md");
-            const end = all.indexOf("  3. Document metadata");
-            if (index <= start || index >= end - 1) return true;
-            const unknownStart = all.findIndex((entry) => entry.startsWith("     UNKNOWN"));
-            if (unknownStart === -1) return false;
-            const unknownEnd = all.findIndex((entry, at) => at > unknownStart && /^ {5}\S/.test(entry));
-            return index >= unknownStart && index < (unknownEnd === -1 ? end : unknownEnd);
-          });
-      console.info(shown.join("\n"));
+      console.info((print ? result.report : brief(result.report)).join("\n"));
       console.info("");
     }
   } finally {

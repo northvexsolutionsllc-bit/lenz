@@ -472,6 +472,31 @@
     color: var(--xenon);
   }
 
+  /* The header does not ease between its states while a route change settles. MOTION.md 8 */
+  html[data-route-quiet] .site-header {
+    transition: none;
+  }
+
+  /* ---------------------------------------------------------- Page transition */
+
+  /*
+    MOTION.md 5.7. A single beam panel, above the header and the grain and below the
+    cursor. Script wipes it up from the bottom and off the top. At rest it is not there.
+  */
+  .page-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    background-color: var(--beam);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .page-transition[data-active="true"] {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
   /* ------------------------------------------------------------------- Footer */
 
   .site-footer {
@@ -746,6 +771,119 @@
 
   .caps.caution-chip {
     color: var(--night);
+  }
+
+  /* -------------------------------------------------------------------- Stats */
+
+  /* A row of figures. The label is the term, so it comes first in the markup and second on screen. */
+  .stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 48px;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  /* -------------------------------------------------------------------- Forms */
+
+  /*
+    Smoke fields with a beam-12 hairline and the 10px radius. DESIGN.md 2.1, 2.2 and 4.
+    A field does nothing on focus beyond the focus ring and a 160ms border colour
+    change. MOTION.md 8
+  */
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .field-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--beam-12);
+    border-radius: var(--radius-card);
+    background-color: var(--smoke);
+    transition: border-color var(--dur-1) var(--ease-beam);
+  }
+
+  .field-input.body {
+    color: var(--beam);
+  }
+
+  .field-input:focus {
+    border-color: var(--xenon);
+  }
+
+  textarea.field-input {
+    display: block;
+    min-height: 128px;
+    resize: vertical;
+  }
+
+  /* -------------------------------------------------------------------- Tiers */
+
+  /*
+    A tier of the vehicle guide: a smoke card whose accent, the short rule and the
+    numeral, is the colour CONTENT.md 7 assigns it. Xenon restores well, beam takes extra
+    work, oxide is replace instead. The accent never colours a background.
+  */
+  .tier {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+    padding: 32px;
+    border: 1px solid var(--beam-12);
+    border-radius: var(--radius-card);
+    background-color: var(--smoke);
+  }
+
+  .tier[data-accent="xenon"] {
+    --tier: var(--xenon);
+  }
+
+  .tier[data-accent="beam"] {
+    --tier: var(--beam);
+  }
+
+  .tier[data-accent="oxide"] {
+    --tier: var(--oxide);
+  }
+
+  .tier-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* The same 24px rule as the eyebrow, in the tier's colour */
+  .tier-copy::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background-color: var(--tier);
+  }
+
+  .numeral.tier-numeral {
+    color: var(--tier);
+  }
+
+  @media (min-width: 1024px) {
+    .tier {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: 48px;
+    }
   }
 
   /* ------------------------------------------------------------------ Kinetic */

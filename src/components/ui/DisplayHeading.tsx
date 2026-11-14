@@ -6,6 +6,7 @@ import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import { cx } from "@/lib/cx";
 import { DUR, EASE } from "@/lib/gsap";
+import { afterQuiet } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 gsap.registerPlugin(SplitText, useGSAP);
@@ -24,6 +25,7 @@ type DisplayHeadingProps = {
 // in its final state and then replays. That hold is capped at one second (see base.css).
 // If script or fonts are slower than that, the heading is simply shown and the reveal is
 // skipped: content first, the animation only when it can start cleanly. It plays once.
+// After a route change it waits out the 200ms in which nothing animates. MOTION.md 8
 //
 // Under reduced motion there is no split. The fade is a CSS animation in base.css.
 export function DisplayHeading({ children, id, className }: DisplayHeadingProps) {
@@ -45,6 +47,7 @@ export function DisplayHeading({ children, id, className }: DisplayHeadingProps)
       }
 
       let cancelled = false;
+      let cancelStart: (() => void) | undefined;
       let split: SplitText | undefined;
 
       const reveal = contextSafe(() => {
@@ -101,10 +104,13 @@ export function DisplayHeading({ children, id, className }: DisplayHeadingProps)
       });
 
       // Lines can only be measured once the web fonts are in
-      document.fonts.ready.then(reveal);
+      document.fonts.ready.then(() => {
+        if (!cancelled) cancelStart = afterQuiet(reveal);
+      });
 
       return () => {
         cancelled = true;
+        cancelStart?.();
         split?.revert();
         el.removeAttribute("data-revealed");
       };

@@ -52,6 +52,10 @@ export const pairs: Pair[] = [
   { id: "06", vehicle: null },
 ];
 
+// DESIGN.md 5 lists the pair slots as two families of six. A place on a page that is
+// waiting for one of them, without yet knowing which, is labelled with its family.
+export const PAIR_FAMILY = { before: "before-01.jpg .. -06.jpg", after: "after-01.jpg .. -06.jpg" } as const;
+
 // The pair shown in the home page slider
 export const FEATURED_PAIR = "05";
 

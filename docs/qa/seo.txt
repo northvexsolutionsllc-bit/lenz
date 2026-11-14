@@ -1,0 +1,150 @@
+1. Sitemap
+  ok    /sitemap.xml answers 200 as application/xml
+  ok    it is an XML urlset in the sitemaps.org namespace, not an HTML page
+  ok    it lists all 12 routes, each once
+        https://lenzrescue.com
+        https://lenzrescue.com/headlight-restoration
+        https://lenzrescue.com/fog-light-restoration
+        https://lenzrescue.com/dealer-and-auction
+        https://lenzrescue.com/gallery
+        https://lenzrescue.com/vehicle-guide
+        https://lenzrescue.com/about
+        https://lenzrescue.com/contact
+        https://lenzrescue.com/headlight-restoration-antioch-ca
+        https://lenzrescue.com/headlight-restoration-brentwood-ca
+        https://lenzrescue.com/headlight-restoration-pittsburg-ca
+        https://lenzrescue.com/headlight-restoration-oakley-ca
+  ok    /robots.txt points to it
+
+   Every route answers
+  ok    / 200
+  ok    /headlight-restoration 200
+  ok    /fog-light-restoration 200
+  ok    /dealer-and-auction 200
+  ok    /gallery 200
+  ok    /vehicle-guide 200
+  ok    /about 200
+  ok    /contact 200
+  ok    /headlight-restoration-antioch-ca 200
+  ok    /headlight-restoration-brentwood-ca 200
+  ok    /headlight-restoration-pittsburg-ca 200
+  ok    /headlight-restoration-oakley-ca 200
+  ok    an address that does not exist answers 404, not the home page
+
+2. Structured data, against schema.org vocabulary, release 30.1, schemaorg-current-https, as republished in the npm package @_linked/schema 1.9.2
+   /
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+   /headlight-restoration
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    Service: valid, 21 properties checked
+  ok    FAQPage: valid, 19 properties checked
+  ok    BreadcrumbList: valid, 7 properties checked
+   /fog-light-restoration
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    Service: valid, 17 properties checked
+  ok    BreadcrumbList: valid, 7 properties checked
+   /dealer-and-auction
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    Service: valid, 17 properties checked
+  ok    BreadcrumbList: valid, 7 properties checked
+   /gallery
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    BreadcrumbList: valid, 7 properties checked
+   /vehicle-guide
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    FAQPage: valid, 4 properties checked
+  ok    BreadcrumbList: valid, 7 properties checked
+   /about
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    BreadcrumbList: valid, 7 properties checked
+   /contact
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    BreadcrumbList: valid, 7 properties checked
+   /headlight-restoration-antioch-ca
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    Service: valid, 12 properties checked
+  ok    BreadcrumbList: valid, 10 properties checked
+   /headlight-restoration-brentwood-ca
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    Service: valid, 12 properties checked
+  ok    BreadcrumbList: valid, 10 properties checked
+   /headlight-restoration-pittsburg-ca
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    Service: valid, 12 properties checked
+  ok    BreadcrumbList: valid, 10 properties checked
+   /headlight-restoration-oakley-ca
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    Service: valid, 12 properties checked
+  ok    BreadcrumbList: valid, 10 properties checked
+   32 blocks on 12 routes.
+
+3. Metadata
+  ok    /: no meta given in CONTENT.md for this route
+        Lenz Rescue | Mobile headlight restoration
+  ok    /headlight-restoration: title and description as CONTENT.md gives them
+        Headlight Restoration in Antioch and Brentwood CA | Lenz Rescue
+  ok    /fog-light-restoration: title and description as CONTENT.md gives them
+        Fog Light Restoration | Lenz Rescue, East Contra Costa
+  ok    /dealer-and-auction: title and description as CONTENT.md gives them
+        Dealer and Auction Headlight Reconditioning | Lenz Rescue
+  ok    /gallery: no meta given in CONTENT.md for this route
+        Gallery | Lenz Rescue
+  ok    /vehicle-guide: title and description as CONTENT.md gives them
+        Which Headlights Can Be Restored | Lenz Rescue Vehicle Guide
+  ok    /about: no meta given in CONTENT.md for this route
+        About | Lenz Rescue
+  ok    /contact: no meta given in CONTENT.md for this route
+        Contact | Lenz Rescue
+  ok    /headlight-restoration-antioch-ca: title from the CONTENT.md 8 pattern
+        Headlight Restoration in Antioch CA | Mobile, From $125 | Lenz Rescue
+  ok    /headlight-restoration-brentwood-ca: title from the CONTENT.md 8 pattern
+        Headlight Restoration in Brentwood CA | Mobile, From $125 | Lenz Rescue
+  ok    /headlight-restoration-pittsburg-ca: title from the CONTENT.md 8 pattern
+        Headlight Restoration in Pittsburg CA | Mobile, From $125 | Lenz Rescue
+  ok    /headlight-restoration-oakley-ca: title from the CONTENT.md 8 pattern
+        Headlight Restoration in Oakley CA | Mobile, From $125 | Lenz Rescue
+
+4. Alt text
+  ok    13 different images, 13 different alt texts: no two images share one
+  ok    27 image tags carry a description. 1 with empty alt text, as decoration: the hero backdrop.
+  ok    the old site's alt text appears on no route
+        gallery-03.jpg: Dark red vehicle headlights restored on site
+        gallery-05.jpg: Gray vehicle headlights restored on site
+        gallery-04.jpg: Maroon vehicle headlights restored on site
+        before-03.jpg: Oxidized yellow headlight on a dark red vehicle before restoration
+        before-05.jpg: Oxidized yellow headlight on a gray vehicle before restoration
+        before-04.jpg: Oxidized yellow headlight on a maroon vehicle before restoration
+        before-01.jpg: Oxidized yellow headlight on a red vehicle before restoration
+        gallery-01.jpg: Red vehicle headlights restored on site
+        after-03.jpg: The same dark red vehicle headlight after multi-step restoration and UV coating
+        after-05.jpg: The same gray vehicle headlight after multi-step restoration and UV coating
+        after-04.jpg: The same maroon vehicle headlight after multi-step restoration and UV coating
+        after-01.jpg: The same red vehicle headlight after multi-step restoration and UV coating
+        gallery-02.jpg: White vehicle headlights restored on site
+
+5. Location pages
+  ok    Antioch: opening of 77 words, names Somersville, Deer Valley, Hillcrest
+        brief: Highway 4 commuting, Somersville, Deer Valley, Hillcrest
+  ok    Brentwood: opening of 83 words, names Balfour, Shadow Lakes, Brentwood Blvd
+        brief: Vineyard and orchard road dust, Balfour, Shadow Lakes, Brentwood Blvd
+  ok    Pittsburg: opening of 82 words, names Railroad Ave, Bay Point edge, Los Medanos
+        brief: Delta humidity and salt air, Railroad Ave, Bay Point edge, Los Medanos
+  ok    Oakley: opening of 85 words, names Main Street, Summer Lake, Laurel Rd
+        brief: Delta sun exposure, Main Street, Summer Lake, Laurel Rd
+  ok    no two location pages share a paragraph, and none is another's with the city swapped
+  note  on all four by design: "Text photos of both headlights and you will have a price back today." (the final call to action, CONTENT.md 3.12)
+  note  on all four by design: "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area" (the service area line, CONTENT.md 2)
+
+PASS: nothing failed.

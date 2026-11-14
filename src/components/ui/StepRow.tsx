@@ -5,7 +5,8 @@ type StepRowProps = {
   /** 1 based. Rendered as 01, 02, 03 with a leading zero. */
   number: number;
   title: string;
-  children: ReactNode;
+  /** The body copy. A row can also be a number and a title alone. */
+  children?: ReactNode;
   as?: "li" | "div";
   /** Anything that follows the copy: a link, for example. */
   action?: ReactNode;
@@ -28,7 +29,7 @@ export function StepRow({ number, title, children, as: Tag = "li", action, curre
     >
       <div className="step-row-copy">
         <h3 className="h3">{title}</h3>
-        <p className="body">{children}</p>
+        {children ? <p className="body">{children}</p> : null}
         {action}
       </div>
     </Tag>

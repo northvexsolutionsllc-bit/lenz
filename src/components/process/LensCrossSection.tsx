@@ -12,6 +12,8 @@
 // Everything is derived from one curve, the outer surface of the lens, so the layers
 // sit exactly on it.
 
+import { useId } from "react";
+
 type Point = [number, number];
 type Cubic = [Point, Point, Point, Point];
 
@@ -103,6 +105,10 @@ type LensCrossSectionProps = {
 };
 
 export function LensCrossSection({ className }: LensCrossSectionProps) {
+  // Unique per instance: a visited route stays in the document, hidden, and a reference
+  // by id would otherwise find that one first
+  const clipId = useId();
+
   return (
     <svg
       className={className ? `lens-figure ${className}` : "lens-figure"}
@@ -111,7 +117,7 @@ export function LensCrossSection({ className }: LensCrossSectionProps) {
       aria-label="Cross-section of a headlight: the reflector, the bulb and the lens, with the layers the four stages work on"
     >
       <defs>
-        <clipPath id="lens-clip">
+        <clipPath id={clipId}>
           <path d={SHELL} />
         </clipPath>
       </defs>
@@ -136,7 +142,7 @@ export function LensCrossSection({ className }: LensCrossSectionProps) {
       <path className="lens-shell" d={SHELL} />
 
       {/* Stage 3: the specular band. It is clipped to the lens, so it only shows on it. */}
-      <g clipPath="url(#lens-clip)">
+      <g clipPath={`url(#${clipId})`}>
         <path id="layer-polish" d="M540 30 L440 470" />
       </g>
 

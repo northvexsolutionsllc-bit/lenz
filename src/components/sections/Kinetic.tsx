@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { kinetic } from "@/content/home";
 import { DUR, EASE } from "@/lib/gsap";
+import { afterQuiet } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -23,19 +24,23 @@ export function Kinetic() {
   const faded = useRef(false);
 
   useGSAP(
-    () => {
+    (_context, contextSafe) => {
       if (reduced) {
-        if (faded.current) return;
-        gsap.from(".kinetic", {
-          opacity: 0,
-          duration: DUR.d2,
-          ease: EASE.beam,
-          scrollTrigger: { trigger: ".kinetic", start: "top 85%", once: true },
-          onComplete: () => {
-            faded.current = true;
-          },
-        });
-        return;
+        if (faded.current || !contextSafe) return;
+        // Set up outside the 200ms after a route change. MOTION.md 8
+        return afterQuiet(
+          contextSafe(() => {
+            gsap.from(".kinetic", {
+              opacity: 0,
+              duration: DUR.d2,
+              ease: EASE.beam,
+              scrollTrigger: { trigger: ".kinetic", start: "top 85%", once: true },
+              onComplete: () => {
+                faded.current = true;
+              },
+            });
+          }),
+        );
       }
 
       gsap.fromTo(".kinetic",

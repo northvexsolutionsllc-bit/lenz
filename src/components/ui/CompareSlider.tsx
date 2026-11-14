@@ -12,9 +12,11 @@ import gsap from "gsap";
 import { cx } from "@/lib/cx";
 import { DUR, EASE } from "@/lib/gsap";
 import type { MediaSlot } from "@/lib/media";
+import { afterQuiet } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { Icon } from "./Icon";
 import { MediaFrame } from "./MediaFrame";
+import { PlaceholderFrame } from "./PlaceholderFrame";
 
 // MOTION.md 6
 const REST = 38; // where the intro leaves the seam, in percent
@@ -54,12 +56,16 @@ const valueText = (value: number) => {
 // take the CSS transition. The wrapper is the slider. Because a slider's children are
 // presentational to assistive technology, the two alt texts are also given as its
 // description.
+//
+// Until both photos of a pair exist there is nothing to compare, so the slot shows one
+// PlaceholderFrame naming the two files it is waiting for, and no control.
 export function CompareSlider({ before, after, beforeAlt, afterAlt, sizes, className }: CompareSliderProps) {
   const reduced = useReducedMotion();
   const describedBy = useId();
   const ref = useRef<HTMLDivElement>(null);
   const position = useRef(REST);
   const intro = useRef<gsap.core.Tween | null>(null);
+  const pendingIntro = useRef<(() => void) | null>(null);
   const introPlayed = useRef(false);
   const drag = useRef<{ id: number; startX: number; active: boolean } | null>(null);
 
@@ -74,6 +80,8 @@ export function CompareSlider({ before, after, beforeAlt, afterAlt, sizes, class
   }, []);
 
   const stopIntro = useCallback(() => {
+    pendingIntro.current?.();
+    pendingIntro.current = null;
     intro.current?.kill();
     intro.current = null;
     ref.current?.removeAttribute("data-intro");
@@ -106,14 +114,18 @@ export function CompareSlider({ before, after, beforeAlt, afterAlt, sizes, class
         observer.disconnect();
         introPlayed.current = true;
 
-        const state = { value: 100 };
-        el.setAttribute("data-intro", "true");
-        intro.current = gsap.to(state, {
-          value: REST,
-          duration: DUR.d4,
-          ease: EASE.beam,
-          onUpdate: () => apply(state.value),
-          onComplete: stopIntro,
+        // Not inside the 200ms after a route change. MOTION.md 8
+        pendingIntro.current = afterQuiet(() => {
+          pendingIntro.current = null;
+          const state = { value: 100 };
+          el.setAttribute("data-intro", "true");
+          intro.current = gsap.to(state, {
+            value: REST,
+            duration: DUR.d4,
+            ease: EASE.beam,
+            onUpdate: () => apply(state.value),
+            onComplete: stopIntro,
+          });
         });
       },
       { threshold: 0.5 },
@@ -199,6 +211,10 @@ export function CompareSlider({ before, after, beforeAlt, afterAlt, sizes, class
     introPlayed.current = true;
     apply(next);
   };
+
+  if (!before.src || !after.src) {
+    return <PlaceholderFrame file={[before.file, after.file]} ratio="3/2" className={className} />;
+  }
 
   return (
     <>

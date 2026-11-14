@@ -1,0 +1,127 @@
+/contact
+
+  1. CONTENT.md, read against the page
+     3.12 Final CTA
+       ok       Let's bring your headlights
+       ok       back to life.
+       ok       Text photos of both headlights and you will have a price back today.
+       ok       Text a photo for a quote
+       ok       Call 925-812-5524
+       ok       Antioch
+       ok       Brentwood
+       ok       Pittsburg
+       ok       Oakley
+       ok       Discovery Bay
+       ok       Bay Point
+     Taken from other sections
+       ok       Get your quote
+     2 Global
+       ok       LENZ RESCUE
+       ok       Mobile headlight restoration
+       ok       Text a photo for a quote
+       ok       925-812-5524
+       ok       LenzRescue@gmail.com
+       ok       Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area
+       ok       Services
+       ok       Gallery
+       ok       Vehicle guide
+       ok       About
+       ok       Contact
+       ok       link tel:+19258125524
+       ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (3 on the page)
+
+  2. The page, read against CONTENT.md
+     content (26)
+       "LENZ RESCUE" x2
+           CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
+       "Services" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Gallery" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Vehicle guide" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "About" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Contact" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "925-812-5524" x4
+           CONTENT.md section 2, first at div.shell > div.flex > a.nav-link
+       "Text a photo for a quote" x3
+           CONTENT.md line 45, first at a.btn > span.btn-face > span.caps
+       "Let's bring your headlights back to life."
+           CONTENT.md strings in sequence, as aria-label, first at section.page-hero > div.shell > h1.display
+       "Let's bring your"
+           part of "Let's bring your headlights back to life.", which is CONTENT.md strings in sequence, first at h1.display > div.line-mask > div.line
+       "headlights"
+           part of "Let's bring your headlights back to life.", which is CONTENT.md strings in sequence, first at h1.display > div.line-mask > div.line
+       "back to life."
+           CONTENT.md line 167, first at div.line-mask > div.line > span.accent
+       "Text photos of both headlights and you will have a price back today."
+           CONTENT.md line 168, first at section.page-hero > div.shell > p.body-l
+       "Call 925-812-5524"
+           CONTENT.md line 46, first at a.btn > span.btn-face > span.caps
+       "LenzRescue@gmail.com" x2
+           CONTENT.md section 2, first at dd > a.text-link > span.text-link-label
+       "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area" x2
+           CONTENT.md section 2, first at div.flex > div.flex > p.body
+       "Antioch" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Brentwood" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Pittsburg" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Oakley" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Discovery Bay"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Bay Point"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Get your quote" x3
+           CONTENT.md line 121, first at div.shell > div.flex > h2.h2
+       "Mobile headlight restoration"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Fog light restoration"
+           CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Dealer and auction"
+           CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+     label (3)
+       "Phone" x2
+           CONTENT.md 2, field name, first at dl.rule-list > div.flex > dt.caps
+       "Email"
+           CONTENT.md 2, field name, first at dl.rule-list > div.flex > dt.caps
+       "Hours"
+           CONTENT.md 2, field name, first at dl.rule-list > div.flex > dt.caps
+     owner note (3)
+       "TODO" x2
+           the TODO(owner) text in CONTENT.md, verbatim, first at div.flex > dd > span.todo-chip
+       "likely: after school weekdays, with full availability Saturday and Sunday" x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > dd > span.todo-chip
+       "confirm the last two are actually served" x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
+     interface (10)
+       "Skip to content"
+           supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
+       "Primary"
+           supplied in build: name of the header navigation landmark, as aria-label, first at header.site-header > div.shell > nav.hidden
+       "Open menu"
+           supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
+       "Menu"
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
+       "Name"
+           supplied in build: contact form field. CONTENT.md lists no fields for this form., first at form.form > label.field > span.caps
+       "Vehicle"
+           supplied in build: contact form field. CONTENT.md lists no fields for this form., first at form.form > label.field > span.caps
+       "Message"
+           supplied in build: contact form field. CONTENT.md lists no fields for this form., first at form.form > label.field > span.caps
+       "Footer"
+           supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
+       "Lenz Rescue on Facebook"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+       "Lenz Rescue on Instagram"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+
+  3. Document metadata
+       title        Contact | Lenz Rescue
+       description  Text photos of both headlights and you will have a price back today.
+
+  PASS: 42 distinct strings (26 content, 3 label, 3 owner note, 10 interface), 0 problems.

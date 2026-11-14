@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { Counter } from "@/components/ui/Counter";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -13,15 +14,16 @@ import { reviews } from "@/content/home";
 // placeholder state, and only on the styleguide. An empty reviews section on the live
 // site would be worse than none.
 export function Reviews() {
+  const titleId = useId();
   const { profileUrl, rating, count, items } = reviews;
   const ready = profileUrl !== null && rating !== null && count !== null && items.length >= 3;
 
   return (
-    <Section band labelledBy="reviews-title">
+    <Section band labelledBy={titleId}>
       <div className="shell flex flex-col gap-48">
         <div className="flex flex-col gap-24">
           <Eyebrow reveal>{reviews.eyebrow}</Eyebrow>
-          <h2 id="reviews-title" className="h2" data-reveal>
+          <h2 id={titleId} className="h2" data-reveal>
             {reviews.title.plain} <span className="accent">{reviews.title.accent}</span>
           </h2>
         </div>

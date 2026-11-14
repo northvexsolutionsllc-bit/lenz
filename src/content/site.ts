@@ -26,6 +26,8 @@ export const site = {
   },
   serviceAreaLine:
     "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area",
+  // The hours themselves are a TODO(owner). This is the note that goes with it.
+  hours: { todo: "likely: after school weekdays, with full availability Saturday and Sunday" },
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61593077793567",
     instagram: "https://www.instagram.com/lenz_rescue2026/",

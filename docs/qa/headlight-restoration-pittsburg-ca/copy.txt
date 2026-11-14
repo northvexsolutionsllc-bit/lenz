@@ -1,0 +1,180 @@
+/headlight-restoration-pittsburg-ca
+
+  1. CONTENT.md, read against the page
+     3.12 Final CTA
+       ok       Let's bring your headlights
+       ok       back to life.
+       ok       Text photos of both headlights and you will have a price back today.
+       ok       Text a photo for a quote
+       ok       Call 925-812-5524
+       ok       Antioch
+       ok       Brentwood
+       ok       Pittsburg
+       ok       Oakley
+       ok       Discovery Bay
+       ok       Bay Point
+     Taken from other sections
+       ok       Headlight restoration in
+       ok       Pittsburg.
+       ok       $125
+       ok       STARTING PRICE
+       ok       3 YR
+       ok       GUARANTEE
+       ok       See the process
+       ok       PREVIOUS WORK
+       ok       Drag it.
+       ok       That is the same lens.
+       ok       THE CORRECTION
+       ok       Four stages.
+       ok       In that order.
+       ok       Sand
+       ok       Compound
+       ok       Polish
+       ok       Protect
+     2 Global
+       ok       LENZ RESCUE
+       ok       Mobile headlight restoration
+       ok       Text a photo for a quote
+       ok       925-812-5524
+       ok       LenzRescue@gmail.com
+       ok       Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area
+       ok       Services
+       ok       Gallery
+       ok       Vehicle guide
+       ok       About
+       ok       Contact
+       ok       link tel:+19258125524
+       ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (4 on the page)
+
+  2. The page, read against CONTENT.md
+     DRAFT (1)
+       "Pittsburg sits on the Delta, and the humidity and salt air that come off the water are hard on headlight plastic. Once the factory coating wears through, the lens underneath clouds over fast. We work across the city, from Railroad Ave and the streets around Los Medanos out to the Bay Point edge. The job is done where the car is parked, in one visit, and the UV coating that goes on last is what keeps the haze from coming straight back."
+           written in build for Pittsburg, to the brief "Delta humidity and salt air, Railroad Ave, Bay Point edge, Los Medanos". Awaiting owner confirmation., first at section.page-hero > div.shell > p.body-l
+     content (42)
+       "LENZ RESCUE" x2
+           CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
+       "Services" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Gallery" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Vehicle guide" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "About" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Contact" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "925-812-5524" x3
+           CONTENT.md section 2, first at div.shell > div.flex > a.nav-link
+       "Text a photo for a quote" x4
+           CONTENT.md line 45, first at a.btn > span.btn-face > span.caps
+       "Headlight restoration in Pittsburg."
+           CONTENT.md strings in sequence, as aria-label, first at section.page-hero > div.shell > h1.display
+       "Headlight restoration"
+           CONTENT.md line 94, first at h1.display > div.line-mask > div.line
+       "in"
+           part of "Headlight restoration in Pittsburg.", which is CONTENT.md strings in sequence, first at h1.display > div.line-mask > div.line
+       "Pittsburg."
+           CONTENT.md line 254, first at div.line-mask > div.line > span.accent
+       "Call 925-812-5524" x2
+           CONTENT.md line 46, first at a.btn > span.btn-face > span.caps
+       "STARTING PRICE"
+           CONTENT.md line 69, first at dl.stat-row > div.stat > dt.caps
+       "$125" x3
+           CONTENT.md line 69, first at dd > span.counter > span.sr-only
+       "GUARANTEE"
+           CONTENT.md line 70, first at dl.stat-row > div.stat > dt.caps
+       "3 YR" x3
+           CONTENT.md line 70, first at dd > span.counter > span.sr-only
+       "PREVIOUS WORK"
+           CONTENT.md line 100, first at div.shell > div.flex > p.eyebrow
+       "Drag it."
+           CONTENT.md line 101, first at div.shell > div.flex > h2.h2
+       "That is the same lens."
+           CONTENT.md line 101, first at div.flex > h2.h2 > span.accent
+       "THE CORRECTION"
+           CONTENT.md line 108, first at div.shell > div.flex > p.eyebrow
+       "Four stages."
+           CONTENT.md line 109, first at div.shell > div.flex > h2.h2
+       "In that order."
+           CONTENT.md line 109, first at div.flex > h2.h2 > span.accent
+       "See the process"
+           CONTENT.md line 94, first at div > a.text-link > span.text-link-label
+       "Sand"
+           CONTENT.md line 110, first at li.step-row > div.step-row-copy > h3.h3
+       "Compound"
+           CONTENT.md line 111, first at li.step-row > div.step-row-copy > h3.h3
+       "Polish"
+           CONTENT.md line 112, first at li.step-row > div.step-row-copy > h3.h3
+       "Protect"
+           CONTENT.md line 113, first at li.step-row > div.step-row-copy > h3.h3
+       "Let's bring your headlights"
+           CONTENT.md line 167, first at section#contact > div.shell > h2.h2
+       "back to life."
+           CONTENT.md line 167, first at div.shell > h2.h2 > span.accent
+       "Text photos of both headlights and you will have a price back today."
+           CONTENT.md line 168, first at section#contact > div.shell > p.body-l
+       "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area" x2
+           CONTENT.md section 2, first at section#contact > div.shell > p.body
+       "Antioch" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Brentwood" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Pittsburg" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Oakley" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Discovery Bay"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Bay Point"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Mobile headlight restoration"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Fog light restoration"
+           CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Dealer and auction"
+           CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "LenzRescue@gmail.com"
+           CONTENT.md section 2, first at li > a.text-link > span.text-link-label
+     label (3)
+       "Railroad Ave"
+           CONTENT.md 8, the location table, first at ul.flex > li > span.pill
+       "Bay Point edge"
+           CONTENT.md 8, the location table, first at ul.flex > li > span.pill
+       "Los Medanos"
+           CONTENT.md 8, the location table, first at ul.flex > li > span.pill
+     owner note (4)
+       "TODO" x3
+           the TODO(owner) text in CONTENT.md, verbatim, first at div.shell > p.body-l > span.todo-chip
+       "confirm the local detail in each opening line is accurate before publishing. A location page with a wrong neighbourhood name is worse than no location page." x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.shell > p.body-l > span.todo-chip
+       "the year, make, model and city for each of the existing five photos." x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > h2.h2 > span.todo-chip
+       "confirm the last two are actually served" x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
+     interface (10)
+       "Skip to content"
+           supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
+       "Primary"
+           supplied in build: name of the header navigation landmark, as aria-label, first at header.site-header > div.shell > nav.hidden
+       "Open menu"
+           supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
+       "Menu"
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
+       "before-01.jpg .. -06.jpg" x3
+           DESIGN.md 5, the pair slots as it lists them, first at div.placeholder-frame > p.caps > span.normal-case
+       "after-01.jpg .. -06.jpg" x3
+           DESIGN.md 5, the pair slots as it lists them, first at div.placeholder-frame > p.caps > span.normal-case
+       "3/2" x3
+           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
+       "Footer"
+           supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
+       "Lenz Rescue on Facebook"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+       "Lenz Rescue on Instagram"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+
+  3. Document metadata
+       title        Headlight Restoration in Pittsburg CA | Mobile, From $125 | Lenz Rescue
+       description  Pittsburg sits on the Delta, and the humidity and salt air that come off the water are hard on headlight plastic. Once the factory coating wears through, the lens underneath clouds over fast. We work across the city, from Railroad Ave and the streets around Los Medanos out to the Bay Point edge. The job is done where the car is parked, in one visit, and the UV coating that goes on last is what keeps the haze from coming straight back.
+
+  PASS: 60 distinct strings (1 DRAFT, 42 content, 3 label, 4 owner note, 10 interface), 0 problems.

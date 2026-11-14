@@ -1,0 +1,130 @@
+/vehicle-guide
+
+  1. CONTENT.md, read against the page
+     7 /vehicle-guide
+       ok       Some lenses need more.
+       ok       Which Headlights Can Be Restored | Lenz Rescue Vehicle Guide
+       ok       An honest guide to what restores well, what takes extra work, and what needs replacing. Plastic type, age, prior repairs and damage all change the result.
+       ok       We would rather talk you out of a job than take your money for a lens that was never coming back. Here is how we read a headlight from a photo.
+       ok       Restores well
+       ok       Light to moderate yellowing. Smooth plastic with no pitting, no cracking and no previous coating peeling off. This is most cars between six and twelve years old, and these come back close to new.
+       ok       Takes extra work
+       ok       Heavy oxidation, deep scratches, surface pitting, hard coat that is peeling in sheets, light moisture staining, or a previous restoration that was done without a coating. These still restore, they just take longer and the price reflects it.
+       ok       Replace instead
+       ok       Cracks through the lens, broken mounting tabs, heavy internal moisture or condensation, or damage below the surface of the plastic. Polishing the outside of these does nothing. We will tell you and we will not charge you for looking.
+       ok       Not sure which one you have? Text a photo. It takes us about ten seconds to tell.
+     2 Global
+       ok       LENZ RESCUE
+       ok       Mobile headlight restoration
+       ok       Text a photo for a quote
+       ok       925-812-5524
+       ok       LenzRescue@gmail.com
+       ok       Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area
+       ok       Services
+       ok       Gallery
+       ok       Vehicle guide
+       ok       About
+       ok       Contact
+       ok       link tel:+19258125524
+       ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (3 on the page)
+
+  2. The page, read against CONTENT.md
+     content (29)
+       "LENZ RESCUE" x2
+           CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
+       "Services" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Gallery" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Vehicle guide" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "About" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Contact" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "925-812-5524" x3
+           CONTENT.md section 2, first at div.shell > div.flex > a.nav-link
+       "Text a photo for a quote" x3
+           CONTENT.md line 45, first at a.btn > span.btn-face > span.caps
+       "Some lenses need more."
+           CONTENT.md line 226, as aria-label, first at section.page-hero > div.shell > h1.display
+       "Some lenses need"
+           part of "Some lenses need more.", CONTENT.md line 226, first at h1.display > div.line-mask > div.line
+       "more."
+           part of "Some lenses need more.", CONTENT.md line 226, first at h1.display > div.line-mask > div.line
+       "We would rather talk you out of a job than take your money for a lens that was never coming back. Here is how we read a headlight from a photo."
+           CONTENT.md line 229, first at section.page-hero > div.shell > p.body-l
+       "Restores well"
+           CONTENT.md line 231, first at li.tier > div.tier-copy > h2.h3
+       "Light to moderate yellowing. Smooth plastic with no pitting, no cracking and no previous coating peeling off. This is most cars between six and twelve years old, and these come back close to new."
+           CONTENT.md line 232, first at li.tier > div.tier-copy > p.body
+       "Takes extra work"
+           CONTENT.md line 234, first at li.tier > div.tier-copy > h2.h3
+       "Heavy oxidation, deep scratches, surface pitting, hard coat that is peeling in sheets, light moisture staining, or a previous restoration that was done without a coating. These still restore, they just take longer and the price reflects it."
+           CONTENT.md line 235, first at li.tier > div.tier-copy > p.body
+       "Replace instead"
+           CONTENT.md line 237, first at li.tier > div.tier-copy > h2.h3
+       "Cracks through the lens, broken mounting tabs, heavy internal moisture or condensation, or damage below the surface of the plastic. Polishing the outside of these does nothing. We will tell you and we will not charge you for looking."
+           CONTENT.md line 238, first at li.tier > div.tier-copy > p.body
+       "Not sure which one you have?"
+           part of "Not sure which one you have? Text a photo. It takes us about", CONTENT.md line 242, first at section#contact > div.shell > h2.h2
+       "Text a photo. It takes us about ten seconds to tell."
+           part of "Not sure which one you have? Text a photo. It takes us about", CONTENT.md line 242, first at section#contact > div.shell > p.body-l
+       "Mobile headlight restoration"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Fog light restoration"
+           CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Dealer and auction"
+           CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "Antioch"
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Brentwood"
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Pittsburg"
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Oakley"
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "LenzRescue@gmail.com"
+           CONTENT.md section 2, first at li > a.text-link > span.text-link-label
+     owner note (2)
+       "TODO"
+           the TODO(owner) text in CONTENT.md, verbatim, first at div.shell > p > span.todo-chip
+       "three photos needed, one per tier." x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.shell > p > span.todo-chip
+     interface (14)
+       "Skip to content"
+           supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
+       "Primary"
+           supplied in build: name of the header navigation landmark, as aria-label, first at header.site-header > div.shell > nav.hidden
+       "Open menu"
+           supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
+       "Menu"
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
+       "01"
+           DESIGN.md 6: the number of an item in a list, with its leading zero, first at li.tier > div.tier-copy > p.numeral
+       "guide-01.jpg"
+           supplied in build: slot filename for a vehicle guide photo, which DESIGN.md 5 does not name, first at div.placeholder-frame > p.caps > span.normal-case
+       "4/3" x3
+           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
+       "02"
+           DESIGN.md 6: the number of an item in a list, with its leading zero, first at li.tier > div.tier-copy > p.numeral
+       "guide-02.jpg"
+           supplied in build: slot filename for a vehicle guide photo, which DESIGN.md 5 does not name, first at div.placeholder-frame > p.caps > span.normal-case
+       "03"
+           DESIGN.md 6: the number of an item in a list, with its leading zero, first at li.tier > div.tier-copy > p.numeral
+       "guide-03.jpg"
+           supplied in build: slot filename for a vehicle guide photo, which DESIGN.md 5 does not name, first at div.placeholder-frame > p.caps > span.normal-case
+       "Footer"
+           supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
+       "Lenz Rescue on Facebook"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+       "Lenz Rescue on Instagram"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+
+  3. Document metadata
+       title        Which Headlights Can Be Restored | Lenz Rescue Vehicle Guide
+       description  An honest guide to what restores well, what takes extra work, and what needs replacing. Plastic type, age, prior repairs and damage all change the result.
+
+  PASS: 45 distinct strings (29 content, 2 owner note, 14 interface), 0 problems.

@@ -179,9 +179,9 @@
        "WHY IT MATTERS"
            CONTENT.md line 76, first at div.shell > div.flex > p.eyebrow
        "A hazy lens is not"
-           CONTENT.md line 77, first at div.shell > div.flex > h2#problem-title
+           CONTENT.md line 77, first at div.shell > div.flex > h2.h2
        "only a looks problem."
-           CONTENT.md line 77, first at div.flex > h2#problem-title > span.accent
+           CONTENT.md line 77, first at div.flex > h2.h2 > span.accent
        "Headlight plastic is coated at the factory. Sun and road grit wear that coating off, the plastic underneath oxidizes, and the lens goes yellow and milky. The bulb is still working. The light just cannot get out."
            CONTENT.md line 78, first at div.shell > div.flex > p.body
        "Night"
@@ -211,9 +211,9 @@
        "WHAT WE DO"
            CONTENT.md line 92, first at div.shell > div.flex > p.eyebrow
        "Three services."
-           CONTENT.md line 93, first at div.shell > div.flex > h2#services-title
+           CONTENT.md line 93, first at div.shell > div.flex > h2.h2
        "One standard."
-           CONTENT.md line 93, first at div.flex > h2#services-title > span.accent
+           CONTENT.md line 93, first at div.flex > h2.h2 > span.accent
        "Headlight restoration"
            CONTENT.md line 94, first at li.step-row > div.step-row-copy > h3.h3
        "Multi-step sanding, compound, polish and a UV protective coating, done on the car. This is the job most people book."
@@ -235,9 +235,9 @@
        "PREVIOUS WORK"
            CONTENT.md line 100, first at div.grid > div.flex > p.eyebrow
        "Drag it."
-           CONTENT.md line 101, first at div.grid > div.flex > h2#before-after-title
+           CONTENT.md line 101, first at div.grid > div.flex > h2.h2
        "That is the same lens."
-           CONTENT.md line 101, first at div.flex > h2#before-after-title > span.accent
+           CONTENT.md line 101, first at div.flex > h2.h2 > span.accent
        "Every pair here was restored on site, in one visit, with no parts replaced."
            CONTENT.md line 102, first at div.grid > div.flex > p.body
        "See the full gallery"
@@ -245,9 +245,9 @@
        "THE CORRECTION"
            CONTENT.md line 108, first at section.process > div.shell > p.eyebrow
        "Four stages."
-           CONTENT.md line 109, first at section.process > div.shell > h2#process-title
+           CONTENT.md line 109, first at section.process > div.shell > h2.h2
        "In that order."
-           CONTENT.md line 109, first at div.shell > h2#process-title > span.accent
+           CONTENT.md line 109, first at div.shell > h2.h2 > span.accent
        "Sand"
            CONTENT.md line 110, first at li.step-row > div.step-row-copy > h3.h3
        "Wet sanding through progressive grits takes off the dead factory coating and the oxidized layer under it. This is the step that actually removes the yellow."
@@ -269,9 +269,9 @@
        "SIMPLE FROM START TO FINISH"
            CONTENT.md line 118, first at div.shell > div.flex > p.eyebrow
        "Three steps."
-           CONTENT.md line 119, first at div.shell > div.flex > h2#booking-title
+           CONTENT.md line 119, first at div.shell > div.flex > h2.h2
        "One clear result."
-           CONTENT.md line 119, first at div.flex > h2#booking-title > span.accent
+           CONTENT.md line 119, first at div.flex > h2.h2 > span.accent
        "Send photos"
            CONTENT.md line 120, first at li.step-row > div.step-row-copy > h3.h3
        "Text clear pictures of both headlights in daylight. That is enough for us to tell you what we are working with."
@@ -287,9 +287,9 @@
        "PRICING"
            CONTENT.md line 126, first at div.shell > div.flex > p.eyebrow
        "and up, depending on"
-           CONTENT.md line 127, first at div.shell > div.flex > h2#pricing-title
+           CONTENT.md line 127, first at div.shell > div.flex > h2.h2
        "the lens."
-           CONTENT.md line 127, first at div.flex > h2#pricing-title > span.accent
+           CONTENT.md line 127, first at div.flex > h2.h2 > span.accent
        "Final price depends on lens size and how far the oxidation has gone. Larger housings and heavily pitted lenses take longer. Send photos and you get a firm number before anyone books anything."
            CONTENT.md line 128, first at div.shell > div.flex > p.body
        "Multi-step correction"
@@ -315,9 +315,9 @@
        "THE GUARANTEE"
            CONTENT.md line 139, first at div.shell > div.flex > p.eyebrow
        "Three years."
-           CONTENT.md line 140, first at div.shell > div.flex > h2#guarantee-title
+           CONTENT.md line 140, first at div.shell > div.flex > h2.h2
        "In writing."
-           CONTENT.md line 140, first at div.flex > h2#guarantee-title > span.accent
+           CONTENT.md line 140, first at div.flex > h2.h2 > span.accent
        "If a lens we restored starts hazing inside the coverage period, we come back and touch it up at no charge."
            CONTENT.md line 141, first at div.shell > div.flex > p.body-l
        "OUR STORY"
@@ -325,15 +325,15 @@
        "LOCAL SMALL BUSINESS"
            CONTENT.md line 147, first at div.flex > div > span.pill
        "Started after school."
-           CONTENT.md line 148, first at div.shell > div.flex > h2#story-title
+           CONTENT.md line 148, first at div.shell > div.flex > h2.h2
        "Run like a trade."
-           CONTENT.md line 148, first at div.flex > h2#story-title > span.accent
+           CONTENT.md line 148, first at div.flex > h2.h2 > span.accent
        "Lenz Rescue is run by Adain, who started it at seventeen to earn his own money, and who learned the process properly before taking a single paying car. He turns up when he says he will, he tells you honestly when a lens is too far gone, and he does the fourth step every time. When you book Lenz Rescue you are backing a young local tradesman building something real."
            CONTENT.md line 149, first at div.shell > div.flex > p.body
        "Let's bring your headlights"
-           CONTENT.md line 167, first at section#contact > div.shell > h2#contact-title
+           CONTENT.md line 167, first at section#contact > div.shell > h2.h2
        "back to life."
-           CONTENT.md line 167, first at div.shell > h2#contact-title > span.accent
+           CONTENT.md line 167, first at div.shell > h2.h2 > span.accent
        "Text photos of both headlights and you will have a price back today."
            CONTENT.md line 168, first at section#contact > div.shell > p.body-l
        "Antioch" x2
@@ -371,21 +371,21 @@
            the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
      pattern (8)
        "Oxidized yellow headlight on a gray vehicle before restoration"
-           CONTENT.md line 272, vehicle details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+           CONTENT.md line 272, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
        "The same gray vehicle headlight after multi-step restoration and UV coating"
-           CONTENT.md line 273, vehicle details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+           CONTENT.md line 273, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
        "Oxidized yellow headlight on a gray vehicle before restoration. The same gray vehicle headlight after multi-step restoration and UV coating."
-           CONTENT.md section 9 patterns, vehicle details still TODO(owner), first at div.grid > div.lg:col-span-8 > p#_R_ilbqlb_
+           CONTENT.md section 9 patterns, details still TODO(owner), first at div.grid > div.lg:col-span-8 > p.sr-only
        "Red vehicle headlights restored on site"
-           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+           CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
        "White vehicle headlights restored on site"
-           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+           CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
        "Dark red vehicle headlights restored on site"
-           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+           CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
        "Maroon vehicle headlights restored on site"
-           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+           CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
        "Gray vehicle headlights restored on site"
-           CONTENT.md line 274, vehicle details still TODO(owner), as alt, first at li > div.media-frame > img
+           CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
      interface (16)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
@@ -394,7 +394,7 @@
        "Open menu"
            supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
        "Menu"
-           supplied in build: name of the menu navigation landmark, as aria-label, first at div#_R_1lb_ > div.shell > nav
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
        "Reveal the restored headlight"
            MOTION.md 6, as aria-label, first at div.grid > div.lg:col-span-8 > div.compare
        "38 percent before, 62 percent after"
@@ -422,6 +422,6 @@
 
   3. Document metadata
        title        Lenz Rescue | Mobile headlight restoration
-       description  (none)
+       description  Cloudy headlights cut how far you can see at night. We restore the lens you already have, at your driveway, for a fraction of what new assemblies cost.
 
-  PASS: 141 distinct strings on the page, 0 problems.
+  PASS: 141 distinct strings (110 content, 7 owner note, 8 pattern, 16 interface), 0 problems.

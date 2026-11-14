@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { cx } from "@/lib/cx";
 import { DUR, EASE } from "@/lib/gsap";
+import { afterQuiet } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 type CounterProps = {
@@ -51,6 +52,7 @@ export function Counter({ value, prefix = "", suffix = "", className, decimals =
 
     const state = { n: 0 };
     let tween: gsap.core.Tween | undefined;
+    let cancelStart: (() => void) | undefined;
     write(0);
     live.setAttribute("data-ready", "");
 
@@ -59,11 +61,14 @@ export function Counter({ value, prefix = "", suffix = "", className, decimals =
         if (!entries.some((entry) => entry.isIntersecting)) return;
         observer.disconnect();
         played.current = true;
-        tween = gsap.to(state, {
-          n: value,
-          duration: DUR.d4,
-          ease: EASE.beam,
-          onUpdate: () => write(state.n),
+        // Not inside the 200ms after a route change. MOTION.md 8
+        cancelStart = afterQuiet(() => {
+          tween = gsap.to(state, {
+            n: value,
+            duration: DUR.d4,
+            ease: EASE.beam,
+            onUpdate: () => write(state.n),
+          });
         });
       },
       { threshold: 0.5 },
@@ -72,6 +77,7 @@ export function Counter({ value, prefix = "", suffix = "", className, decimals =
 
     return () => {
       observer.disconnect();
+      cancelStart?.();
       tween?.kill();
       write(value);
     };

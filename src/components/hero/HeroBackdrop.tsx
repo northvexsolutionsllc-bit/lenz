@@ -6,6 +6,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { hasNavigated } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import type { BeamInput } from "./BeamCanvas";
 
@@ -67,6 +68,9 @@ export function HeroBackdrop({ poster }: HeroBackdropProps) {
   // itself was slow, the device or the connection is struggling, and the canvas does not
   // boot on its own at all: the poster, which is the same frame, simply stays. A fine
   // pointer that starts moving is a sign of intent and boots it straight away.
+  // Arriving from another page of the site is different: the page is long since loaded,
+  // and the canvas boots at once, so the shader is warm under the transition panel
+  // before it lifts (MOTION.md 5.7).
   // If this route is hidden by a navigation, the canvas is dropped and built fresh when
   // the route is shown again.
   useEffect(() => {
@@ -91,7 +95,8 @@ export function HeroBackdrop({ poster }: HeroBackdropProps) {
       timer = window.setTimeout(whenIdle, BOOT_DELAY);
     };
 
-    if (document.readyState === "complete") arm();
+    if (hasNavigated()) boot();
+    else if (document.readyState === "complete") arm();
     else window.addEventListener("load", arm, { once: true });
 
     if (window.matchMedia("(pointer: fine)").matches) {

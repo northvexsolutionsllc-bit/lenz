@@ -11,8 +11,11 @@ export const RATIO_CLASS: Record<MediaRatio, string> = {
 };
 
 type PlaceholderFrameProps = {
-  /** The filename the client must supply, exactly as listed in DESIGN.md 5. */
-  file: string;
+  /**
+   * The filename the client must supply, exactly as listed in DESIGN.md 5. A place that
+   * takes two files, a before and after pair, lists both.
+   */
+  file: string | string[];
   ratio: MediaRatio;
   className?: string;
 };
@@ -25,7 +28,11 @@ export function PlaceholderFrame({ file, ratio, className }: PlaceholderFramePro
   return (
     <div className={cx("placeholder-frame w-full", RATIO_CLASS[ratio], className)}>
       <p className="caps flex flex-col gap-4">
-        <span className="normal-case">{file}</span>
+        {(Array.isArray(file) ? file : [file]).map((name) => (
+          <span key={name} className="normal-case">
+            {name}
+          </span>
+        ))}
         <span>{ratio}</span>
       </p>
     </div>

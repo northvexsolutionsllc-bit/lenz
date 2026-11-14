@@ -1,0 +1,126 @@
+/about
+
+  1. CONTENT.md, read against the page
+     3.10 Story
+       ok       OUR STORY
+       ok       LOCAL SMALL BUSINESS
+       ok       Started after school.
+       ok       Run like a trade.
+       ok       Lenz Rescue is run by Adain, who started it at seventeen to earn his own money, and who learned the process properly before taking a single paying car. He turns up when he says he will, he tells you honestly when a lens is too far gone, and he does the fourth step every time. When you book Lenz Rescue you are backing a young local tradesman building something real.
+     3.12 Final CTA
+       ok       Let's bring your headlights
+       ok       back to life.
+       ok       Text photos of both headlights and you will have a price back today.
+       ok       Text a photo for a quote
+       ok       Call 925-812-5524
+       ok       Antioch
+       ok       Brentwood
+       ok       Pittsburg
+       ok       Oakley
+       ok       Discovery Bay
+       ok       Bay Point
+     2 Global
+       ok       LENZ RESCUE
+       ok       Mobile headlight restoration
+       ok       Text a photo for a quote
+       ok       925-812-5524
+       ok       LenzRescue@gmail.com
+       ok       Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area
+       ok       Services
+       ok       Gallery
+       ok       Vehicle guide
+       ok       About
+       ok       Contact
+       ok       link tel:+19258125524
+       ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (3 on the page)
+
+  2. The page, read against CONTENT.md
+     content (29)
+       "LENZ RESCUE" x2
+           CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
+       "Services" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Gallery" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Vehicle guide" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "About" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Contact" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "925-812-5524" x3
+           CONTENT.md section 2, first at div.shell > div.flex > a.nav-link
+       "Text a photo for a quote" x3
+           CONTENT.md line 45, first at a.btn > span.btn-face > span.caps
+       "OUR STORY"
+           CONTENT.md line 146, first at section.page-hero > div.shell > p.eyebrow
+       "Started after school. Run like a trade."
+           CONTENT.md strings in sequence, as aria-label, first at section.page-hero > div.shell > h1.display
+       "Started after school."
+           CONTENT.md line 148, first at h1.display > div.line-mask > div.line
+       "Run like a trade."
+           CONTENT.md line 148, first at div.line-mask > div.line > span.accent
+       "LOCAL SMALL BUSINESS"
+           CONTENT.md line 147, first at div.flex > div > span.pill
+       "Lenz Rescue is run by Adain, who started it at seventeen to earn his own money, and who learned the process properly before taking a single paying car. He turns up when he says he will, he tells you honestly when a lens is too far gone, and he does the fourth step every time. When you book Lenz Rescue you are backing a young local tradesman building something real."
+           CONTENT.md line 149, first at div.shell > div.flex > p.body
+       "Let's bring your headlights"
+           CONTENT.md line 167, first at section#contact > div.shell > h2.h2
+       "back to life."
+           CONTENT.md line 167, first at div.shell > h2.h2 > span.accent
+       "Text photos of both headlights and you will have a price back today."
+           CONTENT.md line 168, first at section#contact > div.shell > p.body-l
+       "Call 925-812-5524"
+           CONTENT.md line 46, first at a.btn > span.btn-face > span.caps
+       "Antioch" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Brentwood" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Pittsburg" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Oakley" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Discovery Bay"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Bay Point"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Mobile headlight restoration"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Fog light restoration"
+           CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Dealer and auction"
+           CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "LenzRescue@gmail.com"
+           CONTENT.md section 2, first at li > a.text-link > span.text-link-label
+     owner note (2)
+       "TODO"
+           the TODO(owner) text in CONTENT.md, verbatim, first at ul.flex > li > span.todo-chip
+       "confirm the last two are actually served" x2
+           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
+     interface (9)
+       "Skip to content"
+           supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
+       "Primary"
+           supplied in build: name of the header navigation landmark, as aria-label, first at header.site-header > div.shell > nav.hidden
+       "Open menu"
+           supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
+       "Menu"
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
+       "owner.jpg"
+           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
+       "4/5"
+           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
+       "Footer"
+           supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
+       "Lenz Rescue on Facebook"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+       "Lenz Rescue on Instagram"
+           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+
+  3. Document metadata
+       title        About | Lenz Rescue
+       description  Started after school. Run like a trade.
+
+  PASS: 40 distinct strings (29 content, 2 owner note, 9 interface), 0 problems.

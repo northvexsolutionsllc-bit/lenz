@@ -150,6 +150,20 @@ html[data-js] :is([data-split], [data-counter-live]):not([data-ready]) {
   [data-split] {
     animation: plain-fade var(--dur-2) var(--ease-beam) both;
   }
+
+  /* On a later route the fade waits out the 200ms after the route change. MOTION.md 8 */
+  html[data-navigated] [data-split] {
+    animation-delay: 200ms;
+  }
+}
+
+/*
+  MOTION.md 8: nothing animates in the first 200ms after a route change. A section that
+  mounts inside that window holds its reveal targets hidden until its reveal is set up
+  (see useReveal). Without script the attribute is never there.
+*/
+[data-reveal-wait] [data-reveal] {
+  opacity: 0;
 }
 
 @keyframes plain-fade {

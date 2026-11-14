@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Section } from "@/components/ui/Section";
@@ -6,12 +7,14 @@ import { problem } from "@/content/home";
 
 // Home, the problem. CONTENT.md 3.2
 export function Problem() {
+  const titleId = useId();
+
   return (
-    <Section labelledBy="problem-title">
+    <Section labelledBy={titleId}>
       <div className="shell flex flex-col gap-64">
         <div className="flex flex-col gap-24">
           <Eyebrow reveal>{problem.eyebrow}</Eyebrow>
-          <h2 id="problem-title" className="h2" data-reveal>
+          <h2 id={titleId} className="h2" data-reveal>
             {problem.title.plain} <span className="accent">{problem.title.accent}</span>
           </h2>
           <p className="body" data-reveal>

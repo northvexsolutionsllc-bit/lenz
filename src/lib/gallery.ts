@@ -1,4 +1,4 @@
-import { afterAlt, beforeAlt, gallery, galleryAlt, pairs, type Pair } from "@/content/media";
+import { afterAlt, beforeAlt, gallery, galleryAlt, PAIR_FAMILY, pairs, type Pair } from "@/content/media";
 import type { GalleryTile } from "@/components/ui/GalleryGrid";
 import { resolveSlot, type MediaSlot } from "@/lib/media";
 
@@ -31,6 +31,22 @@ export function getPair(id: string): ResolvedPair {
   const pair = pairs.find((entry) => entry.id === id);
   if (!pair) throw new Error(`No before and after pair with id ${id}`);
   return resolvePair(pair);
+}
+
+/**
+ * The pairs shown on a location page: the ones assigned to it, then open slots up to
+ * `slots`. An open slot is waiting for the owner to say which pair was done in that city.
+ */
+export function getLocationPairs(ids: string[], slots = 3): ResolvedPair[] {
+  const assigned = ids.slice(0, slots).map(getPair);
+  const open = Array.from({ length: slots - assigned.length }, (_, index) => ({
+    id: `open-${index + 1}`,
+    before: { file: PAIR_FAMILY.before, src: null },
+    after: { file: PAIR_FAMILY.after, src: null },
+    beforeAlt: "",
+    afterAlt: "",
+  }));
+  return [...assigned, ...open];
 }
 
 export function getGalleryTiles(limit?: number): GalleryTile[] {
