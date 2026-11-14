@@ -1,0 +1,135 @@
+/*
+  The type scale. DESIGN.md 3.1, with the colour defaults from 3.2 and the measure caps from 3.3.
+
+  Every row of the table is one class. No component sets its own font-size, weight,
+  tracking or line-height. Width is the Archivo wdth axis, set through font-stretch.
+*/
+
+@layer components {
+  .wordmark {
+    font-family: var(--font-archivo), sans-serif;
+    font-size: clamp(1.0625rem, 0.98rem + 0.35vw, 1.25rem);
+    font-weight: 700;
+    font-stretch: 110%;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: var(--font-archivo), sans-serif;
+    font-size: clamp(3rem, 1.1rem + 9.4vw, 9.5rem);
+    font-weight: 600;
+    font-stretch: 88%;
+    line-height: 0.90;
+    letter-spacing: -0.035em;
+    color: var(--beam);
+  }
+
+  .h2 {
+    font-family: var(--font-archivo), sans-serif;
+    font-size: clamp(2.25rem, 1.3rem + 4.2vw, 5rem);
+    font-weight: 600;
+    font-stretch: 92%;
+    line-height: 0.96;
+    letter-spacing: -0.028em;
+    color: var(--beam);
+  }
+
+  .h3 {
+    font-family: var(--font-archivo), sans-serif;
+    font-size: clamp(1.375rem, 1.2rem + 0.9vw, 2rem);
+    font-weight: 600;
+    font-stretch: 100%;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--beam);
+  }
+
+  .kinetic {
+    font-family: var(--font-archivo), sans-serif;
+    font-size: clamp(4rem, 0.5rem + 15vw, 15rem);
+    font-weight: 700;
+    font-stretch: 70%;
+    line-height: 0.84;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+    color: var(--beam);
+  }
+
+  /* [data-numeral]::before lets a component draw a numeral from an attribute, in this same style */
+  .numeral,
+  [data-numeral]::before {
+    font-family: var(--font-mono), monospace;
+    font-size: clamp(2rem, 1.4rem + 2.8vw, 3.75rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: lining-nums tabular-nums;
+    color: var(--beam);
+  }
+
+  .body-l {
+    font-family: var(--font-archivo), sans-serif;
+    font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
+    font-weight: 400;
+    font-stretch: 100%;
+    line-height: 1.48;
+    letter-spacing: -0.01em;
+    color: var(--beam-80);
+    max-width: 52ch; /* lead paragraphs under a heading. DESIGN.md 3.3 */
+  }
+
+  .body {
+    font-family: var(--font-archivo), sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 400;
+    font-stretch: 100%;
+    line-height: 1.62;
+    letter-spacing: 0;
+    color: var(--beam-62);
+    max-width: 62ch; /* paragraph containers. DESIGN.md 3.3 */
+  }
+
+  .small {
+    font-family: var(--font-archivo), sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    font-stretch: 100%;
+    line-height: 1.5;
+    letter-spacing: 0;
+    color: var(--beam-62);
+    max-width: 62ch;
+  }
+
+  .caps {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--beam-54);
+  }
+
+  /* DESIGN.md 3.2: caps turns xenon inside an active or hovered element */
+  :is(a, button):is(:hover, [aria-current="page"], [data-active="true"], [data-preview~="hover"]) .caps,
+  :is(a, button).caps:is(:hover, [aria-current="page"], [data-active="true"], [data-preview~="hover"]) {
+    color: var(--xenon);
+  }
+
+  /*
+    The accent span. Inline, inside .display and .h2 only, one per heading.
+    Optically about 6 percent larger than the grotesk around it. DESIGN.md 3.1
+  */
+  .accent {
+    font-family: var(--font-instrument), serif;
+    font-size: 1.06em;
+    font-weight: 400;
+    font-style: italic;
+    font-stretch: normal;
+    line-height: inherit;
+    letter-spacing: -0.01em;
+    color: var(--xenon);
+  }
+}

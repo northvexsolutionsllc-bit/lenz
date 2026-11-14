@@ -1,0 +1,97 @@
+/*
+  Document defaults, the focus ring and the page-level layout primitives.
+  Colours, easings and durations all come from tokens.css.
+*/
+
+@layer base {
+  html {
+    background-color: var(--night);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--night);
+    color: var(--beam-62); /* body copy default. DESIGN.md 2.2 */
+    font-family: var(--font-archivo), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--xenon);
+    color: var(--night);
+  }
+
+  /*
+    Focus. DESIGN.md 6.1
+    Applied on :focus, not :focus-visible, so the ring is never hidden from mouse users.
+    This rule lives in the base layer, so a component that has its own radius keeps it
+    and the ring follows that radius.
+  */
+  :where(a, button, input, select, textarea, summary, [role="slider"], [role="button"], [tabindex]:not([tabindex="-1"])):focus {
+    outline: 2px solid var(--xenon);
+    outline-offset: 3px;
+    border-radius: inherit;
+  }
+
+  /* Elements focused by script only, such as the skip link target, do not draw a ring */
+  [tabindex="-1"]:focus {
+    outline: none;
+  }
+}
+
+@layer components {
+  /* Grid shell: 12 columns, 1440px max, fluid gutter. DESIGN.md 4 */
+  .shell {
+    width: 100%;
+    max-width: var(--grid-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Section vertical rhythm. Sections do not vary their own padding. DESIGN.md 4 */
+  .section {
+    padding-block: var(--section-y);
+  }
+
+  /* Alternating section band on the client's brand dark */
+  .section-band {
+    background-color: var(--pine);
+  }
+
+  /* Skip link: off screen until it takes focus */
+  .skip-link {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 100;
+    translate: 0 -200%;
+  }
+
+  .skip-link:focus {
+    translate: 0 0;
+  }
+}
+
+/*
+  Elements that script will animate in are held invisible until their own component has
+  set up its starting state and marked them data-ready, so they never flash in their
+  final state first. The attribute data-js is set by an inline script in the document
+  head, so none of this applies when JavaScript is disabled. If script fails after that
+  point, the failsafe animation makes everything visible again after five seconds.
+*/
+html[data-js] :is([data-split], [data-counter-live]):not([data-ready]) {
+  visibility: hidden;
+  animation: js-failsafe 0s 5s forwards;
+}
+
+@keyframes js-failsafe {
+  to {
+    visibility: visible;
+  }
+}

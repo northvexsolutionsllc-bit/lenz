@@ -1,0 +1,568 @@
+/*
+  Component styles. DESIGN.md 6
+
+  Layout and colour are mostly Tailwind utilities in the markup. This file holds what a
+  utility cannot say cleanly: states, pseudo elements, transitions built from the motion
+  tokens, and the few component dimensions DESIGN.md gives as literal values.
+
+  Any selector that includes [data-preview~="..."] exists so the styleguide can hold a
+  component in its hover or focus state. It has no effect anywhere else.
+*/
+
+@layer components {
+  /* ------------------------------------------------------------------ Buttons */
+
+  /*
+    Two elements: the outer .btn is the interactive element (and what the magnet moves),
+    the inner .btn-face is everything you see. Hover scale sits on the face, so it never
+    shares a transform with the magnet.
+  */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-face {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 28px; /* literal value, DESIGN.md 6 PrimaryButton */
+    border: 1px solid transparent;
+    border-radius: inherit;
+    text-align: center;
+  }
+
+  /* PrimaryButton: beam fill, night label. Hover is the beam glow plus a 2 percent scale. */
+  .btn-primary .btn-face {
+    border-color: var(--beam);
+    background-color: var(--beam);
+    transition:
+      scale var(--dur-2) var(--ease-beam),
+      box-shadow var(--dur-2) var(--ease-beam);
+  }
+
+  .btn.btn-primary .caps {
+    color: var(--night);
+  }
+
+  .btn-primary:is(:hover, [data-preview~="hover"]) .btn-face {
+    box-shadow: var(--glow-beam);
+    scale: 1.02;
+  }
+
+  /* SecondaryButton: transparent fill, beam-24 border, beam label */
+  .btn-secondary .btn-face {
+    border-color: var(--beam-24);
+    background-color: transparent;
+    transition:
+      border-color var(--dur-2) var(--ease-beam),
+      background-color var(--dur-2) var(--ease-beam);
+  }
+
+  .btn.btn-secondary .caps {
+    color: var(--beam);
+    transition: color var(--dur-2) var(--ease-beam);
+  }
+
+  .btn-secondary:is(:hover, [data-preview~="hover"]) .btn-face {
+    border-color: var(--xenon);
+    background-color: var(--beam-04);
+  }
+
+  .btn.btn-secondary:is(:hover, [data-preview~="hover"]) .caps {
+    color: var(--xenon);
+  }
+
+  /* ----------------------------------------------------------------- TextLink */
+
+  /*
+    Beam label, 1px underline in beam-24 sitting 4px below the baseline. On hover a xenon
+    underline wipes in from the left over 320ms.
+
+    Both rules are 1px backgrounds drawn on the inner label, at the same height. The label
+    is always an inline box. The bottom of an inline box is the font's descent below the
+    baseline, plus the label's 4px of padding, so stepping back up by the descent lands
+    the rule exactly 4px under the baseline.
+    --tl-descent is that descent: 0.21em for Archivo and 0.30em for JetBrains Mono, taken
+    from the font files. Browsers snap it to whole pixels, hence round() where supported.
+  */
+  .text-link {
+    color: var(--beam);
+    text-decoration: none;
+  }
+
+  .text-link-label {
+    --tl-descent: 0.21em;
+    padding-bottom: 4px;
+    background-image:
+      linear-gradient(var(--xenon), var(--xenon)),
+      linear-gradient(var(--beam-24), var(--beam-24));
+    background-repeat: no-repeat;
+    background-size: 0% 1px, 100% 1px;
+    background-position:
+      0 calc(100% - var(--tl-descent) + 1px),
+      0 calc(100% - var(--tl-descent) + 1px);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: background-size var(--dur-2) var(--ease-beam);
+  }
+
+  .text-link.caps .text-link-label {
+    --tl-descent: 0.30em;
+  }
+
+  @supports (width: round(1px, 1px)) {
+    .text-link-label {
+      --tl-descent: round(0.21em, 1px);
+    }
+
+    .text-link.caps .text-link-label {
+      --tl-descent: round(0.30em, 1px);
+    }
+  }
+
+  .text-link:is(:hover, [data-preview~="hover"]) .text-link-label {
+    background-size: 100% 1px, 100% 1px;
+  }
+
+  /* --------------------------------------------------------------------- Pill */
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px; /* literal value, DESIGN.md 6 Pill */
+    border-radius: var(--radius-pill);
+    background-color: var(--beam-08);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  a.pill.caps {
+    transition: color var(--dur-2) var(--ease-beam);
+  }
+
+  /* ------------------------------------------------------------------ Eyebrow */
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    flex: none;
+    width: 24px;
+    height: 1px;
+    background-color: var(--xenon);
+  }
+
+  /* ------------------------------------------------------------------ Counter */
+
+  /*
+    The ghost holds the final value and is never visible. It reserves the full width, so
+    the live figure can count underneath it without moving anything around it.
+  */
+  .counter {
+    display: inline-grid;
+    white-space: nowrap;
+  }
+
+  .counter > * {
+    grid-area: 1 / 1;
+  }
+
+  .counter-ghost {
+    visibility: hidden;
+  }
+
+  /* ---------------------------------------------------------------- GlassCard */
+
+  .glass-card {
+    background-color: var(--smoke);
+    border: 1px solid var(--beam-12);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    transition:
+      border-color var(--dur-2) var(--ease-beam),
+      translate var(--dur-2) var(--ease-beam);
+  }
+
+  .glass-card:is(:hover, [data-preview~="hover"]) {
+    border-color: color-mix(in srgb, var(--xenon) 40%, transparent);
+    translate: 0 -2px;
+  }
+
+  /* ------------------------------------------------------------------ StepRow */
+
+  /*
+    The number is drawn from data-numeral so the numeral type style stays defined once,
+    in type.css. Xenon at 40 percent, DESIGN.md 6.
+  */
+  .step-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  .step-row::before {
+    content: attr(data-numeral);
+    color: color-mix(in srgb, var(--xenon) 40%, transparent);
+  }
+
+  /* ------------------------------------------------------------------ Marquee */
+
+  /* 40s per loop, pauses on hover. Linear is allowed here and nowhere else. MOTION.md 1 */
+  .marquee {
+    display: flex;
+    gap: 48px;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .marquee-track {
+    display: flex;
+    flex: none;
+    gap: 48px;
+    min-width: 100%;
+    justify-content: space-around;
+    animation: marquee-loop 40s linear infinite;
+  }
+
+  .marquee:is(:hover, :focus-within, [data-preview~="hover"]) .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-loop {
+    to {
+      translate: calc(-100% - 48px) 0;
+    }
+  }
+
+  /* ------------------------------------------------------------------- Cursor */
+
+  /* Fine pointers only. The component does not mount for coarse pointers or reduced motion. */
+  .cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 90;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--beam-54);
+    border-radius: var(--radius-pill);
+    background-color: transparent;
+    pointer-events: none;
+    opacity: 0;
+    transition:
+      width var(--dur-2) var(--ease-snap),
+      height var(--dur-2) var(--ease-snap),
+      background-color var(--dur-1) var(--ease-beam),
+      border-color var(--dur-1) var(--ease-beam),
+      opacity var(--dur-1) var(--ease-beam);
+  }
+
+  .cursor[data-visible="true"] {
+    opacity: 1;
+  }
+
+  .cursor[data-state="media"] {
+    width: 96px;
+    height: 96px;
+    background-color: var(--beam-04);
+  }
+
+  .cursor[data-state="button"] {
+    width: 8px;
+    height: 8px;
+    border-color: var(--xenon);
+    background-color: var(--xenon);
+  }
+
+  /* Static variant, for the styleguide specimens only */
+  .cursor[data-static="true"] {
+    position: relative;
+    z-index: 0;
+    opacity: 1;
+  }
+
+  /* --------------------------------------------------------- PlaceholderFrame */
+
+  .placeholder-frame {
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    border: 1px dashed var(--beam-12);
+    border-radius: var(--radius-card);
+    background-color: var(--smoke);
+    text-align: center;
+  }
+
+  /* ------------------------------------------------------------------- Header */
+
+  /*
+    Transparent over the hero. After 100px of scroll: pine at 72 percent, a 16px backdrop
+    blur and a beam-12 bottom hairline. Hides on scroll down, shows on scroll up, 320ms.
+  */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    background-color: transparent;
+    transition:
+      translate var(--dur-2) var(--ease-swap),
+      background-color var(--dur-2) var(--ease-swap),
+      border-color var(--dur-2) var(--ease-swap);
+  }
+
+  .site-header[data-scrolled="true"] {
+    border-bottom-color: var(--beam-12);
+    background-color: color-mix(in srgb, var(--pine) 72%, transparent);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+
+  .site-header[data-hidden="true"] {
+    translate: 0 -100%;
+  }
+
+  /* Never hidden while it holds focus or while the menu is open */
+  .site-header:focus-within,
+  .site-header[data-menu="open"] {
+    translate: 0 0;
+  }
+
+  .site-header[data-menu="open"] {
+    border-bottom-color: transparent;
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  /* Static variant, for the styleguide specimens only */
+  .site-header[data-static="true"] {
+    position: relative;
+    z-index: 0;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding-block: 12px;
+    text-decoration: none;
+    transition: color var(--dur-2) var(--ease-beam);
+  }
+
+  /* Menu toggle: two hairlines that cross when the sheet is open. 44px touch target. */
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-card);
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .menu-toggle-lines {
+    position: relative;
+    width: 24px;
+    height: 8px;
+  }
+
+  .menu-toggle-lines::before,
+  .menu-toggle-lines::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--beam);
+    transition:
+      translate var(--dur-2) var(--ease-swap),
+      rotate var(--dur-2) var(--ease-swap);
+  }
+
+  .menu-toggle-lines::before {
+    top: 0;
+  }
+
+  .menu-toggle-lines::after {
+    bottom: 0;
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-toggle-lines::before {
+    translate: 0 3.5px;
+    rotate: 45deg;
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-toggle-lines::after {
+    translate: 0 -3.5px;
+    rotate: -45deg;
+  }
+
+  /* Mobile menu: a full-screen smoke sheet, links in h3, staggered in at 60ms each */
+  .menu-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background-color: var(--smoke);
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity var(--dur-2) var(--ease-swap),
+      visibility 0s var(--dur-2);
+  }
+
+  .menu-sheet[data-open="true"] {
+    visibility: visible;
+    opacity: 1;
+    transition:
+      opacity var(--dur-2) var(--ease-swap),
+      visibility 0s;
+  }
+
+  .menu-sheet[data-static="true"] {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+  }
+
+  .menu-sheet-item {
+    opacity: 0;
+    translate: 0 28px;
+  }
+
+  .menu-sheet[data-open="true"] .menu-sheet-item {
+    opacity: 1;
+    translate: 0 0;
+    transition:
+      opacity var(--dur-3) var(--ease-beam) calc(var(--i) * 60ms),
+      translate var(--dur-3) var(--ease-beam) calc(var(--i) * 60ms);
+  }
+
+  .menu-sheet-link {
+    display: block;
+    text-decoration: none;
+    transition: color var(--dur-2) var(--ease-beam);
+  }
+
+  .menu-sheet-link:is(:hover, [aria-current="page"]) {
+    color: var(--xenon);
+  }
+
+  /* ------------------------------------------------------------------- Footer */
+
+  .site-footer {
+    border-top: 1px solid var(--beam-12);
+    background-color: var(--night);
+  }
+
+  /* Nothing in the footer animates, hover included. MOTION.md 8 */
+  .site-footer *,
+  .site-footer *::before,
+  .site-footer *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Icon link: 20px icon in beam-54 inside a 44px touch target */
+  .icon-link {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-card);
+    color: var(--beam-54);
+    transition: color var(--dur-1) var(--ease-beam);
+  }
+
+  .icon-link:is(:hover, [data-preview~="hover"]) {
+    color: var(--xenon);
+  }
+}
+
+/* Styleguide only: the two glow tokens shown on a plain surface. DESIGN.md 2.4 */
+.glow-specimen-xenon {
+  box-shadow: var(--glow-xenon);
+}
+
+.glow-specimen-beam {
+  box-shadow: var(--glow-beam);
+}
+
+/* The styleguide can hold any element in its focus state */
+[data-preview~="focus"] {
+  outline: 2px solid var(--xenon);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------- Reduced motion */
+
+/*
+  MOTION.md 2. Nothing moves. State changes that are colour only still happen.
+  The marquee becomes a static wrapped list and its duplicate track is removed.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary:is(:hover, [data-preview~="hover"]) .btn-face {
+    scale: none;
+  }
+
+  .glass-card:is(:hover, [data-preview~="hover"]) {
+    translate: none;
+  }
+
+  .site-header[data-hidden="true"] {
+    translate: 0 0;
+  }
+
+  .site-header,
+  .menu-toggle-lines::before,
+  .menu-toggle-lines::after {
+    transition: none;
+  }
+
+  .menu-sheet,
+  .menu-sheet[data-open="true"] {
+    transition: none;
+  }
+
+  .menu-sheet-item,
+  .menu-sheet[data-open="true"] .menu-sheet-item {
+    translate: 0 0;
+    transition: opacity var(--dur-2) var(--ease-beam);
+  }
+
+  .text-link-label {
+    transition: none;
+  }
+
+  .marquee {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  .marquee-track {
+    flex-wrap: wrap;
+    min-width: 0;
+    justify-content: flex-start;
+    animation: none;
+  }
+
+  .marquee-track[aria-hidden="true"] {
+    display: none;
+  }
+}

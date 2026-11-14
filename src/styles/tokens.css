@@ -1,0 +1,128 @@
+/*
+  Lenz Rescue design tokens.
+
+  This is the only file in the repository allowed to hold a hex, rgb, rgba or hsl value.
+  Nothing here is chosen during the build. Every value is copied from docs/DESIGN.md
+  (sections 2 and 4) or docs/MOTION.md (sections 1 and 4).
+*/
+
+:root {
+  /* The six. DESIGN.md 2.1 */
+  --night:  #04100A;
+  --pine:   #07170F;
+  --smoke:  #13251C;
+  --beam:   #EAF6FF;
+  --xenon:  #7CC6F5;
+  --oxide:  #C8822F;
+
+  /* The seven opacity variants, all derived from beam. DESIGN.md 2.2 */
+  --beam-04: rgba(234, 246, 255, 0.04);  /* section band tint over night */
+  --beam-08: rgba(234, 246, 255, 0.08);  /* card fill over pine */
+  --beam-12: rgba(234, 246, 255, 0.12);  /* hairline borders, dividers, input borders */
+  --beam-24: rgba(234, 246, 255, 0.24);  /* disabled text, inactive icons */
+  --beam-54: rgba(234, 246, 255, 0.54);  /* captions, meta, eyebrow secondary */
+  --beam-62: rgba(234, 246, 255, 0.62);  /* body copy on dark. This is the default paragraph colour. */
+  --beam-80: rgba(234, 246, 255, 0.80);  /* lead paragraph, sub-headings */
+
+  /* Glow replaces shadow. Two values only. DESIGN.md 2.4 */
+  --glow-xenon: 0 0 64px -12px rgba(124, 198, 245, 0.45);
+  --glow-beam:  0 0 80px -16px rgba(234, 246, 255, 0.35);
+
+  /* Easing. MOTION.md 1 */
+  --ease-beam:  cubic-bezier(0.16, 1, 0.30, 1);    /* expo out. Reveals, entrances, the default. */
+  --ease-swap:  cubic-bezier(0.65, 0, 0.35, 1);    /* in-out. State changes, toggles, menu. */
+  --ease-snap:  cubic-bezier(0.34, 1.56, 0.64, 1); /* slight overshoot. Counters and the cursor only. */
+
+  /* Duration. MOTION.md 1 */
+  --dur-1: 160ms;   /* micro: cursor, icon colour */
+  --dur-2: 320ms;   /* standard: hover, link underline, header state */
+  --dur-3: 640ms;   /* reveal: a single element entering */
+  --dur-4: 1200ms;  /* set piece: hero lines, counters, the pinned process */
+
+  /* Space and grid. DESIGN.md 4 */
+  --section-y: clamp(96px, 12vw, 200px);  /* section vertical rhythm, top and bottom */
+  --gutter:    clamp(20px, 4vw, 56px);    /* page gutter */
+  --grid-max:  1440px;                    /* 12 column grid, max width */
+  --grid-gap:  24px;                      /* column gap */
+}
+
+/*
+  Tailwind v4 mapping. DESIGN.md 2.5
+
+  Every default scale is cleared first, so a class that is not in the design system
+  does not exist and produces no CSS. There is no default palette, no default radius,
+  no default type scale and no spacing multiplier.
+*/
+@theme {
+  /* Colour: the six, with the names given in DESIGN.md 2.5 */
+  --color-*: initial;
+  --color-night: var(--night);
+  --color-pine:  var(--pine);
+  --color-smoke: var(--smoke);
+  --color-beam:  var(--beam);
+  --color-xenon: var(--xenon);
+  --color-oxide: var(--oxide);
+
+  /* Colour: the seven beam variants from DESIGN.md 2.2, exposed under their own names */
+  --color-beam-04: var(--beam-04);
+  --color-beam-08: var(--beam-08);
+  --color-beam-12: var(--beam-12);
+  --color-beam-24: var(--beam-24);
+  --color-beam-54: var(--beam-54);
+  --color-beam-62: var(--beam-62);
+  --color-beam-80: var(--beam-80);
+
+  /* Spacing: the 4px scale from DESIGN.md 4. The number in the class is the pixel value. */
+  --spacing-*: initial;
+  --spacing-0: 0px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+  --spacing-160: 160px;
+  --spacing-200: 200px;
+
+  /* Radius: exactly three. DESIGN.md 4 */
+  --radius-*: initial;
+  --radius-chip: 2px;    /* chips and tags */
+  --radius-card: 10px;   /* cards, buttons, inputs and image frames */
+  --radius-pill: 999px;  /* pills and the cursor ring */
+
+  /* Aspect ratios: exactly four. DESIGN.md 5 */
+  --aspect-*: initial;
+  --aspect-hero: 16 / 9;      /* hero media */
+  --aspect-tile: 4 / 3;       /* gallery tiles */
+  --aspect-pair: 3 / 2;       /* comparison pairs */
+  --aspect-portrait: 4 / 5;   /* portrait of the owner */
+
+  /* Type belongs to src/styles/type.css. No utility may set size, weight, tracking or leading. */
+  --font-*: initial;
+  --text-*: initial;
+  --font-weight-*: initial;
+  --tracking-*: initial;
+  --leading-*: initial;
+  --default-font-family: var(--font-archivo), sans-serif;
+  --default-mono-font-family: var(--font-mono), monospace;
+
+  /* No shadows, no default easings, no default animations. Glow and motion come from the tokens above. */
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
+  --ease-*: initial;
+  --animate-*: initial;
+  --blur-*: initial;
+}
+
+/* The global clarity curve. MOTION.md 4 */
+@property --clarity {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
