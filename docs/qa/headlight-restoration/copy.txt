@@ -333,7 +333,7 @@
        "Open menu"
            supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
        "Menu"
-           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
        "Cross-section of a headlight: the reflector, the bulb and the lens, with the layers the four stages work on"
            supplied in build: name of the process figure, as aria-label, first at div.shell > figure.process-figure > svg.lens-figure
        "process-01.jpg"

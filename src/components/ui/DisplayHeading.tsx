@@ -22,7 +22,7 @@ type DisplayHeadingProps = {
 // a 0.09 stagger. The accent span gets one extra beat.
 //
 // The heading is held invisible by CSS until this component is ready, so it never shows
-// in its final state and then replays. That hold is capped at one second (see base.css).
+// in its final state and then replays. That hold is capped at 400ms (see base.css).
 // If script or fonts are slower than that, the heading is simply shown and the reveal is
 // skipped: content first, the animation only when it can start cleanly. It plays once.
 // After a route change it waits out the 200ms in which nothing animates. MOTION.md 8

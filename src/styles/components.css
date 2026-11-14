@@ -532,8 +532,9 @@
   /* --------------------------------------------------------------------- Hero */
 
   /*
-    The beam is a tall, hot ellipse. Wherever it sits, light type over it cannot be read,
-    so the layout keeps the copy clear of where the beam rests (uMouse 0.5, 0.62).
+    The beam is a hot, flat ellipse. Wherever it sits, light type over it cannot be read,
+    so the layout keeps the copy clear of where the beam rests (uMouse 0.5, 0.62), and
+    the beam does not follow the pointer onto the copy (see HeroBackdrop).
 
     Narrow and portrait screens: the first viewport is the beam, with the heading at its
     foot. The pitch and the stats follow on the night ground below it.
@@ -569,6 +570,12 @@
 
   .hero-canvas[data-painted="true"] {
     opacity: 1;
+  }
+
+  .beam-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .hero-layout {

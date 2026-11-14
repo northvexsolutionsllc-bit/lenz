@@ -9,6 +9,7 @@ import { StepRow } from "@/components/ui/StepRow";
 import { process } from "@/content/home";
 import { cx } from "@/lib/cx";
 import { DUR, EASE } from "@/lib/gsap";
+import { whenIdle } from "@/lib/idle";
 import { afterQuiet } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useReveal } from "@/lib/useReveal";
@@ -45,6 +46,11 @@ type ProcessProps = {
 // Without script, and under reduced motion, there is no pin and no timeline. The figure
 // shows the finished lens and all four stages read as a plain list. Under reduced motion
 // the scrub is replaced by a single fade over dur-2, played once. MOTION.md 2
+//
+// The pin is built in an idle moment after the page becomes interactive, not during it.
+// Building it moves everything below this section down by three viewports. So it goes
+// to the front of the idle queue, ahead of the reveals of the other sections, and they
+// measure a page that already has the pin in it.
 export function Process({ band = false, variant = "pinned", after }: ProcessProps) {
   const titleId = useId();
   const reduced = useReducedMotion();
@@ -78,34 +84,53 @@ export function Process({ band = false, variant = "pinned", after }: ProcessProp
         );
       }
 
-      // Start from the lens as it arrives: oxidized, scratched, dark
-      gsap.set("#layer-oxidation", { opacity: 1 });
-      gsap.set("#layer-scratches", { strokeDashoffset: SCRATCH_LENGTH });
-      gsap.set("#layer-coating", { strokeDasharray: (i, el) => (el as SVGPathElement).getTotalLength() });
-      gsap.set("#lens-glow", { opacity: 0 });
-      setAnimated(true);
+      if (!contextSafe) return;
 
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: "#process", start: "top top", end: "+=300%", pin: true, scrub: 0.8 },
+      const build = contextSafe(() => {
+        // The stage takes its pinned layout now, ahead of the render that follows the
+        // state change below, so that everything built here measures it as it will be
+        if (ref.current) ref.current.dataset.mode = "animated";
+
+        // Start from the lens as it arrives: oxidized, scratched, dark
+        gsap.set("#layer-oxidation", { opacity: 1 });
+        gsap.set("#layer-scratches", { strokeDashoffset: SCRATCH_LENGTH });
+        gsap.set("#layer-coating", { strokeDasharray: (i, el) => (el as SVGPathElement).getTotalLength() });
+        gsap.set("#lens-glow", { opacity: 0 });
+        setAnimated(true);
+
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: "#process", start: "top top", end: "+=300%", pin: true, scrub: 0.8 },
+        });
+
+        tl.to("#layer-oxidation", { opacity: 0, duration: 1 })
+          .to("#layer-scratches", { strokeDashoffset: 0, duration: 1 }, "<0.3")
+          .fromTo("#layer-polish", { xPercent: -120, opacity: 0 }, { xPercent: 120, opacity: 1, duration: 1.2 })
+          .fromTo("#layer-coating", { strokeDashoffset: (i, el) => (el as SVGPathElement).getTotalLength() },
+                  { strokeDashoffset: 0, duration: 1.2 }, "<0.2")
+          .to("#lens-glow", { opacity: 1, duration: 0.8 }, "<0.6");
+
+        // The copy follows the playhead, and only dims while the stage is actually pinned
+        tl.eventCallback("onUpdate", () => setStage(stageAt(tl.time())));
+        ScrollTrigger.create({
+          trigger: "#process",
+          start: "top top",
+          end: "+=300%",
+          onToggle: (self) => setPinned(self.isActive),
+        });
+
+        // Measure and pin now, not on the next tick, so that what is built after this
+        // already sees the three viewports the pin adds
+        tl.scrollTrigger?.refresh();
       });
 
-      tl.to("#layer-oxidation", { opacity: 0, duration: 1 })
-        .to("#layer-scratches", { strokeDashoffset: 0, duration: 1 }, "<0.3")
-        .fromTo("#layer-polish", { xPercent: -120, opacity: 0 }, { xPercent: 120, opacity: 1, duration: 1.2 })
-        .fromTo("#layer-coating", { strokeDashoffset: (i, el) => (el as SVGPathElement).getTotalLength() },
-                { strokeDashoffset: 0, duration: 1.2 }, "<0.2")
-        .to("#lens-glow", { opacity: 1, duration: 0.8 }, "<0.6");
-
-      // The copy follows the playhead, and only dims while the stage is actually pinned
-      tl.eventCallback("onUpdate", () => setStage(stageAt(tl.time())));
-      ScrollTrigger.create({
-        trigger: "#process",
-        start: "top top",
-        end: "+=300%",
-        onToggle: (self) => setPinned(self.isActive),
+      let cancelIdle: (() => void) | undefined;
+      const cancelQuiet = afterQuiet(() => {
+        cancelIdle = whenIdle(build, true);
       });
 
       return () => {
+        cancelQuiet();
+        cancelIdle?.();
         setAnimated(false);
         setPinned(false);
         setStage(0);
@@ -119,6 +144,7 @@ export function Process({ band = false, variant = "pinned", after }: ProcessProp
       ref={ref}
       className={cx("process", band && "section-band")}
       aria-labelledby={titleId}
+      data-reveal-root=""
       data-mode={animated ? "animated" : "static"}
       data-pinned={pinned}
     >

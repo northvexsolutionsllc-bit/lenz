@@ -1,0 +1,16 @@
+Home route, phone screen, slow 4G and 4x CPU slowdown
+
+  Metric                             Budget           Measured                    
+  LCP, mobile, throttled 4G          under 2.5s       0.76s (0.78, 0.72, 0.76)     within budget
+      the LCP element is span "back to the road."
+  CLS                                under 0.02       0.015 at worst, whole page scrolled within budget
+  INP                                under 200ms      96ms, slowest of 6 interactions on a page at rest within budget
+      at 4x CPU slowdown: open the menu 96ms, close the menu 88ms, tap the comparison slider 56ms, arrow key on the slider 32ms, tab to the next control 48ms, tap the scroll cue 48ms
+      The same tap landing 300ms after a scroll, while the page is still settling: 96ms at the median, 104ms at worst, over 8 tries.
+  Total JS, gzipped, home route      under 230KB      224.4KB in 14 files          within budget
+  Beam frame time, mid phone         under 8ms        5.1ms to draw a frame        within budget
+      canvas 224x447, at 4x CPU slowdown. Frames arrive 16.7ms apart.
+      The whole frame, with everything else on screen, takes 6.4ms of main thread here. This machine has no GPU,
+      so the browser also composites the page on the processor. A phone does that on its GPU.
+
+PASS: every measured row is within budget.

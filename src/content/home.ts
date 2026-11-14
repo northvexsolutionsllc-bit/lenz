@@ -154,7 +154,7 @@ export const pricing = {
   },
 } as const;
 
-// 3.9 Guarantee. The terms themselves are a TODO(owner): see the note.
+// 3.9 Guarantee. The terms themselves are still owed by the owner. The note says what is needed.
 export const guarantee = {
   eyebrow: "THE GUARANTEE",
   title: { plain: "Three years.", accent: "In writing." },

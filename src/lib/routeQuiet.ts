@@ -3,7 +3,7 @@
 // Entrances do not start themselves. They hand their start to afterQuiet(). On a first
 // load the gate is open and they start at once. When a navigation begins the gate closes.
 // It stays closed until 200ms after the new route is on screen, and then everything that
-// asked in the meantime starts together. The page transition panel and the hero shader
+// asked in the meantime starts together. The page transition panel and the hero beam
 // are the two things MOTION.md 5.7 asks to run through that window.
 
 const QUIET = 200; // ms. MOTION.md 8
@@ -40,11 +40,6 @@ export function routeChanged() {
   if (!closed) return;
   window.clearTimeout(timer);
   timer = window.setTimeout(open, QUIET);
-}
-
-/** True while entrances are being held. */
-export function isQuiet(): boolean {
-  return closed;
 }
 
 /** True once the visitor has moved between routes without a page load. */

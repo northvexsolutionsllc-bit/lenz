@@ -31,8 +31,9 @@ void main(){
   h = smoothstep(0.25, 0.95, h);
 
   // the beam. squashed vertically so it reads as a lamp, not a dot
+  // (a divide: multiplying the distance stretches the beam instead. DECISIONS.md 16)
   vec2 d = p - m;
-  d.y *= 0.62;
+  d.y /= 0.62;
   float dist = length(d);
   float core = exp(-dist * dist * 26.0);
   float halo = exp(-dist * dist *  5.0);

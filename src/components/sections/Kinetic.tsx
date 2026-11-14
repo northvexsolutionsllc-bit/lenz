@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { kinetic } from "@/content/home";
 import { DUR, EASE } from "@/lib/gsap";
+import { whenIdle } from "@/lib/idle";
 import { afterQuiet } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
@@ -43,13 +44,20 @@ export function Kinetic() {
         );
       }
 
-      gsap.fromTo(".kinetic",
-        { fontVariationSettings: '"wght" 700, "wdth" 62' },
-        {
-          fontVariationSettings: '"wght" 700, "wdth" 118',
-          ease: "none", // scrub-eased
-          scrollTrigger: { trigger: ".kinetic", start: "top 85%", end: "bottom 35%", scrub: 0.5 },
-        }
+      if (!contextSafe) return;
+
+      // Set up in an idle moment, not while the page is becoming interactive
+      return whenIdle(
+        contextSafe(() => {
+          gsap.fromTo(".kinetic",
+            { fontVariationSettings: '"wght" 700, "wdth" 62' },
+            {
+              fontVariationSettings: '"wght" 700, "wdth" 118',
+              ease: "none", // scrub-eased
+              scrollTrigger: { trigger: ".kinetic", start: "top 85%", end: "bottom 35%", scrub: 0.5 },
+            }
+          );
+        }),
       );
     },
     { dependencies: [reduced], scope: ref, revertOnUpdate: true },

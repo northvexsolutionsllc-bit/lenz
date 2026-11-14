@@ -2,7 +2,9 @@
 
 The website for Lenz Rescue, mobile headlight restoration in Antioch, Brentwood, Pittsburg and Oakley, California.
 
-Built with Next.js (App Router), TypeScript, Tailwind CSS v4, GSAP, Lenis and three.js.
+Built with Next.js (App Router), TypeScript, Tailwind CSS v4, GSAP and Lenis.
+
+To run it, change a price, add a photo or add a location page, read `docs/HANDOVER.md`.
 
 ## The specification
 
@@ -16,6 +18,7 @@ Everything about this site is specified in `docs/`. Read these before changing a
 | `docs/DECISIONS.md` | Why things are the way they are. |
 | `docs/AUDIT.md` | The old site, as found, and what the rebuild has to prove. |
 | `docs/PROMPTS.md` | The staged build plan. |
+| `docs/HANDOVER.md` | How to run it and how to change it, and what is still waiting on the owner. |
 
 Three rules hold everywhere:
 
@@ -31,13 +34,18 @@ npm run dev            # development server on http://localhost:3000
 npm run build          # production build
 npm run start          # serve the production build
 npm run lint           # ESLint
-npm run audit:design   # checks the whole repo against the ban list in DESIGN.md section 7
-npm run shots -- /styleguide   # QA screenshots, saved to docs/qa/<route>/
+npm run audit:design   # the ban list in DESIGN.md section 7, and unused dependencies
+npm run audit:copy     # every word on every route against CONTENT.md
+npm run audit:seo      # sitemap, structured data, metadata, alt text, location pages
+npm run audit:a11y     # axe, a keyboard walk and contrast on every route, and the hero measured
+npm run audit:perf     # the budget in MOTION.md section 9, on the home route
+npm run audit:owner    # every placeholder and TODO still waiting on the owner
+npm run shots          # QA screenshots of every route, saved to docs/qa/<route>/
 ```
 
 `dev`, `build` and `lint` first run `npm run generate`, which writes a few files derived from the source (see `scripts/generate.ts`). Those files are not committed.
 
-`npm run shots` needs a production build and a Chromium for Playwright (`npx playwright install chromium`). Add `--full` to also save each page top to bottom.
+Every audit except `audit:design` reads the production build in a browser, so run `npm run build` first. They need a Chromium for Playwright (`npx playwright install chromium`). `npm run shots -- /gallery --full` captures one route and also saves the page top to bottom.
 
 ## Where things live
 
@@ -47,6 +55,7 @@ npm run shots -- /styleguide   # QA screenshots, saved to docs/qa/<route>/
 | `src/styles/type.css` | The type scale, one class per style. |
 | `src/styles/components.css` | Component states and transitions. |
 | `src/components/ui` | The component set from DESIGN.md section 6. |
+| `src/components/sections` | The page sections, each built from the component set. |
 | `src/content` | Copy and data, taken from CONTENT.md. |
 | `src/app/styleguide` | Every token, type style and component on one page. Not indexed. |
 | `public/media` | Client supplied media, under the exact filenames in DESIGN.md section 5. |

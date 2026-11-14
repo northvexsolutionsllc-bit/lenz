@@ -116,13 +116,14 @@ body::after {
   final state first. The attribute data-js is set by an inline script in the document
   head, so none of this applies when JavaScript is disabled.
 
-  The hold is capped at one second. If script has not arrived by then, the failsafe
-  animation shows the content as it is and the component skips its entrance. Content is
-  never kept waiting for an animation.
+  The hold is capped at 400ms. If script has not arrived by then, the failsafe animation
+  shows the content as it is and the component skips its entrance. Content is never kept
+  waiting for an animation, and on a slow connection the page heading is on screen well
+  before the script is.
 */
 html[data-js] :is([data-split], [data-counter-live]):not([data-ready]) {
   visibility: hidden;
-  animation: js-failsafe 0s 1s forwards;
+  animation: js-failsafe 0s 400ms forwards;
 }
 
 @keyframes js-failsafe {
@@ -158,12 +159,21 @@ html[data-js] :is([data-split], [data-counter-live]):not([data-ready]) {
 }
 
 /*
-  MOTION.md 8: nothing animates in the first 200ms after a route change. A section that
-  mounts inside that window holds its reveal targets hidden until its reveal is set up
-  (see useReveal). Without script the attribute is never there.
+  Reveal targets wait, hidden, until their section's reveal has been set up, so they never
+  show in their final state and then replay. Set-up happens in an idle moment after the
+  page becomes interactive, and after the 200ms that follow a route change (MOTION.md 8).
+  Like the hold above, this one is capped at 400ms: if script has not set the section up
+  by then, its content is simply shown. Without script it never applies.
 */
-[data-reveal-wait] [data-reveal] {
+html[data-js] [data-reveal-root]:not([data-reveal-ready]) [data-reveal] {
   opacity: 0;
+  animation: js-failsafe-fade 0s 400ms forwards;
+}
+
+@keyframes js-failsafe-fade {
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes plain-fade {

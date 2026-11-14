@@ -147,4 +147,18 @@
   note  on all four by design: "Text photos of both headlights and you will have a price back today." (the final call to action, CONTENT.md 3.12)
   note  on all four by design: "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area" (the service area line, CONTENT.md 2)
 
+6. Whole with script off
+  ok    /: 11 sections, each in its place and laid out, no text held back
+  ok    /headlight-restoration: 10 sections, each in its place and laid out, no text held back
+  ok    /fog-light-restoration: 5 sections, each in its place and laid out, no text held back
+  ok    /dealer-and-auction: 4 sections, each in its place and laid out, no text held back
+  ok    /gallery: 3 sections, each in its place and laid out, no text held back
+  ok    /vehicle-guide: 3 sections, each in its place and laid out, no text held back
+  ok    /about: 3 sections, each in its place and laid out, no text held back
+  ok    /contact: 2 sections, each in its place and laid out, no text held back
+  ok    /headlight-restoration-antioch-ca: 4 sections, each in its place and laid out, no text held back
+  ok    /headlight-restoration-brentwood-ca: 4 sections, each in its place and laid out, no text held back
+  ok    /headlight-restoration-pittsburg-ca: 4 sections, each in its place and laid out, no text held back
+  ok    /headlight-restoration-oakley-ca: 4 sections, each in its place and laid out, no text held back
+
 PASS: nothing failed.

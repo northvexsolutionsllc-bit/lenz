@@ -15,26 +15,26 @@
     "audit:design": "tsx scripts/audit.ts",
     "audit:copy": "tsx scripts/copy.ts",
     "audit:seo": "tsx scripts/seo.ts",
+    "audit:a11y": "tsx scripts/a11y.ts",
+    "audit:perf": "tsx scripts/perf.ts",
+    "audit:owner": "tsx scripts/owner.ts",
     "shots": "tsx scripts/shots.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@react-three/drei": "^10.7.9",
-    "@react-three/fiber": "^9.8.2",
     "gsap": "^3.15.1",
     "lenis": "^1.3.27",
     "next": "16.4.6",
     "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "three": "^0.187.0"
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.65.1",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/three": "^0.187.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "schema-dts": "^2.1.0",

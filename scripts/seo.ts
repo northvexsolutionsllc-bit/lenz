@@ -8,6 +8,8 @@
 //   4. Every image has descriptive alt text, and no two different images share one.
 //   5. No two location pages share a paragraph, and no opening is another city's opening
 //      with the name swapped.
+//   6. Every route is whole with script off: every section is in its place and laid out,
+//      and no text is held back waiting for script.
 //
 //   npm run audit:seo
 //   npm run audit:seo -- --out=docs/qa       also save the report as docs/qa/seo.txt
@@ -220,6 +222,8 @@ type PageFacts = {
   jsonLd: string[];
   images: Array<{ src: string; alt: string | null }>;
   paragraphs: string[];
+  /** How the page stands with script off */
+  whole: { sections: number; streamed: number; adrift: number; flat: number; hidden: string[] };
   html: string;
 };
 
@@ -247,6 +251,37 @@ async function readPage(page: Page, base: string, route: string): Promise<PageFa
         copy.querySelectorAll(".todo-chip, .sr-only").forEach((el) => el.remove());
         return (copy.textContent ?? "").replace(/\s+/g, " ").trim();
       }),
+      whole: (() => {
+        const sections = [...document.querySelectorAll("section")];
+        // Text in the page that cannot be seen: not rendered, not visible, or faded out
+        const hidden: string[] = [];
+        const main = document.querySelector("main");
+        const walker = document.createTreeWalker(main ?? document.body, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+          const text = walker.currentNode.nodeValue?.replace(/\s+/g, " ").trim();
+          const parent = walker.currentNode.parentElement;
+          if (!text || !parent) continue;
+          // Helpers that are never meant to be seen
+          if (parent.closest(".sr-only, .counter-ghost, script, style, template, noscript")) continue;
+          let opacity = 1;
+          let shown = true;
+          for (let el: Element | null = parent; el; el = el.parentElement) {
+            const style = getComputedStyle(el);
+            opacity *= Number(style.opacity);
+            if (style.visibility !== "visible" || style.display === "none") shown = false;
+          }
+          if (!shown || opacity < 0.99) hidden.push(text.slice(0, 60));
+        }
+        return {
+          sections: sections.length,
+          // React sends a late part of a page outside its place, hidden, for script to
+          // move in. With script off it stays hidden for good.
+          streamed: document.querySelectorAll('template[id^="B:"], div[hidden][id^="S:"]').length,
+          adrift: sections.filter((section) => !section.closest("main")).length,
+          flat: sections.filter((section) => section.getClientRects().length === 0).length,
+          hidden,
+        };
+      })(),
       html: document.documentElement.outerHTML,
     };
   });
@@ -495,6 +530,20 @@ async function main() {
     if (clashes === 0) pass("no two location pages share a paragraph, and none is another's with the city swapped");
     const common = Object.entries(SHARED_BY_DESIGN).filter(([text]) => [...paragraphs.values()].every((list) => list.includes(text)));
     common.forEach(([text, source]) => note(`on all four by design: "${text}" (${source})`));
+
+    // ------------------------------------------------------------------ 6. whole without script
+    say();
+    say("6. Whole with script off");
+    for (const [route, fact] of facts) {
+      const { sections, streamed, adrift, flat, hidden } = fact.whole;
+      const problems: string[] = [];
+      if (streamed > 0) problems.push(`${streamed} parts are sent hidden, for script to put in place`);
+      if (adrift > 0) problems.push(`${adrift} of ${sections} sections are outside the page body`);
+      if (flat > 0) problems.push(`${flat} of ${sections} sections are not laid out`);
+      if (hidden.length > 0) problems.push(`${hidden.length} pieces of text cannot be seen, the first being "${hidden[0]}"`);
+      if (problems.length > 0) fail(`${route}: ${problems.join(". ")}`);
+      else pass(`${route}: ${sections} sections, each in its place and laid out, no text held back`);
+    }
 
     await context.close();
   } finally {

@@ -106,7 +106,7 @@
        "Open menu"
            supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
        "Menu"
-           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
        "Name"
            supplied in build: contact form field. CONTENT.md lists no fields for this form., first at form.form > label.field > span.caps
        "Vehicle"

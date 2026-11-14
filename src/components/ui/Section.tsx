@@ -20,7 +20,13 @@ export function Section({ children, id, band = false, labelledBy, className }: S
   const ref = useReveal<HTMLElement>();
 
   return (
-    <section ref={ref} id={id} aria-labelledby={labelledBy} className={cx("section", band && "section-band", className)}>
+    <section
+      ref={ref}
+      id={id}
+      aria-labelledby={labelledBy}
+      className={cx("section", band && "section-band", className)}
+      data-reveal-root=""
+    >
       {children}
     </section>
   );

@@ -5,7 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { DUR, EASE } from "@/lib/gsap";
-import { afterQuiet, isQuiet } from "@/lib/routeQuiet";
+import { whenIdle } from "@/lib/idle";
+import { afterQuiet } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -18,9 +19,13 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 // Under reduced motion nothing moves: the same elements take a single fade over dur-2.
 // A section that has already revealed does not replay when its route is shown again.
 //
-// Nothing animates in the first 200ms after a route change (MOTION.md 8). A section that
-// mounts inside that window keeps its targets hidden, by data-reveal-wait, and sets its
-// reveal up the moment the window closes.
+// The element this is attached to carries data-reveal-root. Until its reveal is set up,
+// CSS holds its targets hidden (see base.css), so they never show and then replay. The
+// set-up itself is not done while the page is becoming interactive: it waits for an idle
+// moment, and for the 200ms after a route change in which nothing animates (MOTION.md 8).
+// If that wait outlasts the 400ms the hold lasts, and the section is already on
+// screen, the reveal is skipped. Content first, the animation only when it can start
+// cleanly.
 export function useReveal<T extends HTMLElement>() {
   const ref = useRef<T>(null);
   const reduced = useReducedMotion();
@@ -29,17 +34,28 @@ export function useReveal<T extends HTMLElement>() {
   useGSAP(
     (_context, contextSafe) => {
       const el = ref.current;
-      if (!el || !contextSafe || revealed.current) return;
+      if (!el || !contextSafe) return;
 
       const targets = el.querySelectorAll("[data-reveal]");
-      if (targets.length === 0) return;
+      if (revealed.current || targets.length === 0) {
+        el.setAttribute("data-reveal-ready", "");
+        return () => el.removeAttribute("data-reveal-ready");
+      }
 
       const done = () => {
         revealed.current = true;
       };
 
       const create = contextSafe(() => {
-        el.removeAttribute("data-reveal-wait");
+        const alreadyShown = getComputedStyle(targets[0]).opacity !== "0";
+        const box = el.getBoundingClientRect();
+        const onScreen = box.top < window.innerHeight && box.bottom > 0;
+        el.setAttribute("data-reveal-ready", "");
+
+        if (alreadyShown && onScreen) {
+          done();
+          return;
+        }
 
         if (reduced) {
           gsap.from(targets, {
@@ -63,12 +79,15 @@ export function useReveal<T extends HTMLElement>() {
         });
       });
 
-      if (isQuiet()) el.setAttribute("data-reveal-wait", "");
-      const cancel = afterQuiet(create);
+      let cancelIdle: (() => void) | undefined;
+      const cancelQuiet = afterQuiet(() => {
+        cancelIdle = whenIdle(create);
+      });
 
       return () => {
-        cancel();
-        el.removeAttribute("data-reveal-wait");
+        cancelQuiet();
+        cancelIdle?.();
+        el.removeAttribute("data-reveal-ready");
       };
     },
     { dependencies: [reduced], scope: ref, revertOnUpdate: true },

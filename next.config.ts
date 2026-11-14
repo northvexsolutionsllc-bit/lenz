@@ -26,10 +26,6 @@ const nextConfig: NextConfig = {
         loaders: ["@tailwindcss/turbopack"],
         as: "*.css",
       },
-      // GLSL sources are imported as plain strings
-      "*.frag": {
-        type: "text",
-      },
     },
   },
 };

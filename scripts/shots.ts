@@ -1,9 +1,10 @@
 // QA screenshots.
 //
+//   npm run shots                        every route, and the styleguide
 //   npm run shots -- /styleguide
 //   npm run shots -- / /gallery --full
 //
-// For every route given it captures 1440x900 and 390x844, plus a prefers-reduced-motion
+// For every route it captures 1440x900 and 390x844, plus a prefers-reduced-motion
 // version of each, and saves them to docs/qa/<route>/.
 //
 // Options
@@ -18,6 +19,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { chromium, type Browser } from "@playwright/test";
+import { routes } from "../src/content/routes";
 import { startServer } from "./server";
 
 const VIEWPORTS = [
@@ -51,7 +53,8 @@ function parseArgs(argv: string[]): Options {
     else if (arg.startsWith("/")) options.routes.push(arg);
     else throw new Error(`Unknown argument: ${arg}`);
   }
-  if (options.routes.length === 0) throw new Error("Give at least one route, for example: npm run shots -- /styleguide");
+  // No route named: the whole site, in sitemap order, then the styleguide
+  if (options.routes.length === 0) options.routes = [...routes.map((route) => route.path), "/styleguide"];
   return options;
 }
 
@@ -119,11 +122,7 @@ async function main() {
   const options = parseArgs(process.argv.slice(2));
   const server = options.base ? { base: options.base, stop: () => undefined } : await startServer();
 
-  const browser = await chromium.launch({
-    executablePath: process.env.CHROMIUM_PATH || undefined,
-    // Software WebGL, so the hero shader renders in headless captures
-    args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"],
-  });
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 
   try {
     for (const route of options.routes) {

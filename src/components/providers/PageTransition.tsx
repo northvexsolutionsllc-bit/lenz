@@ -90,7 +90,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
         return;
       }
 
-      // MOTION.md 5.7: by the time the panel lifts, the home page's shader is already warm
+      // MOTION.md 5.7: by the time the panel lifts, the home page's beam is already running
       if (target.pathname === "/") void import("@/components/hero/BeamCanvas");
 
       phase.current = "covering";

@@ -180,6 +180,15 @@ Full-viewport `<canvas>` behind the hero type, rendered with @react-three/fiber 
 plane with the shader in section 7. Above it, the H1 sits in normal DOM with `mix-blend-mode: plus-lighter`
 on a wrapper so the beam appears to light the letterforms.
 
+**As built.** three.js did not fit the budget in section 9, so the fallback named there is in force:
+the canvas is a 2D canvas, `src/components/hero/BeamCanvas.tsx`, drawing the same beam from the
+shader's own figures. Everything below in this section holds unchanged: the lerp, its value and the
+touch drift. See DECISIONS.md items 8 and 9.
+
+One thing is added. The beam follows the pointer over open ground and over the heading, and not
+onto the header, the pitch, the figures or the scroll cue: there it heads back to where it rests,
+because its centre washes out whatever is set over it. See DECISIONS.md item 17.
+
 Mouse is lerped, never applied raw:
 
 ```ts
@@ -344,6 +353,22 @@ Never autoplay the slider on a loop. A comparison that moves by itself cannot be
 fragment shader, no models, no loaders, no HDRIs, no post-processing passes. It costs about 14KB and
 renders at 60fps on a phone.
 
+**As built.** The shader is no longer run in the browser (DECISIONS.md item 9). It is kept as the
+definition of the look, and it is still used: `scripts/beam-still.ts` renders the hero poster, the
+share image and the haze layer from it at build time. The live beam is a 2D canvas that draws from
+the same figures, held in `src/components/hero/beam-model.ts`.
+
+One line of the shader below is not as this section first gave it. The squash was written
+`d.y *= 0.62`, which stretches the beam vertically instead of squashing it. It now reads
+`d.y /= 0.62`, which is what the comment above it describes. DECISIONS.md item 16 has the reason and
+the measurements.
+
+The guards at the end of this section carry over as follows: the pixel ratio is capped at 1.75, the
+loop is paused by an IntersectionObserver the moment the hero leaves the viewport, the 2,600,000
+pixel rule is kept and taken further (a 2D canvas is drawn by the processor, so it renders at about
+100,000 pixels and CSS upscales it), and the poster behind the canvas is one frame of this shader
+until the client's `hero-poster.jpg` arrives. The antialiasing setting has no equivalent.
+
 Uniforms: `uRes` (vec2, pixels), `uMouse` (vec2, 0 to 1, already lerped), `uTime` (float, seconds),
 `uProgress` (float, 0 hazy to 1 clear, driven by the hero's own ScrollTrigger scrub).
 
@@ -382,7 +407,7 @@ void main(){
 
   // the beam. squashed vertically so it reads as a lamp, not a dot
   vec2 d = p - m;
-  d.y *= 0.62;
+  d.y /= 0.62;
   float dist = length(d);
   float core = exp(-dist * dist * 26.0);
   float halo = exp(-dist * dist *  5.0);
@@ -451,3 +476,7 @@ Performance guards, all required:
 
 If three.js cannot fit the budget, the fallback is a `<canvas>` 2D radial-gradient beam, not a
 different 3D library. That decision is recorded in DECISIONS.md item 9.
+
+**As built.** three.js did not fit: the home route measured 459.9KB with it. The fallback has been
+applied and the home route measures 224.4KB. The numbers measured against every row of this table at
+handover are in HANDOVER.md section 10. `npm run audit:perf` measures the first five rows again.

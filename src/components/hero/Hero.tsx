@@ -8,13 +8,14 @@ import { SecondaryButton } from "@/components/ui/SecondaryButton";
 import { TodoChip } from "@/components/ui/TodoChip";
 import { hero } from "@/content/home";
 import { site } from "@/content/site";
+import { heroStill } from "@/generated/build";
 import { hasMedia, mediaSrc } from "@/lib/media";
 import { HeroBackdrop } from "./HeroBackdrop";
 
 // The client's night shot when it exists, otherwise one frame of the beam shader that
 // scripts/generate.ts renders at build time. DESIGN.md 5
 function posterSrc(): string {
-  return hasMedia("hero-poster.jpg") ? mediaSrc("hero-poster.jpg") : "/generated/hero-still.png";
+  return hasMedia("hero-poster.jpg") ? mediaSrc("hero-poster.jpg") : heroStill;
 }
 
 // The home hero. CONTENT.md 3.1, MOTION.md 5.1 and 5.2

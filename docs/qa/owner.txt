@@ -1,0 +1,138 @@
+Lenz Rescue: what is still waiting on the owner
+32 placeholder frames and 32 TODO chips on 12 routes. 18 media files not yet supplied. 4 notes that no page shows.
+
+1. Placeholder frames: the file each one is waiting for
+=======================================================
+
+/
+  Drag it. That is the same lens.: gallery-06.jpg, 4/3
+  Started after school. Run like a trade.: owner.jpg, 4/5
+
+/headlight-restoration
+  Four stages. In that order.: process-01.jpg, 3/2
+  Four stages. In that order.: process-02.jpg, 3/2
+  Four stages. In that order.: process-03.jpg, 3/2
+  Four stages. In that order.: process-04.jpg, 3/2
+  Drag it. That is the same lens.: gallery-06.jpg, 4/3
+
+/gallery
+  Drag it. That is the same lens.: before-02.jpg and after-02.jpg, 3/2
+  Drag it. That is the same lens.: before-06.jpg and after-06.jpg, 3/2
+  Drag it. That is the same lens.: gallery-06.jpg, 4/3
+  Drag it. That is the same lens.: gallery-07.jpg, 4/3
+  Drag it. That is the same lens.: gallery-08.jpg, 4/3
+  Drag it. That is the same lens.: gallery-09.jpg, 4/3
+  Drag it. That is the same lens.: gallery-10.jpg, 4/3
+  Drag it. That is the same lens.: gallery-11.jpg, 4/3
+  Drag it. That is the same lens.: gallery-12.jpg, 4/3
+
+/vehicle-guide
+  Restores well: guide-01.jpg, 4/3
+  Restores well: guide-02.jpg, 4/3
+  Restores well: guide-03.jpg, 4/3
+
+/about
+  Started after school. Run like a trade.: owner.jpg, 4/5
+
+/headlight-restoration-antioch-ca
+  Drag it. That is the same lens.: before-01.jpg .. -06.jpg and after-01.jpg .. -06.jpg, 3/2 (3 places)
+
+/headlight-restoration-brentwood-ca
+  Drag it. That is the same lens.: before-01.jpg .. -06.jpg and after-01.jpg .. -06.jpg, 3/2 (3 places)
+
+/headlight-restoration-pittsburg-ca
+  Drag it. That is the same lens.: before-01.jpg .. -06.jpg and after-01.jpg .. -06.jpg, 3/2 (3 places)
+
+/headlight-restoration-oakley-ca
+  Drag it. That is the same lens.: before-01.jpg .. -06.jpg and after-01.jpg .. -06.jpg, 3/2 (3 places)
+
+2. TODO chips: the fact each one is waiting for
+===============================================
+
+/
+  Bring clarity back to the road.: beside "TYPICAL VISIT". Owner note: likely: 45 to 60 minutes for a standard pair
+  A hazy lens is not only a looks problem.: beside "Replacement housings on a common SUV run several hundred dollars per side before labor. Re...". Owner note: likely: quote a real replacement price for one common local vehicle so this line has a number in it
+  Drag it. That is the same lens.: beside "Every pair here was restored on site, in one visit, with no parts replaced.". Owner note: the year, make, model and city for each of the existing five photos.
+  $125 and up, depending on the lens.: beside "Priced per vehicle". Owner note: likely: a flat add-on such as $40 per pair
+  Three years. In writing.: beside "If a lens we restored starts hazing inside the coverage period, we come back and touch it...". Owner note: the guarantee has no published terms anywhere. Needed before launch: what is covered, what voids it, whether it transfers with the vehicle, and whether it covers physical damage. likely: covers oxidation and coating failure only, does not cover cracks, impact damage or internal moisture, stays with the original customer.
+  Let's bring your headlights back to life.: beside "Antioch Brentwood Pittsburg Oakley Discovery Bay Bay Point". Owner note: confirm the last two are actually served
+
+/headlight-restoration
+  $125 and up, depending on the lens.: beside "Priced per vehicle". Owner note: likely: a flat add-on such as $40 per pair
+  Drag it. That is the same lens.: beside "Every pair here was restored on site, in one visit, with no parts replaced.". Owner note: the year, make, model and city for each of the existing five photos.
+  Three years. In writing.: beside "If a lens we restored starts hazing inside the coverage period, we come back and touch it...". Owner note: the guarantee has no published terms anywhere. Needed before launch: what is covered, what voids it, whether it transfers with the vehicle, and whether it covers physical damage. likely: covers oxidation and coating failure only, does not cover cracks, impact damage or internal moisture, stays with the original customer.
+  FAQ: beside "A standard pair takes about an hour.". Owner note: confirm
+  FAQ: beside "How do I pay?". Owner note: likely: cash, Venmo and card via Square, since both appear in the current footer
+  Let's bring your headlights back to life.: beside "Antioch Brentwood Pittsburg Oakley Discovery Bay Bay Point". Owner note: confirm the last two are actually served
+
+/fog-light-restoration
+  Added to a headlight booking.: Owner note: the add-on price
+  Three years. In writing.: beside "If a lens we restored starts hazing inside the coverage period, we come back and touch it...". Owner note: the guarantee has no published terms anywhere. Needed before launch: what is covered, what voids it, whether it transfers with the vehicle, and whether it covers physical damage. likely: covers oxidation and coating failure only, does not cover cracks, impact damage or internal moisture, stays with the original customer.
+  Let's bring your headlights back to life.: beside "Antioch Brentwood Pittsburg Oakley Discovery Bay Bay Point". Owner note: confirm the last two are actually served
+
+/dealer-and-auction
+  Volume pricing: Owner note: blocking for this page. Needed: per unit price at 5, 10 and 20+ units, minimum booking, and typical turnaround for a 20 car row.
+
+/vehicle-guide
+  Restores well: beside "Restores well Light to moderate yellowing. Smooth plastic with no pitting, no cracking and...". Owner note: three photos needed, one per tier.
+
+/about
+  Let's bring your headlights back to life.: beside "Antioch Brentwood Pittsburg Oakley Discovery Bay Bay Point". Owner note: confirm the last two are actually served
+
+/contact
+  Get your quote: beside "Hours". Owner note: likely: after school weekdays, with full availability Saturday and Sunday
+  Get your quote: beside "Antioch Brentwood Pittsburg Oakley Discovery Bay Bay Point". Owner note: confirm the last two are actually served
+
+/headlight-restoration-antioch-ca
+  Headlight restoration in Antioch.: beside "Antioch headlights take a beating from the commute. Highway 4 puts grit and road film on t...". Owner note: confirm the local detail in each opening line is accurate before publishing. A location page with a wrong neighbourhood name is worse than no location page.
+  Drag it. That is the same lens.: Owner note: the year, make, model and city for each of the existing five photos.
+  Let's bring your headlights back to life.: beside "Antioch Brentwood Pittsburg Oakley Discovery Bay Bay Point". Owner note: confirm the last two are actually served
+
+/headlight-restoration-brentwood-ca
+  Headlight restoration in Brentwood.: beside "Brentwood still has working farm roads, and the dust that comes off the vineyards and orch...". Owner note: confirm the local detail in each opening line is accurate before publishing. A location page with a wrong neighbourhood name is worse than no location page.
+  Drag it. That is the same lens.: Owner note: the year, make, model and city for each of the existing five photos.
+  Let's bring your headlights back to life.: beside "Antioch Brentwood Pittsburg Oakley Discovery Bay Bay Point". Owner note: confirm the last two are actually served
+
+/headlight-restoration-pittsburg-ca
+  Headlight restoration in Pittsburg.: beside "Pittsburg sits on the Delta, and the humidity and salt air that come off the water are har...". Owner note: confirm the local detail in each opening line is accurate before publishing. A location page with a wrong neighbourhood name is worse than no location page.
+  Drag it. That is the same lens.: Owner note: the year, make, model and city for each of the existing five photos.
+  Let's bring your headlights back to life.: beside "Antioch Brentwood Pittsburg Oakley Discovery Bay Bay Point". Owner note: confirm the last two are actually served
+
+/headlight-restoration-oakley-ca
+  Headlight restoration in Oakley.: beside "In Oakley the problem is mostly sun. Cars here sit outside through long Delta summers, and...". Owner note: confirm the local detail in each opening line is accurate before publishing. A location page with a wrong neighbourhood name is worse than no location page.
+  Drag it. That is the same lens.: Owner note: the year, make, model and city for each of the existing five photos.
+  Let's bring your headlights back to life.: beside "Antioch Brentwood Pittsburg Oakley Discovery Bay Bay Point". Owner note: confirm the last two are actually served
+
+3. Media files in DESIGN.md section 5 that have not been supplied
+=================================================================
+
+  public/media/hero-poster.jpg  16/9  night shot of a car front end, lights on  (no frame on any page: something else stands in for it)
+  public/media/before-02.jpg  3/2  yellowed lens, shot square on
+  public/media/before-06.jpg  3/2  yellowed lens, shot square on
+  public/media/after-02.jpg  3/2  same lens restored, same angle, same light
+  public/media/after-06.jpg  3/2  same lens restored, same angle, same light
+  public/media/gallery-06.jpg  4/3  finished work
+  public/media/gallery-07.jpg  4/3  finished work
+  public/media/gallery-08.jpg  4/3  finished work
+  public/media/gallery-09.jpg  4/3  finished work
+  public/media/gallery-10.jpg  4/3  finished work
+  public/media/gallery-11.jpg  4/3  finished work
+  public/media/gallery-12.jpg  4/3  finished work
+  public/media/owner.jpg  4/5  Adain, working, not posed
+  public/media/process-01.jpg  3/2  sanding, compounding, polishing, coating
+  public/media/process-02.jpg  3/2  sanding, compounding, polishing, coating
+  public/media/process-03.jpg  3/2  sanding, compounding, polishing, coating
+  public/media/process-04.jpg  3/2  sanding, compounding, polishing, coating
+  public/media/logo.svg  redrawn vector logo, see AUDIT.md 5  (no frame on any page: something else stands in for it)
+
+4. Owner notes in the content files that no page shows
+======================================================
+
+  src/content/home.ts:179
+      blocking for launch. The current site has a Google QR code and zero visible reviews. Needed: the Google Business Profile URL, the current star rating and review count, and at least three full review texts with first names and city.
+  src/content/area.ts:6
+      the service circle below is worked out from those four points, because nobody has stated a service radius. It is centred on their midpoint and reaches the furthest city centre plus a margin, so that it takes in the cities themselves and not only their centre points. Confirm the real radius, then set it here.
+  src/content/locations.ts:33
+      nobody has yet said where each existing pair was done, so these are empty and the page shows three open slots. See src/content/media.ts.
+  src/content/media.ts:7
+      year, make, model and city for every photo (CONTENT.md 11, item 7). Until they are supplied, alt text describes only what can be seen. Fill in the fields below and the full CONTENT.md patterns are used automatically.

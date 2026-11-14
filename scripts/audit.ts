@@ -6,6 +6,8 @@
 // It scans every file git knows about (tracked, plus untracked files that are not
 // ignored). The docs folder is the specification, quotes the banned things in order to
 // ban them, and is only checked for dashes. Exit code 1 if anything is found.
+//
+// It also reads package.json and reports any dependency that nothing uses.
 
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -249,10 +251,67 @@ function checkScript(file: string, source: string, lines: string[]) {
   }
 }
 
+// ---------------------------------------------------------------------------------------
+// Dependencies. Every package in package.json has to be used by something: imported or
+// named in a source or config file, run by an npm script, needed beside a package that is
+// used, or the types of one.
+
+const SELF = "scripts/audit.ts";
+
+function checkDependencies(files: string[]) {
+  const manifestSource = fs.readFileSync("package.json", "utf8");
+  const manifest = JSON.parse(manifestSource) as {
+    scripts?: Record<string, string>;
+    dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
+  };
+  const names = [...Object.keys(manifest.dependencies ?? {}), ...Object.keys(manifest.devDependencies ?? {})];
+
+  // This file names packages in order to check them, which is not a use of them
+  const sources = files
+    .filter((file) => file !== "package.json" && file !== SELF && !file.startsWith("docs/"))
+    .map((file) => fs.readFileSync(file, "utf8"))
+    .join("\n");
+  const escaped = (name: string) => name.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&");
+  const named = (name: string) => new RegExp(`["']${escaped(name)}(?:/[^"']*)?["']`).test(sources);
+  const commands = new Set(Object.values(manifest.scripts ?? {}).flatMap((command) => command.split(/\s+/)));
+
+  const used = new Set(names.filter((name) => named(name) || commands.has(name)));
+  // The compiler is used by the presence of its config, not by an import
+  if (fs.existsSync("tsconfig.json")) used.add(join("type", "script"));
+
+  // A package that a used package asks to have installed beside it
+  for (const name of [...used]) {
+    try {
+      const peers = JSON.parse(fs.readFileSync(`node_modules/${name}/package.json`, "utf8")).peerDependencies ?? {};
+      for (const peer of Object.keys(peers)) used.add(peer);
+    } catch {
+      // Not installed, so there is nothing to read
+    }
+  }
+
+  // Type packages follow the package they describe. Node's own are used by any node: import.
+  const prefix = join("@ty", "pes/");
+  for (const name of names) {
+    if (!name.startsWith(prefix)) continue;
+    const target = name.slice(prefix.length).replace("__", "/");
+    if (target === "node" ? /from "node:/.test(sources) : used.has(target) || used.has(`@${target}`)) used.add(name);
+  }
+
+  const lines = manifestSource.split("\n");
+  for (const name of names) {
+    if (used.has(name)) continue;
+    report("unused dependency", "package.json", lines.findIndex((text) => text.includes(`"${name}":`)) + 1, name);
+  }
+}
+
 function main() {
   const tokens = readTokens();
+  const files = listFiles();
 
-  for (const file of listFiles()) {
+  checkDependencies(files);
+
+  for (const file of files) {
     const source = fs.readFileSync(file, "utf8");
     const lines = source.split("\n");
     const isDocs = file.startsWith("docs/");

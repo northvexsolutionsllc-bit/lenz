@@ -1,10 +1,22 @@
-// A CPU port of src/components/hero/beam.frag, used to render one still frame of the
-// hero shader at build time. It follows the GLSL line for line. The four colours are not
-// repeated here: they are read from the constants in the shader file itself, so the
-// still can never drift from the shader.
+// A CPU port of src/components/hero/beam.frag, used to render still frames of the hero
+// beam at build time. It follows the GLSL line for line. The four colours are not
+// repeated here: they are read from the constants in the shader file itself. The beam's
+// own figures come from beam-model.ts, the same file the browser's canvas draws from, so
+// the poster and the live beam cannot drift apart.
 
 import fs from "node:fs";
 import path from "node:path";
+import {
+  beamAt,
+  clarityAt,
+  CLEAR_MIX,
+  COOL_MIX,
+  HAZE_MIX,
+  hazeAt,
+  LIGHT_GAIN,
+  SQUASH,
+  vignetteAt,
+} from "../src/components/hero/beam-model";
 
 type Vec3 = [number, number, number];
 
@@ -19,6 +31,11 @@ export type BeamFrame = {
   progress: number;
   /** Include the per-pixel grain term. Left out for the poster so it compresses well. */
   grain: boolean;
+  /**
+   * "haze" renders the haze alone: no beam, no clearing and no vignette. It is the
+   * layer the browser's canvas starts from. Defaults to the whole frame.
+   */
+  layer?: "frame" | "haze";
 };
 
 function readShaderColours(): Record<"NIGHT" | "OXIDE" | "XENON" | "BEAMW", Vec3> {
@@ -36,11 +53,6 @@ const fract = (x: number) => x - Math.floor(x);
 const clamp = (x: number, lo: number, hi: number) => Math.min(Math.max(x, lo), hi);
 const mix = (a: number, b: number, t: number) => a * (1 - t) + b * t;
 const mix3 = (a: Vec3, b: Vec3, t: number): Vec3 => [mix(a[0], b[0], t), mix(a[1], b[1], t), mix(a[2], b[2], t)];
-const smoothstep = (e0: number, e1: number, x: number) => {
-  const t = clamp((x - e0) / (e1 - e0), 0, 1);
-  return t * t * (3 - 2 * t);
-};
-
 const hash = (x: number, y: number) => fract(Math.sin(x * 127.1 + y * 311.7) * 43758.5453123);
 
 function noise(x: number, y: number): number {
@@ -63,9 +75,10 @@ function fbm(x: number, y: number): number {
 
 /** Renders one frame. Returns 8-bit RGB rows, top to bottom. */
 export function renderBeam(frame: BeamFrame): Uint8Array {
-  const { width, height, mouse, time, progress, grain } = frame;
+  const { width, height, mouse, time, progress, grain, layer = "frame" } = frame;
   const { NIGHT, OXIDE, XENON, BEAMW } = readShaderColours();
-  const coolWhite = mix3(XENON, BEAMW, 0.65);
+  const coolWhite = mix3(XENON, BEAMW, COOL_MIX);
+  const hazeOnly = layer === "haze";
   const aspect = width / height;
   const out = new Uint8Array(width * height * 3);
 
@@ -88,30 +101,26 @@ export function renderBeam(frame: BeamFrame): Uint8Array {
       const mx = mouse[0] * aspect, my = mouse[1];
 
       // drifting haze, the oxidised lens
-      let h = fbm(px * 2.4 + time * 0.02, py * 2.4 + time * 0.013);
-      h = smoothstep(0.25, 0.95, h);
+      const h = hazeAt(fbm(px * 2.4 + time * 0.02, py * 2.4 + time * 0.013));
 
       // the beam
       const dx = px - mx;
-      const dy = (py - my) * 0.62;
-      const dist2 = dx * dx + dy * dy;
-      const core = Math.exp(-dist2 * 26);
-      const halo = Math.exp(-dist2 * 5);
-      const beam = core * 0.9 + halo * 0.45;
+      const dy = (py - my) / SQUASH;
+      const beam = hazeOnly ? 0 : beamAt(dx * dx + dy * dy);
 
       // clarity burns off inside the beam and as the hero scrolls away
-      const clarity = clamp(beam * 1.6 + progress, 0, 1);
+      const clarity = hazeOnly ? 0 : clarityAt(beam, progress);
 
-      const haze = mix3(NIGHT, OXIDE, h * 0.3);
-      const col = mix3(haze, NIGHT, clarity * 0.55);
+      const haze = mix3(NIGHT, OXIDE, h * HAZE_MIX);
+      const col = mix3(haze, NIGHT, clarity * CLEAR_MIX);
       const light = mix3(OXIDE, coolWhite, clarity);
 
-      const vignette = smoothstep(1.25, 0.25, Math.hypot(uvx - 0.5, uvy - 0.5));
+      const vignette = hazeOnly ? 1 : vignetteAt(Math.hypot(uvx - 0.5, uvy - 0.5));
       const grainTerm = grain ? (hash(fx + time, fy + time) - 0.5) * 0.035 : 0;
 
       const at = (row * width + column) * 3;
       for (let channel = 0; channel < 3; channel += 1) {
-        const value = (col[channel] + beam * light[channel] * 1.25) * vignette + grainTerm;
+        const value = (col[channel] + beam * light[channel] * LIGHT_GAIN) * vignette + grainTerm;
         // Round with a little noise so smooth dark gradients do not band at 8 bits
         out[at + channel] = clamp(Math.floor(clamp(value, 0, 1) * 255 + random()), 0, 255);
       }

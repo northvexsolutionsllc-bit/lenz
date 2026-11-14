@@ -159,7 +159,7 @@
        "Open menu"
            supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
        "Menu"
-           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
        "before-01.jpg .. -06.jpg" x3
            DESIGN.md 5, the pair slots as it lists them, first at div.placeholder-frame > p.caps > span.normal-case
        "after-01.jpg .. -06.jpg" x3

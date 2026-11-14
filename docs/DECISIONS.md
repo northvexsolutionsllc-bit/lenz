@@ -38,9 +38,22 @@ entry rather than deleting it, and update the file it affects.
    3D headlight would need a model nobody has, would cost megabytes, and would look worse than the
    shader on a phone.
 
+   **Status at handover: superseded by item 9, which was applied.** The shader stays in the
+   repository as `src/components/hero/beam.frag` and is still the definition of the look. The
+   poster, the share image and the haze layer are rendered from it at build time, and the live
+   beam is drawn from the same figures. It is no longer run in the browser.
+
 9. **Shader fallback, if the budget is missed.** If three.js pushes the home route past 230KB
    gzipped, replace it with a 2D canvas radial-gradient beam following the same lerped pointer. Do
    not substitute a different 3D library. The visual idea survives, the weight does not.
+
+   **Status at handover: applied in Prompt 6.** With three.js and @react-three/fiber the home route
+   measured 459.9KB of JavaScript gzipped, twice the budget. The beam is now a 2D canvas,
+   `src/components/hero/BeamCanvas.tsx`, following the same pointer lerped at 0.06, with the touch
+   drift, the pause when the hero leaves the viewport and the single static frame under reduced
+   motion all kept. The home route now measures 224.4KB. `three`, `@react-three/fiber` and
+   `@react-three/drei` are no longer dependencies. Files affected: MOTION.md sections 5.1, 7 and 9,
+   each of which carries a note.
 
 10. **Redirects to add in `next.config.ts`.** The old site is one page with anchors, so most of these
     are defensive against links already in the wild. All permanent.
@@ -79,5 +92,36 @@ entry rather than deleting it, and update the file it affects.
     and ratio, and `TODO(owner)` items render as small chips. The client sees exactly what is still
     missing at review time instead of discovering it at launch. Both are removed in Prompt 6.
 
+    **Status at handover:** Prompt 6 removes each one once its real content exists, and none has
+    arrived since the build began, so every frame and chip is still showing. `npm run audit:owner`
+    lists them by route and section. The list as it stood at handover is in HANDOVER.md section 9
+    and in full in `docs/qa/owner.txt`.
+
 15. **Reduced motion is a build requirement, not a nicety.** Spelled out per component in MOTION.md
     section 2 and checked in QA. A site whose whole concept is motion has to be usable without it.
+
+16. **The beam is squashed, as its comment says, not stretched, as its code said.** MOTION.md section
+    7 gave the line as `d.y *= 0.62` under the comment "squashed vertically so it reads as a lamp,
+    not a dot". Multiplying the distance stretches the beam instead, to 1.6 times as tall as it is
+    wide. Built that way through Prompts 2 to 5, it stood behind the transparent header and reached
+    down onto the heading. Prompt 6 measured it, against the pixels actually behind each piece of
+    text, with the beam at rest: the navigation links stood at 1.07 to 4.48 to 1 and the heading at
+    1.00 to 2.44. On a phone, as the beam drifted, the wordmark, the menu button and the heading all
+    fell to between 1.00 and 1.32, which is to say they disappeared. The line is now `d.y /= 0.62`,
+    which is what the comment describes. Measured the same way: navigation 4.28 to 5.36, heading
+    6.87 to 9.74, and on a phone the wordmark 8.21 and above, the menu button 4.37 and above and the
+    heading 6.28 and above. It also reads as a lamp. It is one operator in three places:
+    `src/components/hero/beam.frag`, the line that applies `SQUASH` in
+    `src/components/hero/BeamCanvas.tsx`, and the same line in `scripts/beam-still.ts`. MOTION.md
+    section 7 carries the corrected line and a note. To go back, turn the divide into a multiply in
+    those three places, and expect `npm run audit:a11y` to fail on the hero.
+
+17. **The beam gives way to what is read or pressed.** MOTION.md section 5.1 has the beam follow the
+    pointer. Its centre is bright enough to wash out anything set over it, so whatever the pointer
+    was on could not be read: the Call button vanished when it was hovered, and so did the
+    navigation link being pointed at. MOTION.md section 8 keeps the phone number and the call to
+    action usable at all times, and DESIGN.md section 2.3 holds text to its contrast. So over the
+    header, the pitch, the figures and the scroll cue the beam now heads back to where it rests, at
+    the lerp MOTION.md gives. It still follows the pointer over open ground and over the heading,
+    which section 5.1 wants lit. No new value is involved. It is one list,
+    `GIVES_WAY_TO` in `src/components/hero/HeroBackdrop.tsx`. Empty it to go back.

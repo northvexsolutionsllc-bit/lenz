@@ -243,22 +243,24 @@ export function MenuSheet({ ref, id, pathname, open, specimen = false, navLabel 
       data-lenis-prevent
       inert={!open}
     >
-      <div className={specimen ? "shell flex flex-col gap-48 py-32" : "shell flex min-h-full flex-col justify-between gap-48 pt-96 pb-32"}>
-        <nav aria-label={navLabel}>
-          <ul className="flex flex-col gap-16">
-            {site.nav.map((item, index) => (
-              <li key={item.href} className="menu-sheet-item" style={{ "--i": index } as CSSProperties}>
-                <SmartLink
-                  href={item.href}
-                  className="menu-sheet-link h3"
-                  aria-current={pathname === item.href ? "page" : undefined}
-                >
-                  {item.label}
-                </SmartLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      {/* One landmark holds everything in the sheet: the links, the phone number and the CTA */}
+      <nav
+        aria-label={navLabel}
+        className={specimen ? "shell flex flex-col gap-48 py-32" : "shell flex min-h-full flex-col justify-between gap-48 pt-96 pb-32"}
+      >
+        <ul className="flex flex-col gap-16">
+          {site.nav.map((item, index) => (
+            <li key={item.href} className="menu-sheet-item" style={{ "--i": index } as CSSProperties}>
+              <SmartLink
+                href={item.href}
+                className="menu-sheet-link h3"
+                aria-current={pathname === item.href ? "page" : undefined}
+              >
+                {item.label}
+              </SmartLink>
+            </li>
+          ))}
+        </ul>
 
         {/* Not part of the stagger. The phone number and the primary CTA never animate. MOTION.md 8 */}
         <div className="flex flex-col items-start gap-24">
@@ -267,7 +269,7 @@ export function MenuSheet({ ref, id, pathname, open, specimen = false, navLabel 
           </a>
           <PrimaryButton href={site.sms.href}>{site.cta.primary}</PrimaryButton>
         </div>
-      </div>
+      </nav>
     </div>
   );
 }

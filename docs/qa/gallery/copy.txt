@@ -117,7 +117,7 @@
        "Open menu"
            supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
        "Menu"
-           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > div.shell > nav
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
        "Reveal the restored headlight" x4
            MOTION.md 6, as aria-label, first at ul.grid > li > div.compare
        "38 percent before, 62 percent after" x4
