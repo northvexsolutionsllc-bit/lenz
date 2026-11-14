@@ -72,10 +72,13 @@ async function reachable(url: string): Promise<boolean> {
 }
 
 async function startServer(): Promise<{ base: string; stop: () => void }> {
+  const base = `http://127.0.0.1:${PORT}`;
+  // Reuse a server that is already answering on the port
+  if (await reachable(base)) return { base, stop: () => undefined };
+
   if (!fs.existsSync(path.join(".next", "BUILD_ID"))) {
     throw new Error('No production build found. Run "npm run build" first, or pass --base=<url>.');
   }
-  const base = `http://127.0.0.1:${PORT}`;
   const next = path.join("node_modules", "next", "dist", "bin", "next");
   const child: ChildProcess = spawn(process.execPath, [next, "start", "-p", String(PORT)], {
     stdio: ["ignore", "ignore", "inherit"],

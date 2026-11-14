@@ -59,13 +59,28 @@
     padding-block: var(--section-y);
   }
 
-  /* Alternating section band on the client's brand dark */
+  /*
+    Alternating section band on the client's brand dark.
+    Clarity consumer 2 of 3: bands warm down from oxide toward neutral. MOTION.md 4
+  */
   .section-band {
-    background-color: var(--pine);
+    background-color: color-mix(
+      in oklab,
+      var(--pine) calc(100% - 6% * (1 - var(--clarity))),
+      var(--oxide)
+    );
   }
 
-  /* Skip link: off screen until it takes focus */
-  .skip-link {
+  /* Clarity consumer 3 of 3: the image haze overlay lifts. MOTION.md 4 */
+  .media-frame::before {
+    opacity: calc(0.18 + 0.14 * (1 - var(--clarity)));
+  }
+
+  /*
+    Skip link: off screen until it takes focus. The selector carries the button class so
+    it outranks the button's own position rule and stays out of the page flow.
+  */
+  .btn.skip-link {
     position: fixed;
     top: 16px;
     left: 16px;
@@ -73,8 +88,25 @@
     translate: 0 -200%;
   }
 
-  .skip-link:focus {
+  .btn.skip-link:focus {
     translate: 0 0;
+  }
+}
+
+/* Clarity consumer 1 of 3: the page grain fades out. MOTION.md 4 */
+body::after {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 60;
+  opacity: calc(0.07 * (1 - var(--clarity)));
+  background-image: url("/noise.png");   /* 128x128 tiling, 8-bit, generated at build */
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+
+/* Under reduced motion nothing scrubs, so the page simply sits at full clarity. MOTION.md 2 */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --clarity: 1;
   }
 }
 
@@ -82,16 +114,46 @@
   Elements that script will animate in are held invisible until their own component has
   set up its starting state and marked them data-ready, so they never flash in their
   final state first. The attribute data-js is set by an inline script in the document
-  head, so none of this applies when JavaScript is disabled. If script fails after that
-  point, the failsafe animation makes everything visible again after five seconds.
+  head, so none of this applies when JavaScript is disabled.
+
+  The hold is capped at one second. If script has not arrived by then, the failsafe
+  animation shows the content as it is and the component skips its entrance. Content is
+  never kept waiting for an animation.
 */
 html[data-js] :is([data-split], [data-counter-live]):not([data-ready]) {
   visibility: hidden;
-  animation: js-failsafe 0s 5s forwards;
+  animation: js-failsafe 0s 1s forwards;
 }
 
 @keyframes js-failsafe {
   to {
     visibility: visible;
+  }
+}
+
+/* Once a heading has finished its reveal, its line masks stop clipping. MOTION.md 5.2 */
+[data-revealed] .line-mask {
+  overflow: visible !important;
+}
+
+/*
+  Reduced motion. MOTION.md 2
+  No hold and no split: the heading takes a single fade over dur-2, in CSS, so it does not
+  wait for script either.
+*/
+@media (prefers-reduced-motion: reduce) {
+  html[data-js] :is([data-split], [data-counter-live]):not([data-ready]) {
+    visibility: visible;
+    animation: none;
+  }
+
+  [data-split] {
+    animation: plain-fade var(--dur-2) var(--ease-beam) both;
+  }
+}
+
+@keyframes plain-fade {
+  from {
+    opacity: 0;
   }
 }

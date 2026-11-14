@@ -31,7 +31,15 @@ export function Counter({ value, prefix = "", suffix = "", className }: CounterP
       text.nodeValue = `${prefix}${n}${suffix}`;
     };
 
-    if (reduced || played.current) {
+    // Script arrived after the CSS failsafe had already shown the final value, and the
+    // figure is on screen. Restarting it from zero now would be a flash, so it stays put.
+    const shownByFailsafe =
+      !live.hasAttribute("data-ready") &&
+      getComputedStyle(live).visibility === "visible" &&
+      live.getBoundingClientRect().top < window.innerHeight;
+
+    if (reduced || played.current || shownByFailsafe) {
+      played.current = true;
       write(value);
       live.setAttribute("data-ready", "");
       return;

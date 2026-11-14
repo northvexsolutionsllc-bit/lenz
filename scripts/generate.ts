@@ -1,11 +1,18 @@
 // Build-time generation. Runs before dev, build and lint (see package.json).
 // Everything written here is derived from files in the repository and is not committed.
 //
-//   src/generated/tokens.ts   the six colour tokens, read from src/styles/tokens.css,
-//                             for the few places that need a colour outside CSS
+//   src/generated/tokens.ts          the six colour tokens, read from src/styles/tokens.css,
+//                                    for the few places that need a colour outside CSS
+//   public/noise.png                 the 128x128 tiling grain used by the page overlay
+//                                    (MOTION.md 4)
+//   public/generated/hero-still.png  one frame of the hero shader, used as the poster
+//                                    behind the canvas until the client supplies
+//                                    public/media/hero-poster.jpg (DESIGN.md 5)
 
 import fs from "node:fs";
 import path from "node:path";
+import { renderBeam } from "./beam-still";
+import { encodePng } from "./png";
 
 const root = process.cwd();
 
@@ -37,4 +44,32 @@ function writeTokens() {
   fs.writeFileSync(path.join(dir, "tokens.ts"), lines.join("\n"));
 }
 
+// Uniform 8-bit noise from a fixed seed. Uniform noise has no structure, so the tile
+// repeats without a visible seam, and a fixed seed means every build writes the same file.
+function writeNoise() {
+  const size = 128;
+  const pixels = new Uint8Array(size * size);
+  let seed = 0x2f6e2b1;
+  for (let i = 0; i < pixels.length; i += 1) {
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    pixels[i] = ((t ^ (t >>> 14)) >>> 0) & 0xff;
+  }
+  fs.writeFileSync(path.join(root, "public/noise.png"), encodePng(size, size, 1, pixels));
+}
+
+// The frame the canvas itself opens on: hazy, beam at rest, time zero. Rendering the
+// same frame as a poster means the canvas fades in over an image it already matches.
+function writeHeroStill() {
+  const width = 1280;
+  const height = 720;
+  const pixels = renderBeam({ width, height, mouse: [0.5, 0.62], time: 0, progress: 0, grain: false });
+  const dir = path.join(root, "public/generated");
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, "hero-still.png"), encodePng(width, height, 3, pixels));
+}
+
 writeTokens();
+writeNoise();
+writeHeroStill();

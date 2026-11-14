@@ -3,6 +3,7 @@ import { Cursor } from "@/components/ui/Cursor";
 import { Footer } from "@/components/ui/Footer";
 import { Header } from "@/components/ui/Header";
 import { SkipLink } from "@/components/ui/SkipLink";
+import { Clarity } from "@/components/providers/Clarity";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { site } from "@/content/site";
 import { tokens } from "@/generated/tokens";
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </main>
           <Footer hasLogo={hasLogo} />
+          <Clarity />
         </SmoothScroll>
         <Cursor />
       </body>

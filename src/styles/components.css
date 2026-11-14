@@ -495,6 +495,169 @@
   }
 }
 
+@layer components {
+  /* --------------------------------------------------------------------- Hero */
+
+  /*
+    The beam is a tall, hot ellipse. Wherever it sits, light type over it cannot be read,
+    so the layout keeps the copy clear of where the beam rests (uMouse 0.5, 0.62).
+
+    Narrow and portrait screens: the first viewport is the beam, with the heading at its
+    foot. The pitch and the stats follow on the night ground below it.
+
+    Wide landscape screens: the pitch takes the dark left third, the stats the dark
+    right edge, and the heading runs along the bottom, lit from above.
+  */
+  .hero {
+    position: relative;
+    isolation: isolate; /* the heading blends against the canvas, and nothing outside */
+    padding-bottom: 64px;
+    background-color: var(--night);
+  }
+
+  /* The canvas zone: exactly one viewport, behind the type. MOTION.md 5.1 */
+  .hero-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100svh;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* The canvas fades in over the poster once its first frame is drawn */
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--dur-3) var(--ease-beam);
+  }
+
+  .hero-canvas[data-painted="true"] {
+    opacity: 1;
+  }
+
+  .hero-layout {
+    position: relative;
+  }
+
+  .hero-title {
+    display: flex;
+    align-items: flex-end;
+    min-height: 100svh;
+    padding-top: 96px;
+    padding-bottom: 32px;
+  }
+
+  /*
+    The wrapper around the heading. plus-lighter lets the beam light the letterforms.
+    MOTION.md 5.1. It hugs the heading so the blended area stays as small as it can be.
+  */
+  .hero-title-blend {
+    mix-blend-mode: plus-lighter;
+  }
+
+  /* Each line of the heading rises inside its own mask. MOTION.md 5.2 */
+  .line-mask {
+    overflow: hidden;
+  }
+
+  .hero-pitch {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding-top: 48px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 8px;
+  }
+
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 48px;
+    padding-top: 64px;
+  }
+
+  /* The label is the term, so it comes first in the markup and second on screen */
+  .hero-stat {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .hero-cue {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 48px;
+    padding-block: 12px;
+    text-decoration: none;
+    transition: color var(--dur-2) var(--ease-beam);
+  }
+
+  @media (min-width: 1024px) and (min-aspect-ratio: 3/2) {
+    .hero {
+      padding-bottom: 0;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-template-rows: minmax(0, 1fr) auto;
+      column-gap: var(--grid-gap);
+      row-gap: 48px;
+      min-height: 100svh;
+      padding-top: 96px;
+      padding-bottom: 48px;
+    }
+
+    .hero-title {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      min-height: 0;
+      padding: 0;
+    }
+
+    .hero-pitch {
+      grid-column: 1 / span 4;
+      grid-row: 1;
+      align-self: start;
+      padding-top: 32px;
+    }
+
+    .hero-stats {
+      grid-column: 11 / span 2;
+      grid-row: 1;
+      align-self: start;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: flex-end;
+      gap: 32px;
+      padding-top: 32px;
+      text-align: right;
+    }
+
+    .hero-stat {
+      align-items: flex-end;
+    }
+
+    .hero-cue {
+      grid-column: 9 / span 4;
+      grid-row: 2;
+      align-self: end;
+      justify-self: end;
+      margin-top: 0;
+    }
+  }
+}
+
 /* Styleguide only: the two glow tokens shown on a plain surface. DESIGN.md 2.4 */
 .glow-specimen-xenon {
   box-shadow: var(--glow-xenon);
@@ -533,6 +696,11 @@
   .menu-toggle-lines::before,
   .menu-toggle-lines::after {
     transition: none;
+  }
+
+  /* The one static frame takes the single dur-2 fade that replaces every scrub */
+  .hero-canvas {
+    transition-duration: var(--dur-2);
   }
 
   .menu-sheet,
