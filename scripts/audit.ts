@@ -59,7 +59,16 @@ const join = (...parts: string[]) => parts.join("");
 
 const HEX = /#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3,4})(?![0-9a-zA-Z_-])/;
 const COLOUR_FN = new RegExp(join("\\b(?:rg", "ba?|hs", "la?|hwb|lab|lch|ok", "lab|ok", "lch)\\("));
-const COLOUR_KEYWORD = new RegExp(join("\\b(?:bl", "ack|wh", "ite)\\b(?!-space)"), "i");
+// The two banned colour keywords, wherever they are used as a colour: a CSS value, a
+// Tailwind class, or a colour attribute or style property. The same words in prose, such
+// as an alt text describing a car, are not styling and are not flagged.
+const KEYWORD = join("(?:bl", "ack|wh", "ite)");
+const COLOUR_KEYWORD_CSS = new RegExp(`:[^;{}]*\\b${KEYWORD}\\b(?!-space)`, "i");
+const COLOUR_KEYWORD_CLASS = new RegExp(`^(?:[a-z]+-)*${KEYWORD}(?:/\\d+)?$`);
+const COLOUR_KEYWORD_PROP = new RegExp(
+  `\\b(?:color|fill|stroke|background|backgroundColor|borderColor|outlineColor|stopColor|floodColor|caretColor)\\s*[:=]\\s*\\{?\\s*["'\`]${KEYWORD}["'\`]`,
+  "i",
+);
 const DEFAULT_PALETTE = new RegExp(
   join(
     "^(?:bg|text|border|ring|fill|stroke|from|via|to|outline|decoration|accent|caret|divide|placeholder|shadow)-",
@@ -196,6 +205,7 @@ function checkCss(file: string, lines: string[]) {
 function checkScript(file: string, source: string, lines: string[]) {
   for (const { token, line } of classTokens(source)) {
     if (DEFAULT_PALETTE.test(token)) report("Tailwind default palette class", file, line, token);
+    if (COLOUR_KEYWORD_CLASS.test(token) && token.includes("-")) report("colour keyword", file, line, token);
     if (ARBITRARY_COLOUR.test(token)) report("arbitrary colour value", file, line, token);
     if (ARBITRARY_TYPE.test(token) || TYPE_UTILITY.test(token)) report("type set by a utility instead of type.css", file, line, token);
     if (SHADOW_UTILITY.test(token)) report("shadow utility", file, line, token);
@@ -256,7 +266,11 @@ function main() {
       const line = index + 1;
       if (PLACEHOLDER_COPY.test(text)) report("placeholder copy", file, line, text);
       if (EMOJI.test(text)) report("emoji", file, line, text);
-      if (COLOUR_KEYWORD.test(text)) report("colour keyword", file, line, text);
+      if (file.endsWith(".css") || file.endsWith(".frag")) {
+        if (COLOUR_KEYWORD_CSS.test(text)) report("colour keyword", file, line, text);
+      } else if (COLOUR_KEYWORD_PROP.test(text)) {
+        report("colour keyword", file, line, text);
+      }
       if (file === TOKENS_FILE || file === SHADER_FILE) return;
       if (HEX.test(text) || COLOUR_FN.test(text)) report("colour literal outside tokens.css", file, line, text);
     });
