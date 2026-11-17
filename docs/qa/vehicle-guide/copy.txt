@@ -3,8 +3,8 @@
   1. CONTENT.md, read against the page
      7 /vehicle-guide
        ok       Some lenses need more.
-       ok       Which Headlights Can Be Restored | Lenz Rescue Vehicle Guide
-       ok       An honest guide to what restores well, what takes extra work, and what needs replacing. Plastic type, age, prior repairs and damage all change the result.
+       replaced Which Headlights Can Be Restored | Lenz Rescue Vehicle Guide  (SEO.md section 4 gives this page's title and description)
+       replaced An honest guide to what restores well, what takes extra work, and what needs replacing. Plastic type, age, prior repairs and damage all change the result.  (SEO.md section 4 gives this page's title and description)
        ok       We would rather talk you out of a job than take your money for a lens that was never coming back. Here is how we read a headlight from a photo.
        ok       Restores well
        ok       Light to moderate yellowing. Smooth plastic with no pitting, no cracking and no previous coating peeling off. This is most cars between six and twelve years old, and these come back close to new.
@@ -13,6 +13,9 @@
        ok       Replace instead
        ok       Cracks through the lens, broken mounting tabs, heavy internal moisture or condensation, or damage below the surface of the plastic. Polishing the outside of these does nothing. We will tell you and we will not charge you for looking.
        ok       Not sure which one you have? Text a photo. It takes us about ten seconds to tell.
+     Taken from other sections
+       ok       NEXT
+       ok       What headlight restoration costs
      2 Global
        ok       LENZ RESCUE
        ok       Mobile headlight restoration
@@ -25,11 +28,14 @@
        ok       Vehicle guide
        ok       About
        ok       Contact
+       ok       Tail light restoration
+       ok       Marker light restoration
+       ok       Headlight restoration cost
        ok       link tel:+19258125524
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (3 on the page)
 
   2. The page, read against CONTENT.md
-     content (29)
+     content (34)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -37,7 +43,7 @@
        "Gallery" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Vehicle guide" x3
-           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+           CONTENT.md line 376, first at ul.flex > li > a.nav-link
        "About" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Contact" x3
@@ -70,14 +76,24 @@
            part of "Not sure which one you have? Text a photo. It takes us about", CONTENT.md line 242, first at section#contact > div.shell > h2.h2
        "Text a photo. It takes us about ten seconds to tell."
            part of "Not sure which one you have? Text a photo. It takes us about", CONTENT.md line 242, first at section#contact > div.shell > p.body-l
+       "NEXT"
+           CONTENT.md line 413, first at section.section > div.shell > p.caps
+       "What headlight restoration costs"
+           CONTENT.md line 393, first at p.h2 > a.text-link > span.text-link-label
        "Mobile headlight restoration"
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Fog light restoration"
            CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Tail light restoration"
+           CONTENT.md line 428, first at li > a.text-link > span.text-link-label
+       "Marker light restoration"
+           CONTENT.md line 429, first at li > a.text-link > span.text-link-label
        "Dealer and auction"
            CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "Headlight restoration cost"
+           CONTENT.md line 430, first at li > a.text-link > span.text-link-label
        "Antioch"
            CONTENT.md line 171, first at ul.flex > li > a.pill
        "Brentwood"
@@ -106,12 +122,12 @@
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
        "Lenz Rescue on Instagram"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
 
-  3. Document metadata
-       title        Which Headlights Can Be Restored | Lenz Rescue Vehicle Guide
-       description  An honest guide to what restores well, what takes extra work, and what needs replacing. Plastic type, age, prior repairs and damage all change the result.
+  3. Document metadata, against SEO.md section 4
+       ok       title        Which Headlights Can Be Restored, An Honest Guide
+       ok       description  What restores well, what takes extra work, and what needs replacing instead. Written by the people who would rather turn the job down.
 
-  PASS: 39 distinct strings (29 content, 10 interface), 0 problems.
+  PASS: 44 distinct strings (34 content, 10 interface), 0 problems.

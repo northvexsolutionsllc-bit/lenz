@@ -43,8 +43,11 @@ function dataNotes(): Note[] {
       // The closest title, label, question or section comment above the note
       let about = "";
       for (let at = line - 1; at >= 0 && at > line - 14; at -= 1) {
+        // A section comment is a number and a name, "3.8 Pricing", or names the document
         const found =
-          /(?:title|label|question|eyebrow):\s*(?:\{\s*plain:\s*)?"((?:[^"\\]|\\.)*)"/.exec(lines[at]) ?? /^\/\/\s*(\d[\d.]*\s.*)$/.exec(lines[at]);
+          /(?:title|label|question|eyebrow):\s*(?:\{\s*plain:\s*)?"((?:[^"\\]|\\.)*)"/.exec(lines[at]) ??
+          /^\/\/\s*(\d[\d.]*\s+[A-Z/].*)$/.exec(lines[at]) ??
+          /^\/\/\s*(CONTENT\.md \d.*)$/.exec(lines[at]);
         if (found) {
           about = found[1];
           break;

@@ -19,17 +19,17 @@ None of it is visible on the site: a note or an empty media slot renders nothing
       blocking for launch. The current site has a Google QR code and zero visible reviews. Needed: the Google Business Profile URL, the current star rating and review count, and at least three full review texts with first names and city.
   src/content/home.ts:204  (Bay Point)
       confirm the last two are actually served
-  src/content/locations.ts:16  (100 words that are actually about that city, and the local detail each one must)
+  src/content/locations.ts:19  (CONTENT.md 8, the TODO(owner) under the table)
       confirm the local detail in each opening line is accurate before publishing. A location page with a wrong neighbourhood name is worse than no location page.
-  src/content/pages.ts:26  (How long does it take?)
+  src/content/pages.ts:28  (How long does it take?)
       confirm
-  src/content/pages.ts:59  (How do I pay?)
+  src/content/pages.ts:61  (How do I pay?)
       likely: cash, Venmo and card via Square, since both appear in the current footer
-  src/content/pages.ts:75  (Added to a headlight booking.)
+  src/content/pages.ts:72  (Added to a headlight booking.)
       the add-on price
-  src/content/pages.ts:91  (Volume pricing)
+  src/content/pages.ts:83  (Volume pricing)
       blocking for this page. Needed: per unit price at 5, 10 and 20+ units, minimum booking, and typical turnaround for a 20 car row.
-  src/content/pages.ts:128  (Replace instead)
+  src/content/pages.ts:115  (Replace instead)
       three photos needed, one per tier.
   src/content/site.ts:36
       likely: after school weekdays, with full availability Saturday and Sunday
@@ -64,7 +64,7 @@ None of it is visible on the site: a note or an empty media slot renders nothing
 
   src/content/area.ts:6
       the service circle below is worked out from those four points, because nobody has stated a service radius. It is centred on their midpoint and reaches the furthest city centre plus a margin, so that it takes in the cities themselves and not only their centre points. Confirm the real radius, then set it here.
-  src/content/locations.ts:35
-      nobody has yet said where each existing pair was done, so these are empty and the page shows three open slots. See src/content/media.ts.
+  src/content/locations.ts:37
+      nobody has yet said where each existing pair was done, so these are empty and each page shows three of the pairs there are. See src/lib/gallery.ts.
   src/content/media.ts:6
       year, make, model and city for every photo (CONTENT.md 11, item 7). Until they are supplied, alt text describes only what can be seen. Fill in the fields below and the full CONTENT.md patterns are used automatically.

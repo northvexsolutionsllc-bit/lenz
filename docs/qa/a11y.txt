@@ -8,15 +8,24 @@
   ok    /fog-light-restoration at 1440x900: 0 violations (39 rules passed, 1 need a person, 51 do not apply)
   ok    /fog-light-restoration at 390x844: 0 violations (40 rules passed, 1 need a person, 50 do not apply)
   ok    /fog-light-restoration at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
+  ok    /tail-light-restoration at 1440x900: 0 violations (39 rules passed, 1 need a person, 51 do not apply)
+  ok    /tail-light-restoration at 390x844: 0 violations (40 rules passed, 1 need a person, 50 do not apply)
+  ok    /tail-light-restoration at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
+  ok    /marker-light-restoration at 1440x900: 0 violations (39 rules passed, 1 need a person, 51 do not apply)
+  ok    /marker-light-restoration at 390x844: 0 violations (40 rules passed, 1 need a person, 50 do not apply)
+  ok    /marker-light-restoration at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
+  ok    /headlight-restoration-cost at 1440x900: 0 violations (37 rules passed, 1 need a person, 53 do not apply)
+  ok    /headlight-restoration-cost at 390x844: 0 violations (39 rules passed, 1 need a person, 51 do not apply)
+  ok    /headlight-restoration-cost at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
+  ok    /vehicle-guide at 1440x900: 0 violations (37 rules passed, 1 need a person, 53 do not apply)
+  ok    /vehicle-guide at 390x844: 0 violations (39 rules passed, 1 need a person, 51 do not apply)
+  ok    /vehicle-guide at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
   ok    /dealer-and-auction at 1440x900: 0 violations (43 rules passed, 1 need a person, 47 do not apply)
   ok    /dealer-and-auction at 390x844: 0 violations (43 rules passed, 1 need a person, 47 do not apply)
   ok    /dealer-and-auction at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
   ok    /gallery at 1440x900: 0 violations (41 rules passed, 1 need a person, 49 do not apply)
   ok    /gallery at 390x844: 0 violations (42 rules passed, 1 need a person, 48 do not apply)
   ok    /gallery at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
-  ok    /vehicle-guide at 1440x900: 0 violations (37 rules passed, 1 need a person, 53 do not apply)
-  ok    /vehicle-guide at 390x844: 0 violations (39 rules passed, 1 need a person, 51 do not apply)
-  ok    /vehicle-guide at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
   ok    /about at 1440x900: 0 violations (37 rules passed, 1 need a person, 53 do not apply)
   ok    /about at 390x844: 0 violations (39 rules passed, 1 need a person, 51 do not apply)
   ok    /about at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
@@ -35,22 +44,25 @@
   ok    /headlight-restoration-oakley-ca at 1440x900: 0 violations (43 rules passed, 1 need a person, 47 do not apply)
   ok    /headlight-restoration-oakley-ca at 390x844: 0 violations (44 rules passed, 1 need a person, 46 do not apply)
   ok    /headlight-restoration-oakley-ca at 390x844, menu open: 0 violations (31 rules passed, 1 need a person, 58 do not apply)
-  note  axe could not decide these by itself, on some routes: color-contrast (1), color-contrast (11), color-contrast (13), color-contrast (16), color-contrast (17), color-contrast (33), color-contrast (9), link-in-text-block (1), skip-link (1).
+  note  axe could not decide these by itself, on some routes: color-contrast (1), color-contrast (12), color-contrast (13), color-contrast (14), color-contrast (17), color-contrast (19), color-contrast (21), color-contrast (37), link-in-text-block (1), skip-link (1).
   note  They are all contrast over a photo, the beam or a gradient. Part 3 measures them where it can.
 
 2. Keyboard
-  ok    /: 38 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /headlight-restoration: 36 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /fog-light-restoration: 32 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /dealer-and-auction: 30 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /gallery: 28 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /vehicle-guide: 25 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /about: 30 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /contact: 37 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /headlight-restoration-antioch-ca: 36 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /headlight-restoration-brentwood-ca: 36 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /headlight-restoration-pittsburg-ca: 36 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
-  ok    /headlight-restoration-oakley-ca: 36 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /: 42 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /headlight-restoration: 40 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /fog-light-restoration: 36 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /tail-light-restoration: 36 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /marker-light-restoration: 36 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /headlight-restoration-cost: 37 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /vehicle-guide: 29 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /dealer-and-auction: 33 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /gallery: 32 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /about: 33 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /contact: 40 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /headlight-restoration-antioch-ca: 39 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /headlight-restoration-brentwood-ca: 39 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /headlight-restoration-pittsburg-ca: 39 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
+  ok    /headlight-restoration-oakley-ca: 39 stops, skip link first and working, focus ring on every one, order top to bottom and left to right
   ok    mobile menu: focus stays inside while open (its 7 links, the wordmark and the close button), the page behind is inert: true
   ok    mobile menu: Escape closes it and returns focus to the button
 
@@ -70,32 +82,33 @@
   ok    xenon on oxide  1.68
    Every pair text is actually set in, across all routes (lowest ratio found):
   note  oxide on a photo or the hero beam              over an image, so it varies. 4.07  x18 on 7 routes, e.g. "BEFORE"
-  ok    beam at 54% on pine band, warmed               4.87  x32 on 10 routes, e.g. "WHAT WE DO"
+  ok    beam at 54% on pine band, warmed               4.87  x38 on 14 routes, e.g. "WHAT WE DO"
   ok    oxide on smoke, large text                     5.11  x1 on 1 route, e.g. "03"
-  ok    beam at 54% on rgb 22 34 30                    5.26  x108 on 12 routes, e.g. "Antioch"
-  ok    beam at 54% on night                           5.59  x90 on 12 routes, e.g. "Services"
+  ok    beam at 54% on smoke                           5.22  x3 on 1 route, e.g. "Restore"
+  ok    beam at 54% on rgb 22 34 30                    5.26  x138 on 15 routes, e.g. "Antioch"
+  ok    beam at 54% on night                           5.59  x112 on 15 routes, e.g. "Services"
   note  beam at 54% on a photo or the hero beam        over an image, so it varies. 5.59  x5 on 1 route, e.g. "MOBILE SERVICE, EAST CONTRA COSTA"
   ok    night on oxide                                 6.17  x2 on 2 routes, e.g. "PLEASE NOTE"
-  ok    beam at 62% on smoke                           6.44  x6 on 2 routes, e.g. "A badly oxidized lens scatters light"
-  ok    beam at 62% on pine band, warmed               6.77  x35 on 5 routes, e.g. "Multi-step sanding, compound, polish"
+  ok    beam at 62% on smoke                           6.44  x9 on 3 routes, e.g. "A badly oxidized lens scatters light"
+  ok    beam at 62% on pine band, warmed               6.77  x51 on 8 routes, e.g. "Multi-step sanding, compound, polish"
   note  xenon on a photo or the hero beam              over an image, so it varies. 6.85  x18 on 7 routes, e.g. "AFTER"
-  ok    beam at 62% on night                           7.13  x44 on 12 routes, e.g. "Headlight plastic is coated at the f"
+  ok    beam at 62% on night                           7.13  x60 on 15 routes, e.g. "Headlight plastic is coated at the f"
   ok    xenon on smoke, large text                     8.60  x1 on 1 route, e.g. "01"
-  ok    xenon on pine band, warmed, large text         9.30  x12 on 7 routes, e.g. "One standard."
+  ok    xenon on pine band, warmed, large text         9.30  x16 on 9 routes, e.g. "One standard."
   note  xenon on a photo or the hero beam, large text  over an image, so it varies. 10.38  x1 on 1 route, e.g. "back to the road."
-  ok    xenon on night, large text                     10.38  x29 on 11 routes, e.g. "only a looks problem."
+  ok    xenon on night, large text                     10.38  x37 on 14 routes, e.g. "only a looks problem."
   ok    xenon on night                                 10.38  x5 on 5 routes, e.g. "Services"
-  ok    beam at 80% on pine band, warmed               10.47  x2 on 2 routes, e.g. "If a lens we restored starts hazing "
+  ok    beam at 80% on pine band, warmed               10.47  x4 on 4 routes, e.g. "If a lens we restored starts hazing "
   note  beam at 80% on a photo or the hero beam        over an image, so it varies. 11.34  x1 on 1 route, e.g. "Cloudy headlights cut how far you ca"
-  ok    beam at 80% on night                           11.34  x19 on 12 routes, e.g. "If a lens we restored starts hazing "
-  ok    beam on smoke, large text                      14.61  x16 on 3 routes, e.g. "Night"
-  ok    beam on pine band, warmed, large text          15.80  x42 on 9 routes, e.g. "Three services."
-  ok    beam on pine band, warmed                      15.80  x7 on 3 routes, e.g. "See the process"
-  ok    night on beam                                  17.65  x44 on 12 routes, e.g. "Skip to content"
-  ok    beam on night, large text                      17.65  x102 on 12 routes, e.g. "LENZ RESCUE"
+  ok    beam at 80% on night                           11.34  x26 on 15 routes, e.g. "If a lens we restored starts hazing "
+  ok    beam on smoke, large text                      14.61  x19 on 4 routes, e.g. "Night"
+  ok    beam on pine band, warmed, large text          15.80  x62 on 14 routes, e.g. "Three services."
+  ok    beam on pine band, warmed                      15.80  x9 on 4 routes, e.g. "See the process"
+  ok    night on beam                                  17.65  x56 on 15 routes, e.g. "Skip to content"
+  ok    beam on night, large text                      17.65  x127 on 15 routes, e.g. "LENZ RESCUE"
   note  beam on a photo or the hero beam, large text   over an image, so it varies. 17.65  x4 on 1 route, e.g. "Bring clarity"
   note  beam on a photo or the hero beam               over an image, so it varies. 17.65  x1 on 1 route, e.g. "Call 925-812-5524"
-  ok    beam on night                                  17.65  x129 on 12 routes, e.g. "See the full gallery"
+  ok    beam on night                                  17.65  x211 on 15 routes, e.g. "See the full gallery"
   ok    text on an oxide background is night everywhere (2 places)
 
 4. The home hero, measured against the pixels behind it

@@ -13,11 +13,7 @@ import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 const content = getLocation("headlight-restoration-brentwood-ca");
 const PATH = `/${content.slug}`;
 
-export const metadata: Metadata = pageMetadata({
-  path: PATH,
-  title: content.metaTitle,
-  description: content.opening,
-});
+export const metadata: Metadata = pageMetadata({ path: PATH });
 
 export default function BrentwoodPage() {
   return (

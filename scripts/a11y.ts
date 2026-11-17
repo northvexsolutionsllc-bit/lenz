@@ -460,7 +460,7 @@ async function heroItems(page: Page): Promise<HeroItem[]> {
         if (parent.closest(".dev-note")) continue;
         const hidden = parent.closest('[aria-hidden="true"], .sr-only');
         if (!hidden || parent.closest(".sr-only")) parts.push(node.nodeValue);
-        if (parent.closest(".sr-only, .counter-ghost")) continue;
+        if (parent.closest(".sr-only")) continue;
         const range = document.createRange();
         range.selectNodeContents(node);
         for (const rect of range.getClientRects()) {

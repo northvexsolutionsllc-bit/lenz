@@ -12,11 +12,14 @@ type FooterProps = {
   navLabel?: string;
 };
 
-// The two service pages that the header nav does not name. Labels are the service names
-// from CONTENT.md 3.4.
+// The pages that the header nav does not name. Labels are the service names from
+// CONTENT.md 3.4 and SEO.md section 6, and the cost page's name. docs/CONTENT-SEO.md 16
 const MORE_SERVICES = [
   { label: "Fog light restoration", href: "/fog-light-restoration" },
+  { label: "Tail light restoration", href: "/tail-light-restoration" },
+  { label: "Marker light restoration", href: "/marker-light-restoration" },
   { label: "Dealer and auction", href: "/dealer-and-auction" },
+  { label: "Headlight restoration cost", href: "/headlight-restoration-cost" },
 ] as const;
 
 // DESIGN.md 6: night ground, three columns on desktop, stacked on mobile. Service areas
@@ -73,13 +76,15 @@ export function Footer({ hasLogo = false, navLabel = "Footer" }: FooterProps) {
 
           <ul className="flex gap-8">
             <li>
-              <SmartLink href={site.social.facebook} className="icon-link" aria-label={`${site.name} on Facebook`}>
+              <SmartLink href={site.social.facebook} className="icon-link">
                 <Icon name="facebook" size={20} />
+                <span className="sr-only">{`${site.name} on Facebook`}</span>
               </SmartLink>
             </li>
             <li>
-              <SmartLink href={site.social.instagram} className="icon-link" aria-label={`${site.name} on Instagram`}>
+              <SmartLink href={site.social.instagram} className="icon-link">
                 <Icon name="instagram" size={20} />
+                <span className="sr-only">{`${site.name} on Instagram`}</span>
               </SmartLink>
             </li>
           </ul>

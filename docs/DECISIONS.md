@@ -134,3 +134,70 @@ entry rather than deleting it, and update the file it affects.
     the lerp MOTION.md gives. It still follows the pointer over open ground and over the heading,
     which section 5.1 wants lit. No new value is involved. It is one list,
     `GIVES_WAY_TO` in `src/components/hero/HeroBackdrop.tsx`. Empty it to go back.
+
+18. **Titles and descriptions come from SEO.md, and from nowhere else.** SEO.md section 4 gives every
+    route its title and description and calls them written and final. They replace the four "Meta
+    title" and "Meta description" lines in CONTENT.md, and the ones the build had made up for the
+    pages CONTENT.md gave none. They are held in one file, `src/content/seo.ts`, with the keyword
+    SEO.md section 3 gives each page, and a page passes only its path. Both `npm run audit:seo`
+    and `npm run audit:copy` read the table out of SEO.md itself and fail if the site differs
+    from it by a character, so SEO.md changes first. The city pages follow the pattern SEO.md
+    writes out for Antioch.
+
+19. **Twelve routes became fifteen.** Item 6 is superseded. SEO.md adds
+    `/headlight-restoration-cost`, which it calls the most valuable page on the site, and
+    `/tail-light-restoration` and `/marker-light-restoration`, on the fog light page's template.
+    CONTENT.md has no copy for them. It was put together in the build, almost all of it from
+    sentences CONTENT.md and SEO.md already contain, and it is in `docs/CONTENT-SEO.md` with the
+    source of every line beside it and the few new lines marked NEW. It states no fact, price or
+    promise those two files do not. The headings of the cost page are the questions SEO.md lists,
+    and each answer is also what the page's FAQ data gives for that question.
+
+20. **A page states a price only where it has one.** SEO.md section 7 asks for `minPrice: 125` on
+    each service page. $125 is the price of a headlight booking, so it is stated of the service on
+    the headlight page and the four city pages. The fog, tail and marker light pages are add ons
+    with no price of their own yet. Their data gives the $125 as the price of the booking they are
+    added to, through `isRelatedTo`, and states none for the add on, because a search engine or an
+    assistant reading "fog light restoration, from $125" would be reading something nobody has
+    said. The same two facts are on those pages in words, as two lines of the price list. The
+    dealer page states no price at all: the trade price has not been supplied. `audit:seo` holds
+    each kind of page to its rule.
+
+21. **The share image is a real before and after pair.** SEO.md section 8 asks for the pair on it.
+    `scripts/share.ts` draws the pair the home page slider leads with, side by side, with the
+    slider's own seam between them, at 1200 by 630. The photos get the treatment item 13 gives
+    every work photo, worked out on the pixels because a link preview has no stylesheet. It
+    carries no lettering, so it uses no font. Its filename carries a hash of its contents, so a
+    new picture has a new address and nothing goes on showing the old one. With no pair on disk
+    it falls back to a frame of the beam.
+
+22. **On a phone, the hero poster is the largest contentful paint.** SEO.md section 8 asks that the
+    hero image be the LCP element and be preloaded. It was preloaded, and it was not the LCP
+    element, because a browser takes a picture that fills the whole screen for a background and
+    does not count it. The LCP element was the second line of the heading, which script reveals,
+    and Lighthouse's default test scored the page 81 to 86 for it. The poster's box now stops one
+    pixel short of the left edge of the screen, where the poster is darkest, and the preload asks
+    for high priority. On every phone size measured the poster is now the LCP element, at 0.50s on
+    slow 4G, and the default test scores 89 to 90. On a tablet or a desktop the browser still sets
+    the poster aside, as a picture with too little detail in it, and the heading is the LCP
+    element there. Nothing MOTION.md asks for was changed. It is `.hero-poster` in
+    `src/styles/components.css`, and `npm run audit:perf` fails if the phone's LCP element is
+    anything else.
+
+23. **A figure that counts up is in the page once.** The Counter kept three copies of its figure in
+    the document: one counting, one to hold the width and one for screen readers. A browser showed
+    one. Anything reading the page as text, a search engine included, read `$125$125$125`. The
+    figure is now one piece of text, and the other two are drawn by the stylesheet from an
+    attribute, where they cannot be read as copy.
+
+24. **A keyword is not written into an approved heading.** SEO.md section 5 wants each page's
+    keyword in its H1 and once in the first 100 words of its body copy. Ten of the fifteen pages
+    meet it. The three new pages were written to. The four city openings, which are the build's
+    own drafts, each use theirs once: "headlight restoration in" and the city. The headlight page
+    meets it because the sentence CONTENT.md section 4 wrote as that page's description, which
+    SEO.md has now replaced as a description, leads the page instead. The other five are the home
+    page, whose H1 SEO.md itself excuses, and the fog light page, the vehicle guide, the dealer
+    page and the gallery. Their headings and body copy are CONTENT.md's, word for word, and rule 2
+    of the build says copy is not rewritten. SEO.md says the same thing its own way: do not ruin a
+    good headline for a keyword. `audit:seo` marks each of the five LOW and says which half of the
+    rule it misses. HANDOVER.md section 11 lists them.

@@ -1,6 +1,7 @@
-import type { AutoRepair, BreadcrumbList, City, FAQPage, GeoCircle, Service, WithContext } from "schema-dts";
+import type { AutoRepair, BreadcrumbList, City, FAQPage, GeoCircle, ImageObject, Service, WithContext } from "schema-dts";
 import { cities, serviceCircle, STATE, type CityName } from "@/content/area";
 import { getRoute } from "@/content/routes";
+import { getSeo } from "@/content/seo";
 import { site } from "@/content/site";
 import { siteUrl } from "@/lib/site-url";
 
@@ -47,28 +48,52 @@ export function businessSchema(): WithContext<AutoRepair> {
 type ServiceInput = {
   path: string;
   name: string;
+  /** Defaults to the page's meta description, from docs/SEO.md */
   description?: string;
   /** A location page serves one city. Every other service page serves all four. */
   city?: CityName;
   /** The lowest price, in dollars, where the page states one */
   minPrice?: number;
+  /**
+   * For an add on: the lowest price of the headlight booking it is added to. The add on
+   * has no price of its own yet, so the price is stated of the booking and not of it.
+   */
+  addedToBookingFrom?: number;
 };
 
-export function serviceSchema({ path, name, description, city: only, minPrice }: ServiceInput): WithContext<Service> {
+const HEADLIGHT_SERVICE = "/headlight-restoration";
+
+const offer = (minPrice: number) =>
+  ({
+    "@type": "Offer",
+    priceSpecification: { "@type": "PriceSpecification", minPrice, priceCurrency: "USD" },
+  }) as const;
+
+export function serviceSchema({
+  path,
+  name,
+  description = getSeo(path).description,
+  city: only,
+  minPrice,
+  addedToBookingFrom,
+}: ServiceInput): WithContext<Service> {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     name,
-    ...(description ? { description } : {}),
+    description,
     url: absolute(path),
     provider: { "@id": BUSINESS_ID },
     areaServed: only ? city(only) : cities.map((entry) => city(entry.name)),
-    ...(minPrice === undefined
+    ...(minPrice === undefined ? {} : { offers: offer(minPrice) }),
+    ...(addedToBookingFrom === undefined
       ? {}
       : {
-          offers: {
-            "@type": "Offer",
-            priceSpecification: { "@type": "PriceSpecification", minPrice, priceCurrency: "USD" },
+          isRelatedTo: {
+            "@type": "Service",
+            name: getRoute(HEADLIGHT_SERVICE).name,
+            url: absolute(HEADLIGHT_SERVICE),
+            offers: offer(addedToBookingFrom),
           },
         }),
   };
@@ -104,4 +129,18 @@ export function breadcrumbSchema(path: string): WithContext<BreadcrumbList> {
       item: absolute(route.path),
     })),
   };
+}
+
+/**
+ * The photos of a page, each with its caption. docs/SEO.md section 7 asks for this on the
+ * gallery pairs. The caption is the photo's alt text, which says what is in it.
+ */
+export function imageSchema(images: ReadonlyArray<{ src: string; caption: string }>): WithContext<ImageObject>[] {
+  return images.map((image) => ({
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    contentUrl: `${siteUrl}${image.src}`,
+    caption: image.caption,
+    creator: { "@id": BUSINESS_ID },
+  }));
 }

@@ -4,7 +4,7 @@
      4 /headlight-restoration
        ok       Headlight restoration,
        ok       done at your car.
-       ok       Headlight Restoration in Antioch and Brentwood CA | Lenz Rescue
+       replaced Headlight Restoration in Antioch and Brentwood CA | Lenz Rescue  (SEO.md section 4 gives this page's title and description)
        ok       Mobile headlight restoration from $125 with a 3 year guarantee. We come to you in Antioch, Brentwood, Pittsburg and Oakley. Text photos for a same day quote.
        ok       How long does it take?
        ok       A standard pair takes about an hour.
@@ -87,6 +87,7 @@
        ok       Headlight restoration
        ok       Replace instead
        ok       Cracks through the lens, broken mounting tabs, heavy internal moisture or condensation, or damage below the surface of the plastic. Polishing the outside of these does nothing. We will tell you and we will not charge you for looking.
+       ok       What headlight restoration costs
      2 Global
        ok       LENZ RESCUE
        ok       Mobile headlight restoration
@@ -99,11 +100,14 @@
        ok       Vehicle guide
        ok       About
        ok       Contact
+       ok       Tail light restoration
+       ok       Marker light restoration
+       ok       Headlight restoration cost
        ok       link tel:+19258125524
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (4 on the page)
 
   2. The page, read against CONTENT.md
-     content (90)
+     content (95)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -111,7 +115,7 @@
        "Gallery" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Vehicle guide" x4
-           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+           CONTENT.md line 376, first at ul.flex > li > a.nav-link
        "About" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Contact" x3
@@ -126,6 +130,8 @@
            CONTENT.md line 177, first at h1.display > div.line-mask > div.line
        "done at your car."
            CONTENT.md line 177, first at div.line-mask > div.line > span.accent
+       "Mobile headlight restoration from $125 with a 3 year guarantee. We come to you in Antioch, Brentwood, Pittsburg and Oakley. Text photos for a same day quote."
+           CONTENT.md line 179, first at section.page-hero > div.shell > p.body-l
        "Call 925-812-5524" x2
            CONTENT.md line 46, first at a.btn > span.btn-face > span.caps
        "WHY IT MATTERS"
@@ -160,12 +166,14 @@
            CONTENT.md line 126, first at div.shell > div.flex > p.eyebrow
        "and up, depending on"
            CONTENT.md line 127, first at div.shell > div.flex > h2.h2
-       "$125" x3
-           CONTENT.md line 69, first at h2.h2 > span.counter > span.sr-only
+       "$125"
+           CONTENT.md line 69, first at h2.h2 > span.counter > span
        "the lens."
            CONTENT.md line 127, first at div.flex > h2.h2 > span.accent
        "Final price depends on lens size and how far the oxidation has gone. Larger housings and heavily pitted lenses take longer. Send photos and you get a firm number before anyone books anything."
            CONTENT.md line 128, first at div.shell > div.flex > p.body
+       "What headlight restoration costs"
+           CONTENT.md line 393, first at p > a.text-link > span.text-link-label
        "Multi-step correction"
            CONTENT.md line 130, first at li.check-row > div.flex > h3.h3
        "Sand, compound and polish, not a one-pass wipe"
@@ -280,8 +288,14 @@
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Fog light restoration"
            CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Tail light restoration"
+           CONTENT.md line 428, first at li > a.text-link > span.text-link-label
+       "Marker light restoration"
+           CONTENT.md line 429, first at li > a.text-link > span.text-link-label
        "Dealer and auction"
            CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "Headlight restoration cost"
+           CONTENT.md line 430, first at li > a.text-link > span.text-link-label
        "LenzRescue@gmail.com"
            CONTENT.md section 2, first at li > a.text-link > span.text-link-label
      label (3)
@@ -330,12 +344,12 @@
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
        "Lenz Rescue on Instagram"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
 
-  3. Document metadata
-       title        Headlight Restoration in Antioch and Brentwood CA | Lenz Rescue
-       description  Mobile headlight restoration from $125 with a 3 year guarantee. We come to you in Antioch, Brentwood, Pittsburg and Oakley. Text photos for a same day quote.
+  3. Document metadata, against SEO.md section 4
+       ok       title        Headlight Restoration From $125, We Come To You
+       ok       description  Four stage sanding, compound, polish and UV coating, done at your car in about an hour. 3 year guarantee. Text photos for a same day quote.
 
-  PASS: 113 distinct strings (90 content, 3 label, 8 pattern, 12 interface), 0 problems.
+  PASS: 118 distinct strings (95 content, 3 label, 8 pattern, 12 interface), 0 problems.

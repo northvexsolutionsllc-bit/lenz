@@ -6,6 +6,8 @@
        ok       Drag it.
        ok       That is the same lens.
        ok       Every pair here was restored on site, in one visit, with no parts replaced.
+       ok       NEXT
+       ok       Get your quote
      2 Global
        ok       LENZ RESCUE
        ok       Mobile headlight restoration
@@ -18,11 +20,14 @@
        ok       Vehicle guide
        ok       About
        ok       Contact
+       ok       Tail light restoration
+       ok       Marker light restoration
+       ok       Headlight restoration cost
        ok       link tel:+19258125524
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (2 on the page)
 
   2. The page, read against CONTENT.md
-     content (23)
+     content (28)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -30,7 +35,7 @@
        "Gallery" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Vehicle guide" x3
-           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+           CONTENT.md line 376, first at ul.flex > li > a.nav-link
        "About" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Contact" x3
@@ -51,14 +56,24 @@
            part of "Drag it. That is the same lens.", which is CONTENT.md strings in sequence, first at div.line-mask > div.line > span.accent
        "Every pair here was restored on site, in one visit, with no parts replaced."
            CONTENT.md line 102, first at section.page-hero > div.shell > p.body-l
+       "NEXT"
+           CONTENT.md line 413, first at section.section > div.shell > p.caps
+       "Get your quote"
+           CONTENT.md line 121, first at p.h2 > a.text-link > span.text-link-label
        "Mobile headlight restoration"
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Fog light restoration"
            CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Tail light restoration"
+           CONTENT.md line 428, first at li > a.text-link > span.text-link-label
+       "Marker light restoration"
+           CONTENT.md line 429, first at li > a.text-link > span.text-link-label
        "Dealer and auction"
            CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "Headlight restoration cost"
+           CONTENT.md line 430, first at li > a.text-link > span.text-link-label
        "Antioch"
            CONTENT.md line 171, first at ul.flex > li > a.pill
        "Brentwood"
@@ -124,12 +139,12 @@
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
        "Lenz Rescue on Instagram"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
 
-  3. Document metadata
-       title        Gallery | Lenz Rescue
-       description  Every pair here was restored on site, in one visit, with no parts replaced.
+  3. Document metadata, against SEO.md section 4
+       ok       title        Headlight Restoration Before and After Photos
+       ok       description  Real lenses restored on site in Antioch, Brentwood, Pittsburg and Oakley. Drag the slider on any pair.
 
-  PASS: 51 distinct strings (23 content, 17 pattern, 11 interface), 0 problems.
+  PASS: 56 distinct strings (28 content, 17 pattern, 11 interface), 0 problems.

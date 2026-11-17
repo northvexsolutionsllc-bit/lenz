@@ -1,0 +1,210 @@
+/headlight-restoration-cost
+
+  1. CONTENT.md, read against the page
+     12 /headlight-restoration-cost
+       ok       PRICING
+       ok       What headlight restoration
+       ok       costs.
+       ok       Headlight restoration cost comes down to two things: the size of the lens and how far the oxidation has gone. It starts at $125 for the pair, done at your car, and you get a firm number from photos before anyone books anything.
+       ok       What does it cost?
+       ok       The price covers the whole job: sanding, compound, polish and the UV protective coating, with a 3 year guarantee.
+       ok       Headlight restoration
+       ok       From $125 a pair
+       ok       Fog, marker and tail lights
+       ok       Added to the same visit, priced per vehicle
+       ok       Dealer and auction
+       ok       Per unit pricing
+       ok       What changes the price?
+       ok       Final price depends on lens size and how far the oxidation has gone. Larger housings and heavily pitted lenses take longer. Send photos and you get a firm number before anyone books anything.
+       ok       Heavy oxidation, deep scratches, surface pitting, hard coat that is peeling in sheets, light moisture staining, or a previous restoration that was done without a coating. These still restore, they just take longer and the price reflects it.
+       ok       How long does it last?
+       ok       It is guaranteed for three years, in writing. A UV protective coating goes on last, because without it a restored lens yellows again within a year. If a lens we restored starts hazing inside the coverage period, we come back and touch it up at no charge.
+       ok       Is it worth it versus new headlights?
+       ok       If the lens is sound, restoration gives you the same clear light for a fraction of what new assemblies cost. If it is cracked or wet inside, it does not, and we will say so.
+       ok       Restore
+       ok       From $125 a pair
+       ok       About an hour at your car, with a UV protective coating and a 3 year guarantee.
+       ok       Replace
+       ok       Several hundred dollars per side
+       ok       Replacement housings on a common SUV run several hundred dollars per side before labor. Restoration is a fraction of that on the same lens.
+       ok       Parts store kit
+       ok       About thirty dollars
+       ok       A kit will take the yellow off for a few months. The difference is the machine polish and the coating. Without those the plastic is left open and oxidizes faster than before.
+       ok       Skipping stage four is why a thirty dollar kit lasts a season.
+       ok       What we will not take on
+       ok       Cracks through the lens, broken mounting tabs, heavy internal moisture or condensation, or damage below the surface of the plastic. Polishing the outside of these does nothing. We will tell you and we will not charge you for looking.
+       ok       Vehicle guide
+     3.12 Final CTA
+       ok       Let's bring your headlights
+       ok       back to life.
+       ok       Text photos of both headlights and you will have a price back today.
+       ok       Text a photo for a quote
+       ok       Call 925-812-5524
+       ok       Antioch
+       ok       Brentwood
+       ok       Pittsburg
+       ok       Oakley
+       ok       Discovery Bay
+       ok       Bay Point
+     Taken from other sections
+       ok       NEXT
+       ok       See the full gallery
+     2 Global
+       ok       LENZ RESCUE
+       ok       Mobile headlight restoration
+       ok       Text a photo for a quote
+       ok       925-812-5524
+       ok       LenzRescue@gmail.com
+       ok       Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area
+       ok       Services
+       ok       Gallery
+       ok       Vehicle guide
+       ok       About
+       ok       Contact
+       ok       Tail light restoration
+       ok       Marker light restoration
+       ok       Headlight restoration cost
+       ok       link tel:+19258125524
+       ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (4 on the page)
+
+  2. The page, read against CONTENT.md
+     content (59)
+       "LENZ RESCUE" x2
+           CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
+       "Services" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Gallery" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Vehicle guide" x4
+           CONTENT.md line 376, first at ul.flex > li > a.nav-link
+       "About" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Contact" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "925-812-5524" x3
+           CONTENT.md section 2, first at div.shell > div.flex > a.nav-link
+       "Text a photo for a quote" x4
+           CONTENT.md line 45, first at a.btn > span.btn-face > span.caps
+       "PRICING"
+           CONTENT.md line 126, first at section.page-hero > div.shell > p.eyebrow
+       "What headlight restoration costs."
+           CONTENT.md strings in sequence, as aria-label, first at section.page-hero > div.shell > h1.display
+       "What headlight"
+           part of "What headlight restoration costs.", which is CONTENT.md strings in sequence, first at h1.display > div.line-mask > div.line
+       "restoration"
+           part of "What headlight restoration costs.", which is CONTENT.md strings in sequence, first at h1.display > div.line-mask > div.line
+       "costs."
+           CONTENT.md line 341, first at div.line-mask > div.line > span.accent
+       "Headlight restoration cost comes down to two things: the size of the lens and how far the oxidation has gone. It starts at $125 for the pair, done at your car, and you get a firm number from photos before anyone books anything."
+           CONTENT.md line 342, first at section.page-hero > div.shell > p.body-l
+       "Call 925-812-5524" x2
+           CONTENT.md line 46, first at a.btn > span.btn-face > span.caps
+       "What does it cost?"
+           CONTENT.md line 346, first at div.shell > div.grid > h2.h2
+       "The price covers the whole job: sanding, compound, polish and the UV protective coating, with a 3 year guarantee."
+           CONTENT.md line 347, first at div.grid > div.flex > p.body
+       "Headlight restoration"
+           CONTENT.md line 94, first at ul.rule-list > li.price-row > h3.h3
+       "From $125 a pair" x2
+           CONTENT.md line 348, first at ul.rule-list > li.price-row > p.body
+       "Fog, marker and tail lights"
+           CONTENT.md line 349, first at ul.rule-list > li.price-row > h3.h3
+       "Added to the same visit, priced per vehicle"
+           CONTENT.md line 349, first at ul.rule-list > li.price-row > p.body
+       "Dealer and auction" x2
+           CONTENT.md line 96, first at ul.rule-list > li.price-row > h3.h3
+       "Per unit pricing"
+           CONTENT.md line 214, first at ul.rule-list > li.price-row > p.body
+       "What changes the price?"
+           CONTENT.md line 354, first at div.shell > div.grid > h2.h2
+       "Final price depends on lens size and how far the oxidation has gone. Larger housings and heavily pitted lenses take longer. Send photos and you get a firm number before anyone books anything."
+           CONTENT.md line 128, first at div.grid > div.flex > p.body
+       "Heavy oxidation, deep scratches, surface pitting, hard coat that is peeling in sheets, light moisture staining, or a previous restoration that was done without a coating. These still restore, they just take longer and the price reflects it."
+           CONTENT.md line 235, first at div.grid > div.flex > p.body
+       "How long does it last?"
+           CONTENT.md line 360, first at div.shell > div.grid > h2.h2
+       "It is guaranteed for three years, in writing. A UV protective coating goes on last, because without it a restored lens yellows again within a year. If a lens we restored starts hazing inside the coverage period, we come back and touch it up at no charge."
+           CONTENT.md line 361, first at div.grid > div.flex > p.body
+       "Is it worth it versus new headlights?"
+           CONTENT.md line 365, first at div.shell > div.grid > h2.h2
+       "If the lens is sound, restoration gives you the same clear light for a fraction of what new assemblies cost. If it is cracked or wet inside, it does not, and we will say so."
+           CONTENT.md line 366, first at div.grid > div.flex > p.body
+       "Restore"
+           CONTENT.md line 367, first at li.tier > div.tier-copy > p.caps
+       "About an hour at your car, with a UV protective coating and a 3 year guarantee."
+           CONTENT.md line 367, first at li.tier > div.tier-copy > p.body
+       "Replace"
+           CONTENT.md line 368, first at li.tier > div.tier-copy > p.caps
+       "Several hundred dollars per side"
+           CONTENT.md line 368, first at li.tier > div.tier-copy > h3.h3
+       "Replacement housings on a common SUV run several hundred dollars per side before labor. Restoration is a fraction of that on the same lens."
+           CONTENT.md line 82, first at li.tier > div.tier-copy > p.body
+       "Parts store kit"
+           CONTENT.md line 369, first at li.tier > div.tier-copy > p.caps
+       "About thirty dollars"
+           CONTENT.md line 369, first at li.tier > div.tier-copy > h3.h3
+       "A kit will take the yellow off for a few months. The difference is the machine polish and the coating. Without those the plastic is left open and oxidizes faster than before."
+           CONTENT.md line 189, first at li.tier > div.tier-copy > p.body
+       "Skipping stage four is why a thirty dollar kit lasts a season."
+           CONTENT.md line 114, first at div.shell > div.flex > p.small
+       "What we will not take on"
+           CONTENT.md line 374, first at div.shell > div.grid > h2.h2
+       "Cracks through the lens, broken mounting tabs, heavy internal moisture or condensation, or damage below the surface of the plastic. Polishing the outside of these does nothing. We will tell you and we will not charge you for looking."
+           CONTENT.md line 238, first at div.grid > div.flex > p.body
+       "NEXT"
+           CONTENT.md line 413, first at section.section > div.shell > p.caps
+       "See the full gallery"
+           CONTENT.md line 104, first at p.h2 > a.text-link > span.text-link-label
+       "Let's bring your headlights"
+           CONTENT.md line 167, first at section#contact > div.shell > h2.h2
+       "back to life."
+           CONTENT.md line 167, first at div.shell > h2.h2 > span.accent
+       "Text photos of both headlights and you will have a price back today."
+           CONTENT.md line 168, first at section#contact > div.shell > p.body-l
+       "Antioch" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Brentwood" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Pittsburg" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Oakley" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Discovery Bay"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Bay Point"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Mobile headlight restoration"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Fog light restoration"
+           CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Tail light restoration"
+           CONTENT.md line 428, first at li > a.text-link > span.text-link-label
+       "Marker light restoration"
+           CONTENT.md line 429, first at li > a.text-link > span.text-link-label
+       "Headlight restoration cost"
+           CONTENT.md line 430, first at li > a.text-link > span.text-link-label
+       "LenzRescue@gmail.com"
+           CONTENT.md section 2, first at li > a.text-link > span.text-link-label
+     interface (7)
+       "Skip to content"
+           supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
+       "Primary"
+           supplied in build: name of the header navigation landmark, as aria-label, first at header.site-header > div.shell > nav.hidden
+       "Open menu"
+           supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
+       "Menu"
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
+       "Footer"
+           supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
+       "Lenz Rescue on Facebook"
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
+       "Lenz Rescue on Instagram"
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
+
+  3. Document metadata, against SEO.md section 4
+       ok       title        How Much Does Headlight Restoration Cost in 2027?
+       ok       description  Real prices from a mobile restorer in East Contra Costa. From $125 a pair, what changes the price, and how it compares to new assemblies.
+
+  PASS: 66 distinct strings (59 content, 7 interface), 0 problems.

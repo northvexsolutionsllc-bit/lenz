@@ -4,7 +4,9 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
 import { Section } from "@/components/ui/Section";
 import { DevNote } from "@/components/ui/DevNote";
+import { TextLink } from "@/components/ui/TextLink";
 import { pricing } from "@/content/home";
+import { nextSteps } from "@/content/pages";
 
 // Home, pricing. CONTENT.md 3.8
 // The caution callout has an oxide border and an oxide chip. The chip's text is night:
@@ -28,6 +30,9 @@ export function Pricing({ band = true }: PricingProps) {
           </h2>
           <p className="body" data-reveal>
             {pricing.body}
+          </p>
+          <p data-reveal>
+            <TextLink href={nextSteps.guideToCost.href}>{nextSteps.guideToCost.text}</TextLink>
           </p>
         </div>
 

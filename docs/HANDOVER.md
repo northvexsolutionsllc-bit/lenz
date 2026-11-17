@@ -4,7 +4,7 @@ The Lenz Rescue site as it stands at the end of the build: how to run it, how to
 that will change, what is still waiting on the owner, and what was measured.
 
 The specification is the other files in this folder. This file does not repeat them. Where this file
-and DESIGN.md, MOTION.md or CONTENT.md disagree, those three win and this file is wrong.
+and DESIGN.md, MOTION.md, CONTENT.md or SEO.md disagree, those four win and this file is wrong.
 
 ---
 
@@ -62,8 +62,8 @@ finds a problem. All but the first two read the production build in a browser, s
 |---|---|
 | `npm run lint` | ESLint, with the Next.js rules. |
 | `npm run audit:design` | Nothing on the ban list in DESIGN.md section 7: no colour outside `tokens.css`, no fourth font, no fourth radius, no spacing off the scale, no dashes, no placeholder copy, no console output, no unused dependency. |
-| `npm run audit:copy` | Every word on every route is in CONTENT.md, and every line CONTENT.md gives a route is on it. |
-| `npm run audit:seo` | Which host the build is for and that it follows the rules for it, the sitemap, the structured data, titles and descriptions, alt text, that no two location pages share a paragraph, that every route is whole with script off, and that nothing unfinished is on show: no working note, no filename as text, no empty frame. |
+| `npm run audit:copy` | Every word on every route is in CONTENT.md or CONTENT-SEO.md, every line they give a route is on it, and each page's title and description is the one SEO.md section 4 gives. |
+| `npm run audit:seo` | Which host the build is for and that it follows the rules for it. The sitemap. The structured data, with the price each service page states. Titles and descriptions against SEO.md section 4, to the character, with their lengths. The share image: one for every page, 1200 by 630, described as a before and after pair. Alt text, and that every image answers a plain request. That no two location pages share a paragraph. That every route is whole with script off. That nothing unfinished is on show. The on page rules in SEO.md section 5: one H1, the page's keyword in the H1 and in the first 100 words, a way on at the end of every page, none of the words SEO.md rules out, and no two pages on the same keyword. It ends with the table of every route: title, description, both lengths and keyword. |
 | `npm run audit:a11y` | axe on every route at both sizes and with the menu open, a keyboard walk of every route, every contrast pair, and everything set over the hero beam measured against the pixels behind it. |
 | `npm run audit:perf` | The first five rows of the budget in MOTION.md section 9, on the home route. |
 | `npm run audit:owner` | Not a test, and it needs no build. The list of everything still waiting on the owner, read from the source. |
@@ -82,7 +82,10 @@ The browser the audits drive is Playwright's Chromium. Install it once with
 | Path | What is in it |
 |---|---|
 | `docs/` | The specification, this file, and `docs/qa/` with the QA reports and screenshots. |
+| `docs/SEO.md` | The search plan: one keyword per page, every title and description, the on page rules, the structured data. |
+| `docs/CONTENT-SEO.md` | The copy of the three pages SEO.md adds, written in the build from sentences CONTENT.md and SEO.md already contain. It is waiting for the owner to read it. |
 | `src/content/` | Every word and every piece of data. If you are changing what the site says, you are in this folder. |
+| `src/content/seo.ts` | Every page's title, description and keyword, copied from SEO.md sections 3 and 4. A page passes only its path, and takes them from here. |
 | `src/app/` | One folder per route. Each `page.tsx` only arranges sections and sets the page's title, description and structured data. |
 | `src/components/sections/` | The page sections. |
 | `src/components/ui/` | The component set from DESIGN.md section 6. |
@@ -130,14 +133,19 @@ the matching constant in `beam.frag` too: `npm run audit:design` fails until the
 CONTENT.md is the source of the copy, and `npm run audit:copy` compares the site with it. So a price
 changes in CONTENT.md first, then here.
 
-**The starting price, $125**, is written in four places:
+**The starting price, $125**, is written in these places:
 
 1. `src/content/home.ts`: `hero.stats`, the first entry, and `pricing.price`. These are numbers,
    `value: 125`.
-2. `src/content/pages.ts`: the meta description of the headlight restoration page, "from $125".
-3. `src/content/locations.ts`: the four meta titles, "From $125".
-4. `docs/CONTENT.md`: the hero stat, the pricing heading, that meta description, the location title
-   pattern and the `minPrice` line in section 10.
+2. `src/content/pages.ts`: `headlight.lead`, "from $125". `priceList.headlight`, "From $125 a
+   pair", which the cost page and the three add on pages show. `cost.lead`, "It starts at $125",
+   and the first card under "Is it worth it versus new headlights?".
+3. `src/content/seo.ts`: the home page's description, the headlight page's title, the cost page's
+   description and the title pattern of the four city pages.
+4. The documents those come from: `docs/CONTENT.md` (the hero stat, the pricing heading, the
+   sentence in section 4 and the `minPrice` line in section 10), `docs/CONTENT-SEO.md` section 12
+   and `docs/SEO.md` section 4. `npm run audit:seo` reads the titles and descriptions out of SEO.md
+   and fails if the site differs from it, so SEO.md changes first.
 
 The price in the structured data follows `pricing.price` by itself. The two `$125` on `/styleguide`
 are specimens and can be left or changed to match.
@@ -156,13 +164,21 @@ npm run audit:copy
 npm run audit:seo
 ```
 
-**The prices that do not exist yet.** The fog light add-on price and the dealer volume pricing are
-owed by the owner. They have no layout either, because there has been nothing to lay out. When they
-arrive: write the copy into CONTENT.md sections 3.8, 5 and 6, add it to `pricing.inclusions` in
-`src/content/home.ts`, and to `fog.pricing` and `dealer.volume` in `src/content/pages.ts`, and set
-each `todo` to `null` or delete it. The two
-service pages leave the price out of their structured data until then: pass `minPrice` to
-`serviceSchema` in their `page.tsx` once there is one.
+**The prices that do not exist yet.** The add on price for fog, tail and marker lights and the
+dealer volume pricing are owed by the owner.
+
+- The three add on pages say what is known under "Added to a headlight booking.": the booking
+  starts at $125 a pair, and the add on is priced per vehicle. Those are two lines of the price
+  list, `priceList` in `src/content/pages.ts`. When the add on price arrives, write it into
+  CONTENT.md sections 3.8 and 5 and CONTENT-SEO.md section 12, change `priceList.addOns` and
+  `pricing.inclusions` in `src/content/home.ts`, and set `fog.pricing.todo` to `null`.
+- Their structured data gives the price of the booking the add on is added to, not a price for
+  the add on, because there is none yet. Once there is, pass `minPrice` to `serviceSchema` in each
+  `page.tsx` in place of `addedToBookingFrom`, and change the rule for `ADD_ONS` in
+  `scripts/seo.ts`.
+- The dealer page states no price, on the page or in its structured data. When the volume pricing
+  arrives, write it into CONTENT.md section 6 and `dealer.volume` in `src/content/pages.ts`, and
+  set its `todo` to `null`. The section and its heading come back by themselves.
 
 ---
 
@@ -229,17 +245,21 @@ city changed.
    mention, and write the opening there: 70 to 100 words that are about that city.
 2. **`src/content/area.ts`.** Add the city and its coordinates to `cities`. The service circle in
    the structured data is worked out from this list.
-3. **`src/content/locations.ts`.** Add an entry: `slug`, `city`, `title`, `metaTitle`,
-   `mustMention`, `opening`, `neighbourhoods` and `pairs`. The slug follows the others:
-   `headlight-restoration-<city>-ca`.
+3. **`src/content/locations.ts`.** Add an entry: `slug`, `city`, `title`, `mustMention`, `opening`,
+   `neighbourhoods` and `pairs`. The slug follows the others: `headlight-restoration-<city>-ca`.
+   The opening uses the page's keyword once, in a sentence: "headlight restoration in" and the
+   city. The title, the description and the keyword need nothing: `src/content/seo.ts` makes them
+   for every entry in `locations`, to the pattern SEO.md section 4 gives. Add the page to the map
+   in SEO.md section 3.
 4. **`src/app/<slug>/page.tsx`.** Copy one of the four existing folders, rename it to the slug, and
    change the slug in `getLocation(...)` and the name of the component. That is the whole file.
 5. **The links to it.** Add the city to `areas` in `src/content/site.ts` (the footer) and to
    `finalCta.areas` in `src/content/home.ts` (the closing section and the contact page).
 6. **Everywhere the cities are named in a sentence.** The service area line in CONTENT.md section 2
-   and `serviceAreaLine` in `src/content/site.ts`, the pills in CONTENT.md section 3.12, and the
-   meta description of the headlight restoration page in CONTENT.md section 4 and
-   `src/content/pages.ts`.
+   and `serviceAreaLine` in `src/content/site.ts`, the pills in CONTENT.md section 3.12, the lead of
+   the headlight restoration page in CONTENT.md section 4 and `headlight.lead` in
+   `src/content/pages.ts`, and the descriptions of the home page, the gallery and the contact page
+   in SEO.md section 4 and `src/content/seo.ts`.
 
 The sitemap, the breadcrumbs and the audits pick the page up from `locations` by themselves. Then
 build and run `audit:copy`, `audit:seo` and `audit:a11y`.
@@ -248,8 +268,19 @@ build and run `audit:copy`, `audit:seo` and `audit:a11y`.
 
 ## 8. Things that will catch you out
 
-- **CONTENT.md first.** The copy audit will fail on any word that is on the site and not in
-  CONTENT.md. That is the point of it.
+- **The documents first.** The copy audit will fail on any word that is on the site and not in
+  CONTENT.md or CONTENT-SEO.md. That is the point of it. Titles and descriptions are SEO.md's: a
+  page does not write its own, and both `audit:copy` and `audit:seo` fail if `src/content/seo.ts`
+  differs from the table in SEO.md section 4 by a character. The four "Meta title" and "Meta
+  description" lines in CONTENT.md are older and are no longer used as such.
+- **One keyword per page.** SEO.md section 3 gives it. A new page needs a row there, and
+  `audit:seo` fails if two pages are given the same one.
+- **Every page ends with a way on.** A link to another page, or a form. `NextStep` is the section
+  for it where a page would otherwise end without one. `audit:seo` fails on a dead end.
+- **The share image is made from a pair.** `scripts/share.ts` draws the pair the home page slider
+  leads with, `FEATURED_PAIR` in `src/content/media.ts`, as the slider shows it. Its filename
+  carries a hash of its contents, so a new picture is a new address and no link preview goes on
+  showing the old one.
 - **Working notes are for development only.** Every `todo` in the content files sits behind a
   check on `NODE_ENV`, and `DevNote`, the chip that shows one, renders only under `npm run dev`. In
   a production build the notes are not there at all, not on the page and not in the script. A new
@@ -322,7 +353,7 @@ own pairs under `pairs` in `src/content/locations.ts` and its page shows those i
 | 7 | Year, make, model and city for every photo | "Drag it. That is the same lens." on `/`, `/headlight-restoration` and the four location pages. |
 | 8 | Three vehicle guide photos | "Restores well" on `/vehicle-guide`. |
 | 11 | Typical visit duration | The third hero stat on `/`, and the first answer in the FAQ on `/headlight-restoration`. |
-| 12 | Fog light add-on price | "Fog lights can be added" in pricing on `/` and `/headlight-restoration`, and "Added to a headlight booking." on `/fog-light-restoration`. |
+| 12 | Add on price for fog, tail and marker lights | "Fog lights can be added" in pricing on `/` and `/headlight-restoration`, "Added to a headlight booking." on the three add on pages, and the second line of the price list on `/headlight-restoration-cost`. |
 | 13 | A real replacement price for one local vehicle | The "Cost" card on `/`. |
 | 14 | Whether Discovery Bay and Bay Point are served | The service area pills on every page that closes with "Let's bring your headlights back to life.", and on `/contact`. |
 
@@ -331,8 +362,20 @@ Items 6, 9 and 10 are the photos and the logo above.
 **Not in CONTENT.md section 11, and still the owner's to confirm**
 
 - **The four location openings are drafts.** CONTENT.md gives the brief for each and not the text.
-  They are written to that brief, and each is also that page's meta description. They need
-  reading by someone who knows the four towns.
+  They are written to that brief, and each uses its page's keyword once. They need reading by
+  someone who knows the four towns.
+- **The copy of the three new pages.** `/headlight-restoration-cost`, `/tail-light-restoration` and
+  `/marker-light-restoration` had no copy in CONTENT.md. It was put together in the build, almost
+  all of it from sentences CONTENT.md and SEO.md already contain, and it is in
+  `docs/CONTENT-SEO.md` with the source of every line beside it and the few new lines marked NEW.
+  It states no fact, price or promise those two files do not. It needs the owner's eye, and then
+  it can move into CONTENT.md.
+- **A privacy policy.** The site has two forms and no privacy page. The forms store nothing and
+  send nothing to the site: they open the visitor's own mail app with the message written. A
+  short policy that says so is still expected of a business site, and it has to be the owner's
+  text. Once it exists it is one new route and a link in the footer.
+- **Photos of the add on services.** Every photo on the site is a headlight. The fog, tail and
+  marker light pages have none of their own, so they show none.
 - **The service radius.** The structured data describes the service area as a circle of 16km around
   the midpoint of the four cities, because no radius has been stated. `src/content/area.ts`.
 
@@ -346,57 +389,74 @@ before quoting any of these as a promise.
 
 | Metric | Budget | Measured | |
 |---|---|---|---|
-| LCP, mobile, throttled 4G | under 2.5s | 0.76s | within |
+| LCP, mobile, throttled 4G | under 2.5s | 0.50s | within |
 | CLS | under 0.02 | 0.015 | within |
-| INP | under 200ms | 96ms | within |
-| Total JS, gzipped, home route | under 230KB | 224.4KB | within |
-| Hero beam frame time, mid phone | under 8ms | 5.1ms | within |
-| Lighthouse Performance, mobile | 90 or above | 93 to 98 with the throttling applied, 82 to 86 simulated | see below |
-| Lighthouse Accessibility | 100 | 100 | within |
+| INP | under 200ms | 176ms | within |
+| Total JS, gzipped, home route | under 230KB | 224.1KB | within |
+| Hero beam frame time, mid phone | under 8ms | 7.2ms | within |
+| Lighthouse Performance, mobile | 90 or above | 94 to 95 with the throttling applied, 89 to 90 simulated | see below |
+| Lighthouse Accessibility | 100 | 100 on all fifteen routes | within |
+| Lighthouse SEO | 100 | 100 on all fifteen routes | within |
+| Lighthouse Best Practices | | 100 on all fifteen routes | |
 
 The first five rows are `npm run audit:perf`: a phone sized screen, slow 4G and the processor slowed
 four times. LCP is the median of three loads. CLS is the worst seen while the whole page is
 scrolled. INP is the slowest of six interactions, each made on a page that has come to rest, with
-the processor still slowed. The frame time is one frame of the beam, drawn and flushed.
+the processor still slowed. It moves from run to run on this machine: three runs of this build gave
+136ms, 136ms and 176ms, and the table carries the last. The frame time is one frame of the beam,
+drawn and flushed.
 
 One more figure belongs beside INP. For most of a second after a scroll stops the page is still
 working: the clarity curve is easing to its new value and everything that reads it is being
 redrawn. A tap that lands in that window waits longer. Landing 300ms after a short scroll it took
-96ms at the median and 104ms at worst over eight tries, inside the budget. Landing just after a
+104ms at the median and 160ms at worst over eight tries, inside the budget. Landing just after a
 jump of several screens it has measured as much as 288ms on this machine. That cost is the clarity
 curve as MOTION.md section 4 writes it, one variable on the root element with three things reading
 it, and it was left as written.
 
-The reports behind this table are `docs/qa/perf.txt` and `docs/qa/lighthouse.txt`.
+The reports behind this table are `docs/qa/perf.txt` and `docs/qa/lighthouse.txt`. The SEO,
+accessibility and best practices scores were taken on a build made for the production host, because
+a staging build says `noindex` on purpose and Lighthouse rightly marks that down.
 
-**The Lighthouse Performance row needs explaining, because it has two honest answers.**
+**The LCP element is the hero poster on a phone, as SEO.md section 8 asks.** A browser does not
+count a picture that fills the whole screen as content: it takes it for a background. So the
+poster's box stops one pixel short of the left edge of the screen, where the poster is darkest and
+closest to the night behind it, and the canvas covers that pixel as soon as it draws. That is
+`.hero-poster` in `src/styles/components.css`. The poster is preloaded from the head of the page,
+ahead of every script, at high priority, and it is two kilobytes. Measured on phone screens at
+1.75, 2, 2.6 and 3 times density, the poster is the largest contentful paint on every one: about
+0.1s at full speed and 0.50s on slow 4G. `npm run audit:perf` fails if it is anything else.
+
+On a tablet or a desktop screen the browser sets the poster aside all the same. It is a frame of the
+beam, a soft glow with very little detail for that much area, and the browser takes that for
+decoration. There the LCP element is the second line of the heading, which MOTION.md section 5.2
+brings in 0.62 seconds into the type reveal: about 0.85s on this machine. It is never held back for
+more than 400ms. If script has not arrived by then, the heading is shown as it is and the reveal is
+skipped. A real hero photograph, the `hero-poster.jpg` DESIGN.md section 5 asks the owner for,
+would count at every size.
+
+**The Lighthouse Performance row has two honest answers.**
 
 ```bash
 npx lighthouse http://localhost:3000/ --only-categories=performance,accessibility --throttling-method=devtools
 ```
 
 With `--throttling-method=devtools` Lighthouse really slows the network and the processor and
-watches what happens. Three runs scored 98, 97 and 93, with LCP at 1.2s.
+watches what happens. Three runs scored 94, 95 and 95, with LCP at 1.3s.
 
 Without that flag, which is also how PageSpeed Insights runs it, Lighthouse loads the page at full
-speed and then estimates what a slow phone would have done. Three runs scored 82, 86 and 86, with
-LCP estimated at 4.1 to 4.3s. **By the default tool, the budget of 90 is not met.**
+speed and then estimates what a slow phone would have done. Three runs scored 90, 89 and 90, with
+LCP estimated at 3.5s. **By the default tool the budget of 90 is met on some runs and missed by a
+point on others.** Before the poster was the LCP element it scored 81 to 86.
 
-The estimate and the measurement disagree, and the reason is the hero. The largest thing on the first
-screen is the second line of the heading, and MOTION.md section 5.2 brings it in 0.62 seconds into
-the type reveal, which script runs. At full speed that moment comes after all the script has
-arrived, so the estimate concludes the heading needs all of it, and adds the time a slow phone would
-take to download and run it. On a real slow connection that is not what happens: the heading is
-never held back for more than 400ms. If script has not arrived by then, the heading is shown as it
-is and the reveal is skipped. That is the 0.76s and the 1.2s in the measured runs.
+The estimate and the measurement disagree about LCP, 3.5s against 1.3s, and the reason is where
+the test was run. Loaded from the same machine, every script has arrived by the time the poster is
+painted, so the estimate cannot tell that the poster did not wait for them, and it adds the time a
+slow phone would take to run them. The poster needs no script at all. Run the default test again
+on the live address, where the scripts arrive after the poster and not with it, before quoting
+either number.
 
-There are two ways to make the default score read above 90, and both change what MOTION.md asks for,
-so neither was done:
-
-1. Show the heading at once on a first visit and keep the reveal for moves between pages.
-2. Show the heading at once and let the reveal replay over it, which flashes.
-
-Accessibility: `npm run audit:a11y` ran axe 36 times, on twelve routes at two sizes and with the
+Accessibility: `npm run audit:a11y` ran axe 45 times, on fifteen routes at two sizes and with the
 menu open, and found no violation. The report, the keyboard walk and every contrast pair are in
 `docs/qa/a11y.txt`.
 
@@ -435,20 +495,47 @@ different.
   actually is", "What it will not fix", "FAQ", "Volume pricing".
 - The contact page's labels (Phone, Email, Hours) and its form fields (Name, Phone, Vehicle,
   Message) are not in CONTENT.md. They are plain labels, listed as such in `scripts/copy.ts`.
-- `/gallery`, `/about`, `/contact` and the home page have no meta title in CONTENT.md. The first
-  three are the page's name with the site name. The home page is the site name with its tagline, and
-  its description is the hero's opening paragraph.
 - `/about` carries the home page story and nothing more. No longer version exists.
 - The page for an address that does not exist shows "404", the navigation and the two calls to
   action. CONTENT.md has no copy for it.
 - The Marquee component is built and is on `/styleguide`. No page section calls for it.
 - The Google review QR code from the old site is not placed anywhere.
-- The tab icon and the image a shared link shows are generated stand-ins, in the token colours,
-  until there is a logo and a hero photo.
-- Structured data: the fog light and dealer pages state no price, and the FAQ data on
-  `/vehicle-guide` is its one closing question. schema.org's own validator could not be reached from
-  the build machine, so the structured data is checked against a copy of the vocabulary held in
-  `scripts/data/schemaorg.json`. Run a page through the validator once the site is live.
+- The tab icon is a generated stand-in, in the token colours, until there is a logo.
+- Structured data: the FAQ data on `/vehicle-guide` is its one closing question, because that is
+  the only question on the page. schema.org's own validator could not be reached from the build
+  machine, so the structured data is checked against a copy of the vocabulary held in
+  `scripts/data/schemaorg.json`. Run a page of each kind through the validator once the site is
+  live.
+
+**Where SEO.md disagrees with itself or with CONTENT.md**
+
+- **The home page's description is 158 characters.** SEO.md section 4 sets the limit under 155 and
+  calls its strings final. The string is used as written, and `audit:seo` prints a note. Dropping
+  "and Oakley" or "Text a photo for a quote." would bring it under.
+- **Seven descriptions have no number in them.** Section 4 says every description contains one.
+  Tail lights, marker lights, the vehicle guide, the dealer page, the gallery, the about page and
+  the contact page do not. They are used as written.
+- **Fifteen routes, not fourteen.** Sections 8 and the build plan say fourteen. The page map in
+  section 3 lists fifteen, and that is what is built and what the sitemap lists.
+- **The cost page's title says 2027.** "How Much Does Headlight Restoration Cost in 2027?" is
+  SEO.md's, and it will need a new year each January, in SEO.md and in `src/content/seo.ts`.
+- **"Cheap".** SEO.md section 2 rules the word out. CONTENT.md section 3.6 uses it once, "This is
+  the step cheap jobs skip.", in the explanation of the fourth stage, which is on five pages. It
+  is said of other people's work and not of this business, so it was left as written, and
+  `audit:seo` prints a note and fails on any other use of the word.
+- **Five pages do not carry their keyword where section 5 wants it.** Section 5 wants the page's
+  keyword in the H1 and once in the first 100 words. Section 5 itself excuses the home page's H1.
+  The headings and the body copy of these pages are CONTENT.md's, word for word, and a keyword was
+  not written into them: the home page (not in the first 100 words), and the fog light page, the
+  vehicle guide, the dealer page and the gallery (not in the H1 and not in the first 100 words).
+  `audit:seo` marks each LOW. Each needs one sentence from the owner, or leave to add one. The
+  other ten pages meet the rule. On the headlight page that is because the sentence CONTENT.md
+  section 4 wrote as its description is now its lead.
+- **The price in the structured data of the add on pages.** SEO.md section 7 asks for `minPrice:
+  125` on each service page. $125 is the price of a headlight booking. The fog, tail and marker
+  light pages have no price of their own yet, so their data gives the $125 as the price of the
+  booking they are added to and states none for the add on. The dealer page states none, because
+  the trade price has not been supplied. DECISIONS.md item 20.
 
 **Three things the contrast table does not cover**
 

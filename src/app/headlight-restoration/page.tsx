@@ -22,11 +22,7 @@ import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 const PATH = "/headlight-restoration";
 const [service] = services.items;
 
-export const metadata: Metadata = pageMetadata({
-  path: PATH,
-  title: headlight.meta.title,
-  description: headlight.meta.description,
-});
+export const metadata: Metadata = pageMetadata({ path: PATH });
 
 // The primary service page. CONTENT.md 4
 // Sections in the order CONTENT.md gives: hero, what oxidation actually is, the four
@@ -40,7 +36,6 @@ export default function HeadlightRestorationPage() {
           serviceSchema({
             path: PATH,
             name: service.title,
-            description: headlight.meta.description,
             minPrice: pricing.price.value,
           }),
           faqSchema(headlight.faq),
@@ -49,6 +44,7 @@ export default function HeadlightRestorationPage() {
       />
 
       <PageHero
+        lead={headlight.lead}
         actions={
           <>
             <PrimaryButton href={site.sms.href}>{site.cta.primary}</PrimaryButton>

@@ -160,7 +160,15 @@ export function HeroBackdrop({ poster }: HeroBackdropProps) {
 
   return (
     <div ref={ref} className="hero-backdrop" aria-hidden="true">
-      <Image src={poster} alt="" fill preload sizes="100vw" className="object-cover" />
+      {/*
+        The poster is the first thing painted and, on a phone, the largest: the page's
+        largest contentful paint, as docs/SEO.md section 8 asks. It is preloaded from the
+        head of the page, at high priority. Its box stops one pixel short of the screen,
+        see .hero-poster.
+      */}
+      <div className="hero-poster">
+        <Image src={poster} alt="" aria-hidden="true" fill preload fetchPriority="high" sizes="100vw" className="object-cover" />
+      </div>
       {mounted ? (
         <div className="hero-canvas" data-painted={painted}>
           <CanvasBoundary>

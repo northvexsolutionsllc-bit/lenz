@@ -27,11 +27,14 @@
        ok       Vehicle guide
        ok       About
        ok       Contact
+       ok       Tail light restoration
+       ok       Marker light restoration
+       ok       Headlight restoration cost
        ok       link tel:+19258125524
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (3 on the page)
 
   2. The page, read against CONTENT.md
-     content (26)
+     content (29)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -39,7 +42,7 @@
        "Gallery" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Vehicle guide" x3
-           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+           CONTENT.md line 376, first at ul.flex > li > a.nav-link
        "About" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Contact" x3
@@ -82,8 +85,14 @@
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Fog light restoration"
            CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Tail light restoration"
+           CONTENT.md line 428, first at li > a.text-link > span.text-link-label
+       "Marker light restoration"
+           CONTENT.md line 429, first at li > a.text-link > span.text-link-label
        "Dealer and auction"
            CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "Headlight restoration cost"
+           CONTENT.md line 430, first at li > a.text-link > span.text-link-label
      label (2)
        "Phone" x2
            CONTENT.md 2, field name, first at dl.rule-list > div.flex > dt.caps
@@ -107,12 +116,12 @@
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
        "Lenz Rescue on Instagram"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
 
-  3. Document metadata
-       title        Contact | Lenz Rescue
-       description  Text photos of both headlights and you will have a price back today.
+  3. Document metadata, against SEO.md section 4
+       ok       title        Contact Lenz Rescue, Text 925 812 5524
+       ok       description  Text photos of both headlights for a same day quote. Mobile service across Antioch, Brentwood, Pittsburg and Oakley.
 
-  PASS: 38 distinct strings (26 content, 2 label, 10 interface), 0 problems.
+  PASS: 41 distinct strings (29 content, 2 label, 10 interface), 0 problems.

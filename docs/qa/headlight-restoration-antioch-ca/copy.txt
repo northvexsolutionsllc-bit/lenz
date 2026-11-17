@@ -43,14 +43,17 @@
        ok       Vehicle guide
        ok       About
        ok       Contact
+       ok       Tail light restoration
+       ok       Marker light restoration
+       ok       Headlight restoration cost
        ok       link tel:+19258125524
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (4 on the page)
 
   2. The page, read against CONTENT.md
      DRAFT (1)
-       "Antioch headlights take a beating from the commute. Highway 4 puts grit and road film on the lens every morning and every evening, and the sun finishes the job while the car sits in the driveway. Whether you are off Somersville, in Deer Valley or near Hillcrest, we come to your driveway or your work parking lot and restore the lenses you already have. Send photos first and you get a firm number before anyone books anything."
+       "Antioch headlights take a beating from the commute. Highway 4 puts grit and road film on the lens every morning and every evening, and the sun finishes the job while the car sits in the driveway. Our headlight restoration in Antioch is mobile: whether you are off Somersville, in Deer Valley or near Hillcrest, we come to your driveway or your work parking lot and restore the lenses you already have. Send photos first and you get a firm number before anyone books anything."
            written in build for Antioch, to the brief "Highway 4 commuting, Somersville, Deer Valley, Hillcrest". Awaiting owner confirmation., first at section.page-hero > div.shell > p.body-l
-     content (42)
+     content (45)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -58,7 +61,7 @@
        "Gallery" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Vehicle guide" x3
-           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+           CONTENT.md line 376, first at ul.flex > li > a.nav-link
        "About" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Contact" x3
@@ -79,12 +82,12 @@
            CONTENT.md line 46, first at a.btn > span.btn-face > span.caps
        "STARTING PRICE"
            CONTENT.md line 69, first at dl.stat-row > div.stat > dt.caps
-       "$125" x3
-           CONTENT.md line 69, first at dd > span.counter > span.sr-only
+       "$125"
+           CONTENT.md line 69, first at dd > span.counter > span
        "GUARANTEE"
            CONTENT.md line 70, first at dl.stat-row > div.stat > dt.caps
-       "3 YR" x3
-           CONTENT.md line 70, first at dd > span.counter > span.sr-only
+       "3 YR"
+           CONTENT.md line 70, first at dd > span.counter > span
        "PREVIOUS WORK"
            CONTENT.md line 100, first at div.shell > div.flex > p.eyebrow
        "Drag it."
@@ -131,8 +134,14 @@
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Fog light restoration"
            CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Tail light restoration"
+           CONTENT.md line 428, first at li > a.text-link > span.text-link-label
+       "Marker light restoration"
+           CONTENT.md line 429, first at li > a.text-link > span.text-link-label
        "Dealer and auction"
            CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "Headlight restoration cost"
+           CONTENT.md line 430, first at li > a.text-link > span.text-link-label
        "LenzRescue@gmail.com"
            CONTENT.md section 2, first at li > a.text-link > span.text-link-label
      label (3)
@@ -181,12 +190,12 @@
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
        "Lenz Rescue on Instagram"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
 
-  3. Document metadata
-       title        Headlight Restoration in Antioch CA | Mobile, From $125 | Lenz Rescue
-       description  Antioch headlights take a beating from the commute. Highway 4 puts grit and road film on the lens every morning and every evening, and the sun finishes the job while the car sits in the driveway. Whether you are off Somersville, in Deer Valley or near Hillcrest, we come to your driveway or your work parking lot and restore the lenses you already have. Send photos first and you get a firm number before anyone books anything.
+  3. Document metadata, against SEO.md section 4
+       ok       title        Headlight Restoration in Antioch CA, From $125
+       ok       description  Mobile headlight restoration in Antioch. We come to your driveway, four stage correction, UV coating, 3 year guarantee.
 
-  PASS: 66 distinct strings (1 DRAFT, 42 content, 3 label, 9 pattern, 11 interface), 0 problems.
+  PASS: 69 distinct strings (1 DRAFT, 45 content, 3 label, 9 pattern, 11 interface), 0 problems.

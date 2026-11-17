@@ -1,23 +1,19 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
+import { NextStep } from "@/components/sections/NextStep";
 import { CompareSlider } from "@/components/ui/CompareSlider";
 import { GalleryGrid } from "@/components/ui/GalleryGrid";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { beforeAfter } from "@/content/home";
-import { getRoute } from "@/content/routes";
-import { site } from "@/content/site";
+import { nextSteps } from "@/content/pages";
 import { getGalleryTiles, getPairs } from "@/lib/gallery";
 import { pageMetadata } from "@/lib/metadata";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, imageSchema } from "@/lib/schema";
 
 const PATH = "/gallery";
 
-export const metadata: Metadata = pageMetadata({
-  path: PATH,
-  title: `${getRoute(PATH).name} | ${site.name}`,
-  description: beforeAfter.body,
-});
+export const metadata: Metadata = pageMetadata({ path: PATH });
 
 // CONTENT.md gives this route a purpose ("Before and after work, filterable") but no copy
 // of its own, so it carries the home page's before and after copy, word for word.
@@ -29,7 +25,18 @@ export default function GalleryPage() {
 
   return (
     <>
-      <JsonLd data={breadcrumbSchema(PATH)} />
+      <JsonLd
+        data={[
+          breadcrumbSchema(PATH),
+          // Every photo of every pair, with its caption. SEO.md 7
+          ...imageSchema(
+            pairs.flatMap((pair) => [
+              { src: pair.before.src ?? "", caption: pair.beforeAlt },
+              { src: pair.after.src ?? "", caption: pair.afterAlt },
+            ]),
+          ),
+        ]}
+      />
 
       <PageHero eyebrow={beforeAfter.eyebrow} lead={beforeAfter.body}>
         {beforeAfter.title.plain} <span className="accent">{beforeAfter.title.accent}</span>
@@ -62,6 +69,8 @@ export default function GalleryPage() {
           </div>
         </Section>
       ) : null}
+
+      <NextStep step={nextSteps.galleryToContact} band />
     </>
   );
 }

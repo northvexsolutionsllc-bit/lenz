@@ -1,5 +1,7 @@
-// Copy for the inner pages. docs/CONTENT.md sections 4 to 7. Every string is verbatim.
+// Copy for the inner pages. docs/CONTENT.md sections 4 to 7, and docs/CONTENT-SEO.md
+// sections 12 to 15 for the pages SEO.md adds. Every string is verbatim.
 // A `todo` field holds the text that follows TODO(owner) in CONTENT.md, also verbatim.
+// Titles and meta descriptions are not here: they are in src/content/seo.ts.
 //
 // CONTENT.md lists the sections of a page by name without always giving them a display
 // heading. Where it gives none, the heading is that section name, in sentence case.
@@ -11,11 +13,11 @@ const DEV = process.env.NODE_ENV === "development";
 // 4. /headlight-restoration
 export const headlight = {
   title: { plain: "Headlight restoration,", accent: "done at your car." },
-  meta: {
-    title: "Headlight Restoration in Antioch and Brentwood CA | Lenz Rescue",
-    description:
-      "Mobile headlight restoration from $125 with a 3 year guarantee. We come to you in Antioch, Brentwood, Pittsburg and Oakley. Text photos for a same day quote.",
-  },
+  // CONTENT.md 4 wrote this as the page's description. docs/SEO.md section 4 now gives
+  // every page its description, so the sentence leads the page instead. It says what the
+  // service is, what it starts at and where, and it puts the page's keyword in its first
+  // words, which SEO.md section 5 asks of every page.
+  lead: "Mobile headlight restoration from $125 with a 3 year guarantee. We come to you in Antioch, Brentwood, Pittsburg and Oakley. Text photos for a same day quote.",
   // From "Sections, in order": the three that have no heading of their own in CONTENT.md
   sections: {
     oxidation: "What oxidation actually is",
@@ -64,11 +66,6 @@ export const headlight = {
 // 5. /fog-light-restoration
 export const fog = {
   title: { plain: "Fog lights go cloudy too.", accent: null },
-  meta: {
-    title: "Fog Light Restoration | Lenz Rescue, East Contra Costa",
-    description:
-      "Cloudy fog lights restored on site, added to any headlight booking. Same multi-step process, same UV coating, same 3 year guarantee.",
-  },
   lead: "Fog lights sit lower, take more road spray and more grit, and usually go before the headlights do. They use the same plastic, so they take the same correction.",
   pricing: {
     title: "Added to a headlight booking.",
@@ -79,11 +76,6 @@ export const fog = {
 // 6. /dealer-and-auction. Different audience: no story, no charm, no first names.
 export const dealer = {
   title: { plain: "Reconditioning that", accent: "holds up on the lot." },
-  meta: {
-    title: "Dealer and Auction Headlight Reconditioning | Lenz Rescue",
-    description:
-      "Mobile headlight reconditioning for dealers and auction lots in East Contra Costa. Per unit pricing, we work your row on site, consistent finish across the inventory.",
-  },
   lead: "Yellow headlights take money off a windshield price before anyone opens the door. We come to the lot, work the row, and leave every unit matching.",
   points: ["Per unit pricing", "We work on your lot", "Consistent across the row"],
   volume: {
@@ -98,11 +90,6 @@ export const dealer = {
 // 7. /vehicle-guide. The trust page.
 export const guide = {
   title: { plain: "Some lenses need more.", accent: null },
-  meta: {
-    title: "Which Headlights Can Be Restored | Lenz Rescue Vehicle Guide",
-    description:
-      "An honest guide to what restores well, what takes extra work, and what needs replacing. Plastic type, age, prior repairs and damage all change the result.",
-  },
   lead: "We would rather talk you out of a job than take your money for a lens that was never coming back. Here is how we read a headlight from a photo.",
   // Each tier has its assigned accent colour and one photo slot
   tiers: [
@@ -134,3 +121,91 @@ export const guide = {
 } as const;
 
 export type TierAccent = (typeof guide.tiers)[number]["accent"];
+
+// The price list. docs/CONTENT-SEO.md 12
+// Three lines: what each service costs, as far as it is known. The cost page shows all
+// three. An add on page shows the first two: the booking it is added to, and itself.
+export const priceList = {
+  headlight: { name: "Headlight restoration", figure: "From $125 a pair" },
+  addOns: { name: "Fog, marker and tail lights", figure: "Added to the same visit, priced per vehicle" },
+  dealer: { name: "Dealer and auction", figure: "Per unit pricing" },
+} as const;
+
+// 12. /headlight-restoration-cost. docs/CONTENT-SEO.md
+// The headings are the questions people type. Each answer is also what the page's
+// structured data gives for that question, so `answer` is the whole of it as plain text.
+export const cost = {
+  eyebrow: "PRICING",
+  title: { plain: "What headlight restoration", accent: "costs." },
+  lead: "Headlight restoration cost comes down to two things: the size of the lens and how far the oxidation has gone. It starts at $125 for the pair, done at your car, and you get a firm number from photos before anyone books anything.",
+  price: {
+    question: "What does it cost?",
+    body: "The price covers the whole job: sanding, compound, polish and the UV protective coating, with a 3 year guarantee.",
+    rows: [priceList.headlight, priceList.addOns, priceList.dealer],
+  },
+  changes: {
+    question: "What changes the price?",
+    body: [
+      "Final price depends on lens size and how far the oxidation has gone. Larger housings and heavily pitted lenses take longer. Send photos and you get a firm number before anyone books anything.",
+      "Heavy oxidation, deep scratches, surface pitting, hard coat that is peeling in sheets, light moisture staining, or a previous restoration that was done without a coating. These still restore, they just take longer and the price reflects it.",
+    ],
+  },
+  lasts: {
+    question: "How long does it last?",
+    body: "It is guaranteed for three years, in writing. A UV protective coating goes on last, because without it a restored lens yellows again within a year. If a lens we restored starts hazing inside the coverage period, we come back and touch it up at no charge.",
+  },
+  worth: {
+    question: "Is it worth it versus new headlights?",
+    body: "If the lens is sound, restoration gives you the same clear light for a fraction of what new assemblies cost. If it is cracked or wet inside, it does not, and we will say so.",
+    options: [
+      {
+        accent: "xenon",
+        name: "Restore",
+        figure: "From $125 a pair",
+        body: "About an hour at your car, with a UV protective coating and a 3 year guarantee.",
+      },
+      {
+        accent: "beam",
+        name: "Replace",
+        figure: "Several hundred dollars per side",
+        body: "Replacement housings on a common SUV run several hundred dollars per side before labor. Restoration is a fraction of that on the same lens.",
+      },
+      {
+        accent: "oxide",
+        name: "Parts store kit",
+        figure: "About thirty dollars",
+        body: "A kit will take the yellow off for a few months. The difference is the machine polish and the coating. Without those the plastic is left open and oxidizes faster than before.",
+      },
+    ],
+    caption: "Skipping stage four is why a thirty dollar kit lasts a season.",
+  },
+  declined: {
+    question: "What we will not take on",
+    body: "Cracks through the lens, broken mounting tabs, heavy internal moisture or condensation, or damage below the surface of the plastic. Polishing the outside of these does nothing. We will tell you and we will not charge you for looking.",
+    link: { label: "Vehicle guide", href: "/vehicle-guide" },
+  },
+} as const;
+
+// 13. /tail-light-restoration and 14. /marker-light-restoration. docs/CONTENT-SEO.md
+// Two add on pages on the fog light template.
+export const tail = {
+  name: "Tail light restoration",
+  title: { plain: "Tail light restoration,", accent: "in the same visit." },
+  lead: "Faded tail lights age a car from behind and cut how well you are seen. Tail light restoration is done on site, in the same visit as your headlights.",
+} as const;
+
+export const marker = {
+  name: "Marker light restoration",
+  title: { plain: "Marker light restoration,", accent: "added to any booking." },
+  lead: "Hazy side markers go on the same four stage correction and UV coating as the headlights. Marker light restoration is done at your car, in the same visit.",
+} as const;
+
+// 15. Next steps. docs/CONTENT-SEO.md, SEO.md section 5
+// Three pages end with a link to the page that follows them.
+export const nextSteps = {
+  label: "NEXT",
+  guideToCost: { text: "What headlight restoration costs", href: "/headlight-restoration-cost" },
+  costToGallery: { text: "See the full gallery", href: "/gallery" },
+  galleryToContact: { text: "Get your quote", href: "/contact" },
+} as const;
+

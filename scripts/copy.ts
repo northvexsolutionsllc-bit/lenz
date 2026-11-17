@@ -5,6 +5,10 @@
 //   2. Every string on the page comes from CONTENT.md word for word. The exceptions are
 //      listed below, each with where it comes from: labels CONTENT.md uses without code
 //      quotes, interface labels, and the four location openings, which are drafts.
+//   3. The document's title and description are the ones docs/SEO.md section 4 gives,
+//      to the character. SEO.md is the later document and calls them final, so the
+//      "Meta title" and "Meta description" lines in CONTENT.md are listed as superseded
+//      and are not asked of the page.
 //
 //   npm run audit:copy                            every route
 //   npm run audit:copy -- / /gallery --print      these routes, listing every string
@@ -17,9 +21,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { chromium } from "@playwright/test";
 import { locations } from "../src/content/locations";
+import { readPlan, type Plan } from "./plan";
 import { startServer } from "./server";
 
 const CONTENT_FILE = path.join("docs", "CONTENT.md");
+// Copy for the pages docs/SEO.md adds. Its sections are numbered on from CONTENT.md's.
+const CONTENT_SEO_FILE = path.join("docs", "CONTENT-SEO.md");
 
 // ---------------------------------------------------------------------------------------
 // Which part of CONTENT.md each route renders
@@ -40,6 +47,11 @@ type RouteSpec = {
    * not required. Matched by how they start.
    */
   held?: Array<{ startsWith: string; reason: string }>;
+  /**
+   * A "Meta description" line of CONTENT.md that the page still shows, as copy on the
+   * page and no longer in the head. It is asked of the page like any other string.
+   */
+  kept?: string[];
 };
 
 const pick = (section: string, ...starts: string[]): Pick[] => starts.map((startsWith) => ({ section, startsWith }));
@@ -52,9 +64,18 @@ const LOCATION_SHARED: Pick[] = [
   ...pick("3.6", "THE CORRECTION", "Four stages.", "In that order.", "Sand", "Compound", "Polish", "Protect"),
 ];
 
+// What the pricing section of an add on page takes from the cost page: two lines of the
+// price list, and the link to it. docs/CONTENT-SEO.md 12 and 15
+const ADD_ON_PRICES: Pick[] = [
+  ...pick("3.4", "Headlight restoration"),
+  ...pick("12", "From $125 a pair", "Fog, marker and tail lights", "Added to the same visit"),
+  ...pick("15", "What headlight restoration costs"),
+];
+
 const ROUTES: Record<string, RouteSpec> = {
   "/": {
     sections: ["3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10", "3.12"],
+    strings: pick("15", "What headlight restoration costs"),
     absent: [{ section: "3.11", reason: "kept out of the page order until real reviews exist, DECISIONS.md 11" }],
   },
   "/headlight-restoration": {
@@ -63,10 +84,25 @@ const ROUTES: Record<string, RouteSpec> = {
       ...pick("3.2", "WHY IT MATTERS", "Headlight plastic is coated"),
       ...pick("3.4", "Headlight restoration"),
       ...pick("7", "Replace instead", "Cracks through the lens"),
+      ...pick("15", "What headlight restoration costs"),
     ],
     held: [{ startsWith: "How do I pay?", reason: "a question is not asked until the owner has supplied its answer" }],
+    // The description CONTENT.md 4 gave the page is now its lead
+    kept: ["Mobile headlight restoration from $125"],
   },
-  "/fog-light-restoration": { sections: ["5", "3.6", "3.9", "3.12"], strings: pick("3.8", "PRICING") },
+  "/fog-light-restoration": { sections: ["5", "3.6", "3.9", "3.12"], strings: [...pick("3.8", "PRICING"), ...ADD_ON_PRICES] },
+  "/tail-light-restoration": {
+    sections: ["13", "3.6", "3.9", "3.12"],
+    strings: [...pick("3.8", "PRICING"), ...pick("5", "Added to a headlight booking."), ...ADD_ON_PRICES],
+  },
+  "/marker-light-restoration": {
+    sections: ["14", "3.6", "3.9", "3.12"],
+    strings: [...pick("3.8", "PRICING"), ...pick("5", "Added to a headlight booking."), ...ADD_ON_PRICES],
+  },
+  "/headlight-restoration-cost": {
+    sections: ["12", "3.12"],
+    strings: pick("15", "NEXT", "See the full gallery"),
+  },
   "/dealer-and-auction": {
     sections: ["6"],
     strings: pick("3.8", "PRICING"),
@@ -79,9 +115,12 @@ const ROUTES: Record<string, RouteSpec> = {
   // of more than one service exist, so the names are allowed here and not required.
   "/gallery": {
     sections: [],
-    strings: pick("3.5", "PREVIOUS WORK", "Drag it.", "That is the same lens.", "Every pair here"),
+    strings: [
+      ...pick("3.5", "PREVIOUS WORK", "Drag it.", "That is the same lens.", "Every pair here"),
+      ...pick("15", "NEXT", "Get your quote"),
+    ],
   },
-  "/vehicle-guide": { sections: ["7"] },
+  "/vehicle-guide": { sections: ["7"], strings: pick("15", "NEXT", "What headlight restoration costs") },
   "/about": { sections: ["3.10", "3.12"] },
   "/contact": { sections: ["3.12"], strings: pick("3.7", "Get your quote") },
   ...Object.fromEntries(
@@ -95,8 +134,8 @@ const ROUTES: Record<string, RouteSpec> = {
   ),
 };
 
-// CONTENT.md section 2. These are not in code quotes there, so they are listed here and
-// checked against the document before use. They are on every page: header and footer.
+// CONTENT.md section 2, and CONTENT-SEO.md section 16. These are listed here and checked
+// against the documents before use. They are on every page: header and footer.
 const GLOBAL = [
   "LENZ RESCUE",
   "Mobile headlight restoration",
@@ -109,6 +148,10 @@ const GLOBAL = [
   "Vehicle guide",
   "About",
   "Contact",
+  // The footer links to the pages SEO.md adds. docs/CONTENT-SEO.md 16
+  "Tail light restoration",
+  "Marker light restoration",
+  "Headlight restoration cost",
 ];
 
 const LINKS = { tel: "tel:+19258125524", smsPrefix: "sms:+19258125524?&body=" };
@@ -177,10 +220,14 @@ const INTERFACE: Array<{ match: string | RegExp; source: string }> = [
 
 const normalise = (text: string) => text.replace(/\s+/g, " ").trim();
 
-type Quoted = { text: string; line: number; section: string };
+type Quoted = { text: string; line: number; section: string; superseded: boolean };
+
+// CONTENT.md gives a title and a description for four pages. docs/SEO.md section 4 came
+// later, gives one for every page, and says "Written and final".
+const SUPERSEDED_LINE = /^- Meta (title|description):/;
 
 function readContent() {
-  const raw = fs.readFileSync(CONTENT_FILE, "utf8");
+  const raw = `${fs.readFileSync(CONTENT_FILE, "utf8")}\n${fs.readFileSync(CONTENT_SEO_FILE, "utf8")}`;
   const lines = raw.split("\n");
   const quoted: Quoted[] = [];
   const titles = new Map<string, string>();
@@ -194,8 +241,9 @@ function readContent() {
       return;
     }
     // A sub-heading without a number, such as the FAQ list, stays in its section
+    const superseded = SUPERSEDED_LINE.test(line);
     for (const match of line.matchAll(/`([^`]+)`/g)) {
-      quoted.push({ text: normalise(match[1]), line: index + 1, section });
+      quoted.push({ text: normalise(match[1]), line: index + 1, section, superseded });
     }
   });
 
@@ -309,7 +357,13 @@ async function readPage(base: string, route: string) {
 type Status = "content" | "label" | "owner note" | "pattern" | "interface" | "DRAFT" | "UNKNOWN";
 type Verdict = { status: Status; note: string };
 
-function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof readPage>>, content: ReturnType<typeof readContent>) {
+function audit(
+  route: string,
+  spec: RouteSpec,
+  page: Awaited<ReturnType<typeof readPage>>,
+  content: ReturnType<typeof readContent>,
+  plan: Plan,
+) {
   const out: string[] = [];
   let failures = 0;
 
@@ -317,7 +371,7 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
   for (const item of content.quoted) if (isCopy(item.text) && !approved.has(item.text)) approved.set(item.text, item);
   for (const text of GLOBAL) {
     if (!content.prose.includes(text)) throw new Error(`"${text}" is listed as a global string but is not in ${CONTENT_FILE}.`);
-    if (!approved.has(text)) approved.set(text, { text, line: 0, section: "2" });
+    if (!approved.has(text)) approved.set(text, { text, line: 0, section: "2", superseded: false });
   }
   for (const label of LABELS) {
     const found = label.anyCase ? content.prose.toLowerCase().includes(label.text.toLowerCase()) : content.prose.includes(label.text);
@@ -381,7 +435,11 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
   out.push(`${route}`);
   out.push("");
   out.push("  1. CONTENT.md, read against the page");
-  const row = (text: string) => {
+  const row = (text: string, superseded = false) => {
+    if (superseded) {
+      out.push(`       replaced ${text}  (SEO.md section 4 gives this page's title and description)`);
+      return;
+    }
     const found = onPage(text);
     const held = spec.held?.find((entry) => text.startsWith(entry.startsWith));
     if (!found && held) {
@@ -393,7 +451,9 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
   };
   for (const section of spec.sections) {
     out.push(`     ${section} ${content.titles.get(section) ?? ""}`);
-    content.quoted.filter((entry) => entry.section === section && isCopy(entry.text)).forEach((item) => row(item.text));
+    content.quoted
+      .filter((entry) => entry.section === section && isCopy(entry.text))
+      .forEach((item) => row(item.text, item.superseded && !spec.kept?.some((start) => item.text.startsWith(start))));
   }
   if (spec.strings?.length) {
     out.push("     Taken from other sections");
@@ -413,7 +473,7 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
   }
 
   out.push("     2 Global");
-  GLOBAL.forEach(row);
+  GLOBAL.forEach((text) => row(text));
   const sms = content.quoted.find((item) => item.text.startsWith(LINKS.smsPrefix))?.text ?? "";
   const smsOnPage = page.hrefs.filter((href) => href.startsWith("sms:")).map((href) => decodeURIComponent(href));
   const smsOk = sms !== "" && smsOnPage.length > 0 && smsOnPage.every((href) => href === sms);
@@ -446,9 +506,16 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
   }
 
   out.push("");
-  out.push("  3. Document metadata");
-  out.push(`       title        ${page.title}`);
-  out.push(`       description  ${page.description ?? "(none)"}`);
+  out.push("  3. Document metadata, against SEO.md section 4");
+  const planned = plan.meta.get(route);
+  const titleOk = planned !== undefined && page.title === planned.title;
+  const descriptionOk = planned !== undefined && page.description === planned.description;
+  if (!titleOk) failures += 1;
+  if (!descriptionOk) failures += 1;
+  out.push(`       ${titleOk ? "ok     " : "DIFFERS"}  title        ${page.title}`);
+  if (!titleOk) out.push(`                SEO.md       ${planned?.title ?? "(no row for this route)"}`);
+  out.push(`       ${descriptionOk ? "ok     " : "DIFFERS"}  description  ${page.description ?? "(none)"}`);
+  if (!descriptionOk) out.push(`                SEO.md       ${planned?.description ?? "(no row for this route)"}`);
 
   out.push("");
   out.push(`  ${failures === 0 ? "PASS" : "FAIL"}: ${distinct.size} distinct strings (${counts.join(", ")}), ${failures} problem${failures === 1 ? "" : "s"}.`);
@@ -458,7 +525,7 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
 // Without --print, part 2 of a report is cut down to what needs a decision
 function brief(report: string[]): string[] {
   const start = report.indexOf("  2. The page, read against CONTENT.md");
-  const end = report.indexOf("  3. Document metadata");
+  const end = report.indexOf("  3. Document metadata, against SEO.md section 4");
   const keep = new Set<number>();
   let showing = false;
   report.forEach((line, index) => {
@@ -480,6 +547,7 @@ async function main() {
   const baseArg = args.find((arg) => arg.startsWith("--base="))?.slice(7).replace(/\/$/, "") ?? null;
 
   const content = readContent();
+  const plan = readPlan();
   const server = baseArg ? { base: baseArg, stop: () => undefined } : await startServer();
   let failures = 0;
 
@@ -488,7 +556,7 @@ async function main() {
       const spec = ROUTES[route];
       if (!spec) throw new Error(`No CONTENT.md sections are mapped to ${route}. Add it to ROUTES in scripts/copy.ts.`);
       const page = await readPage(server.base, route);
-      const result = audit(route, spec, page, content);
+      const result = audit(route, spec, page, content, plan);
       failures += result.failures;
 
       if (outDir) {

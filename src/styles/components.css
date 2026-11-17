@@ -165,19 +165,35 @@
   /* ------------------------------------------------------------------ Counter */
 
   /*
-    The ghost holds the final value and is never visible. It reserves the full width, so
-    the live figure can count underneath it without moving anything around it.
+    The figure is in the document once, as the live value that counts. Two copies of the
+    final value are drawn here from data-final, so that neither is document text: one
+    for assistive technology, and one, never visible, that reserves the full width so the
+    live figure can count without moving anything around it.
   */
   .counter {
+    position: relative;
     display: inline-grid;
     white-space: nowrap;
   }
 
-  .counter > * {
+  .counter > *,
+  .counter::after {
     grid-area: 1 / 1;
   }
 
-  .counter-ghost {
+  /* The final value for assistive technology: read out, never seen, and steady while the figure counts */
+  .counter::before {
+    content: attr(data-final);
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  /* The final value again, invisible, holding the width */
+  .counter::after {
+    content: attr(data-final);
     visibility: hidden;
   }
 
@@ -548,6 +564,18 @@
     pointer-events: none;
   }
 
+  /*
+    The poster stops one pixel short of the left edge of the screen. A browser does not
+    count a picture that fills the whole viewport as content: it takes it for a
+    background. One pixel short, the poster counts, and docs/SEO.md section 8 wants it to
+    be the page's largest contentful paint. The left edge is where the poster is darkest
+    and closest to the night behind it, and the canvas covers that pixel once it draws.
+  */
+  .hero-poster {
+    position: absolute;
+    inset: 0 0 0 1px;
+  }
+
   /* The canvas fades in over the poster once its first frame is drawn */
   .hero-canvas {
     position: absolute;
@@ -733,6 +761,19 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+
+  /* A line of a price list: what it is, and what it costs */
+  .price-row {
+    display: grid;
+    gap: 8px 24px;
+  }
+
+  @media (min-width: 640px) {
+    .price-row {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: baseline;
+    }
   }
 
   /* An inclusion: a check in xenon, a title and a line of copy */

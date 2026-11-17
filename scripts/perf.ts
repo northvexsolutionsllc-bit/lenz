@@ -7,7 +7,8 @@
 //   npm run audit:perf -- --out=docs/qa      also save the report as docs/qa/perf.txt
 //
 // What it measures itself:
-//   LCP and CLS            from the browser's own performance entries
+//   LCP and CLS            from the browser's own performance entries, and which element
+//                          the LCP is: docs/SEO.md section 8 wants the hero poster
 //   INP                    the slowest of a set of real interactions, by event timing, each
 //                          made on a page that has come to rest. A tap that lands while
 //                          the page is still settling after a scroll is measured as well,
@@ -36,9 +37,9 @@ const BUDGET = { lcp: 2500, cls: 0.02, inp: 200, js: 230, frame: 8 };
 
 const lines: string[] = [];
 let failures = 0;
-const row = (metric: string, budget: string, measured: string, ok: boolean | null) => {
+const row = (metric: string, budget: string, measured: string, ok: boolean | null, words = ["within budget", "OVER BUDGET"]) => {
   if (ok === false) failures += 1;
-  lines.push(`  ${metric.padEnd(34)} ${budget.padEnd(16)} ${measured.padEnd(28)} ${ok === null ? "" : ok ? "within budget" : "OVER BUDGET"}`);
+  lines.push(`  ${metric.padEnd(34)} ${budget.padEnd(16)} ${measured.padEnd(28)} ${ok === null ? "" : ok ? words[0] : words[1]}`);
 };
 
 // tsx compiles named functions with a call to a helper, __name, that only exists in
@@ -77,10 +78,14 @@ async function main() {
         const seen = { lcp: 0, element: "", cls: 0 };
         (window as unknown as { __seen: typeof seen }).__seen = seen;
         new PerformanceObserver((list) => {
-          for (const entry of list.getEntries() as Array<PerformanceEntry & { element?: Element }>) {
+          for (const entry of list.getEntries() as Array<PerformanceEntry & { element?: Element; url?: string }>) {
             seen.lcp = entry.startTime;
             const el = entry.element;
-            seen.element = el ? `${el.tagName.toLowerCase()}${el.id ? `#${el.id}` : ""} "${(el.textContent ?? "").trim().slice(0, 24)}"` : "";
+            // A picture is named by its file, and text by how it starts
+            const file = /[?&]url=([^&]+)/.exec(entry.url ?? "")?.[1];
+            const picture = entry.url ? decodeURIComponent(file ?? entry.url).split("/").pop() : "";
+            const text = (el?.textContent ?? "").trim().slice(0, 24);
+            seen.element = !el ? "" : picture ? `the picture ${picture}` : `${el.tagName.toLowerCase()}${el.id ? `#${el.id}` : ""} "${text}"`;
           }
         }).observe({ type: "largest-contentful-paint", buffered: true });
         new PerformanceObserver((list) => {
@@ -109,7 +114,9 @@ async function main() {
     }
     const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)];
     row("LCP, mobile, throttled 4G", "under 2.5s", `${(median(lcps) / 1000).toFixed(2)}s (${lcps.map((v) => (v / 1000).toFixed(2)).join(", ")})`, median(lcps) < BUDGET.lcp);
-    lines.push(`      the LCP element is ${lcpElement}`);
+    // docs/SEO.md section 8: on a phone the largest contentful paint is the hero poster,
+    // which is preloaded, and not something that waits for script
+    row("LCP element, phone", "the hero poster", lcpElement, /hero-still/.test(lcpElement), ["as asked", "NOT THE POSTER"]);
     row("CLS", "under 0.02", `${Math.max(...clss).toFixed(3)} at worst, whole page scrolled`, Math.max(...clss) < BUDGET.cls);
 
     // ---------------------------------------------------------------- INP
@@ -297,7 +304,7 @@ async function main() {
   }
 
   const header = `  ${"Metric".padEnd(34)} ${"Budget".padEnd(16)} ${"Measured".padEnd(28)}`;
-  const report = ["Home route, phone screen, slow 4G and 4x CPU slowdown", "", header, ...lines, "", failures === 0 ? "PASS: every measured row is within budget." : `FAIL: ${failures} row${failures === 1 ? "" : "s"} over budget.`].join("\n");
+  const report = ["Home route, phone screen, slow 4G and 4x CPU slowdown", "", header, ...lines, "", failures === 0 ? "PASS: every measured row is as it should be." : `FAIL: ${failures} row${failures === 1 ? "" : "s"} not as it should be.`].join("\n");
   console.info(report);
   if (outDir) {
     fs.mkdirSync(outDir, { recursive: true });

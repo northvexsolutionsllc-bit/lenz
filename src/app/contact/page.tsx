@@ -5,18 +5,13 @@ import { PageHero } from "@/components/ui/PageHero";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
 import { finalCta } from "@/content/home";
-import { getRoute } from "@/content/routes";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema } from "@/lib/schema";
 
 const PATH = "/contact";
 
-export const metadata: Metadata = pageMetadata({
-  path: PATH,
-  title: `${getRoute(PATH).name} | ${site.name}`,
-  description: finalCta.body,
-});
+export const metadata: Metadata = pageMetadata({ path: PATH });
 
 // Form, phone, service area, hours. CONTENT.md 1
 // CONTENT.md gives this route a purpose and no copy of its own, so the page opens with

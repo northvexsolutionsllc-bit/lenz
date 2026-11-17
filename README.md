@@ -15,6 +15,8 @@ Everything about this site is specified in `docs/`. Read these before changing a
 | `docs/DESIGN.md` | Colour, type, space, radius, imagery and components. The single source of truth. |
 | `docs/MOTION.md` | Easing, duration, scroll behaviour, the hero shader and the performance budget. |
 | `docs/CONTENT.md` | Every word on the site, the routes, alt text and structured data. |
+| `docs/SEO.md` | The search plan: one keyword per page, every title and description, the on page rules, the structured data. |
+| `docs/CONTENT-SEO.md` | The copy of the three pages SEO.md adds, written in the build and waiting for the owner to confirm it. |
 | `docs/DECISIONS.md` | Why things are the way they are. |
 | `docs/AUDIT.md` | The old site, as found, and what the rebuild has to prove. |
 | `docs/PROMPTS.md` | The staged build plan. |
@@ -23,7 +25,7 @@ Everything about this site is specified in `docs/`. Read these before changing a
 Three rules hold everywhere:
 
 1. Every colour, font, spacing value, radius and easing curve comes from `docs/DESIGN.md` and `docs/MOTION.md`.
-2. Every word of user-facing copy comes from `docs/CONTENT.md`, verbatim.
+2. Every word of user-facing copy comes from `docs/CONTENT.md`, verbatim. Titles and descriptions come from `docs/SEO.md` section 4, verbatim.
 3. No em dashes and no en dashes, anywhere.
 
 ## Commands
@@ -35,8 +37,8 @@ npm run build          # production build
 npm run start          # serve the production build
 npm run lint           # ESLint
 npm run audit:design   # the ban list in DESIGN.md section 7, and unused dependencies
-npm run audit:copy     # every word on every route against CONTENT.md
-npm run audit:seo      # sitemap, structured data, metadata, alt text, location pages
+npm run audit:copy     # every word on every route against CONTENT.md, titles against SEO.md
+npm run audit:seo      # sitemap, structured data, titles, share image, alt text, on page rules
 npm run audit:a11y     # axe, a keyboard walk and contrast on every route, and the hero measured
 npm run audit:perf     # the budget in MOTION.md section 9, on the home route
 npm run audit:owner    # everything still waiting on the owner, read from the source
@@ -58,7 +60,7 @@ Every audit except `audit:design` reads the production build in a browser, so ru
 | `src/styles/components.css` | Component states and transitions. |
 | `src/components/ui` | The component set from DESIGN.md section 6. |
 | `src/components/sections` | The page sections, each built from the component set. |
-| `src/content` | Copy and data, taken from CONTENT.md. |
+| `src/content` | Copy and data, taken from CONTENT.md. `seo.ts` holds every title, description and keyword, taken from SEO.md. |
 | `src/app/styleguide` | Every token, type style and component on one page. Not indexed. |
 | `public/media` | Client supplied media, under the exact filenames in DESIGN.md section 5. |
 

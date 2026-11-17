@@ -112,6 +112,8 @@
        ok       Oakley
        ok       Discovery Bay
        ok       Bay Point
+     Taken from other sections
+       ok       What headlight restoration costs
      3.11 Reviews (must not be on the page: kept out of the page order until real reviews exist, DECISIONS.md 11)
        absent   WHAT PEOPLE SAY
        absent   Ask the
@@ -129,11 +131,14 @@
        ok       Vehicle guide
        ok       About
        ok       Contact
+       ok       Tail light restoration
+       ok       Marker light restoration
+       ok       Headlight restoration cost
        ok       link tel:+19258125524
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (4 on the page)
 
   2. The page, read against CONTENT.md
-     content (110)
+     content (114)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -141,7 +146,7 @@
        "Gallery" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Vehicle guide" x3
-           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+           CONTENT.md line 376, first at ul.flex > li > a.nav-link
        "About" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Contact" x3
@@ -164,16 +169,16 @@
            CONTENT.md line 46, first at a.btn > span.btn-face > span.caps
        "STARTING PRICE"
            CONTENT.md line 69, first at dl.hero-stats > div.hero-stat > dt.caps
-       "$125" x6
-           CONTENT.md line 69, first at dd > span.counter > span.sr-only
+       "$125" x2
+           CONTENT.md line 69, first at dd > span.counter > span
        "GUARANTEE"
            CONTENT.md line 70, first at dl.hero-stats > div.hero-stat > dt.caps
-       "3 YR" x3
-           CONTENT.md line 70, first at dd > span.counter > span.sr-only
+       "3 YR"
+           CONTENT.md line 70, first at dd > span.counter > span
        "TYPICAL VISIT"
            CONTENT.md line 71, first at dl.hero-stats > div.hero-stat > dt.caps
-       "1 HR" x3
-           CONTENT.md line 71, first at dd > span.counter > span.sr-only
+       "1 HR"
+           CONTENT.md line 71, first at dd > span.counter > span
        "SEE THE DIFFERENCE"
            CONTENT.md line 72, first at section.hero > div.hero-layout > a.hero-cue
        "WHY IT MATTERS"
@@ -292,6 +297,8 @@
            CONTENT.md line 127, first at div.flex > h2.h2 > span.accent
        "Final price depends on lens size and how far the oxidation has gone. Larger housings and heavily pitted lenses take longer. Send photos and you get a firm number before anyone books anything."
            CONTENT.md line 128, first at div.shell > div.flex > p.body
+       "What headlight restoration costs"
+           CONTENT.md line 393, first at p > a.text-link > span.text-link-label
        "Multi-step correction"
            CONTENT.md line 130, first at li.check-row > div.flex > h3.h3
        "Sand, compound and polish, not a one-pass wipe"
@@ -352,6 +359,12 @@
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
            CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Tail light restoration"
+           CONTENT.md line 428, first at li > a.text-link > span.text-link-label
+       "Marker light restoration"
+           CONTENT.md line 429, first at li > a.text-link > span.text-link-label
+       "Headlight restoration cost"
+           CONTENT.md line 430, first at li > a.text-link > span.text-link-label
        "LenzRescue@gmail.com"
            CONTENT.md section 2, first at li > a.text-link > span.text-link-label
      pattern (8)
@@ -393,12 +406,12 @@
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
        "Lenz Rescue on Instagram"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
 
-  3. Document metadata
-       title        Lenz Rescue | Mobile headlight restoration
-       description  Cloudy headlights cut how far you can see at night. We restore the lens you already have, at your driveway, for a fraction of what new assemblies cost.
+  3. Document metadata, against SEO.md section 4
+       ok       title        Mobile Headlight Restoration, Antioch and Brentwood CA
+       ok       description  We come to your car. Cloudy headlights restored from $125 with a 3 year guarantee. Serving Antioch, Brentwood, Pittsburg and Oakley. Text a photo for a quote.
 
-  PASS: 130 distinct strings (110 content, 8 pattern, 12 interface), 0 problems.
+  PASS: 134 distinct strings (114 content, 8 pattern, 12 interface), 0 problems.

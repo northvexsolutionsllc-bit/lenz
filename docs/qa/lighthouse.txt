@@ -1,17 +1,41 @@
-Lighthouse 13.6.0, home route, mobile form factor, production build
+Lighthouse 13.6.0, mobile form factor, production build made for the production host
 
-Budget, MOTION.md section 9: Performance 90 or above, Accessibility 100.
+Budget, MOTION.md section 9: Performance 90 or above, Accessibility 100. docs/SEO.md: SEO 100.
 
-1. Throttling applied (--throttling-method=devtools): the network and the processor are really slowed
-  Performance  98   Accessibility 100   FCP 0.9 s   LCP 1.2 s   TBT 160 ms   CLS 0.013   Speed Index 2.1 s
-  Performance  97   Accessibility 100   FCP 0.9 s   LCP 1.2 s   TBT 210 ms   CLS 0.013   Speed Index 2.1 s
-  Performance  93   Accessibility 100   FCP 0.9 s   LCP 1.2 s   TBT 310 ms   CLS 0.013   Speed Index 2.2 s
+1. Home route, throttling applied (--throttling-method=devtools): the network and the processor are really slowed
+  Performance  94   Accessibility 100   FCP 0.9 s   LCP 1.3 s   TBT 300 ms   CLS 0.013   Speed Index 2.1 s
+  Performance  95   Accessibility 100   FCP 1.0 s   LCP 1.3 s   TBT 260 ms   CLS 0.013   Speed Index 2.1 s
+  Performance  95   Accessibility 100   FCP 0.9 s   LCP 1.3 s   TBT 260 ms   CLS 0.013   Speed Index 2.1 s
 
-2. Throttling simulated (the default, and what PageSpeed Insights uses): loaded at full speed, then estimated
-  Performance  82   Accessibility 100   FCP 1.0 s   LCP 4.3 s   TBT 240 ms   CLS 0   Speed Index 1.9 s
-  Performance  86   Accessibility 100   FCP 1.0 s   LCP 4.1 s   TBT 70 ms   CLS 0   Speed Index 1.8 s
-  Performance  86   Accessibility 100   FCP 1.0 s   LCP 4.1 s   TBT 100 ms   CLS 0   Speed Index 1.9 s
+2. Home route, throttling simulated (the default, and what PageSpeed Insights uses): loaded at full speed, then estimated
+  Performance  90   Accessibility 100   FCP 1.0 s   LCP 3.5 s   TBT 110 ms   CLS 0   Speed Index 1.9 s
+  Performance  89   Accessibility 100   FCP 0.9 s   LCP 3.5 s   TBT 150 ms   CLS 0   Speed Index 1.9 s
+  Performance  90   Accessibility 100   FCP 1.0 s   LCP 3.5 s   TBT 110 ms   CLS 0   Speed Index 1.8 s
 
-Accessibility is 100 in all six runs. Performance meets the budget with the throttling applied and
-misses it in the simulated mode, where LCP is estimated at about 4 seconds. docs/HANDOVER.md section 10
-explains the difference.
+   The LCP element in all six runs: section.hero > div.hero-backdrop > div.hero-poster > img.object-cover
+   That is the hero poster, as docs/SEO.md section 8 asks. It is preloaded, at high priority.
+
+3. Every route: SEO, Accessibility and Best Practices
+  /                                      SEO 100   Accessibility 100   Best Practices 100
+  /headlight-restoration                 SEO 100   Accessibility 100   Best Practices 100
+  /fog-light-restoration                 SEO 100   Accessibility 100   Best Practices 100
+  /tail-light-restoration                SEO 100   Accessibility 100   Best Practices 100
+  /marker-light-restoration              SEO 100   Accessibility 100   Best Practices 100
+  /headlight-restoration-cost            SEO 100   Accessibility 100   Best Practices 100
+  /vehicle-guide                         SEO 100   Accessibility 100   Best Practices 100
+  /dealer-and-auction                    SEO 100   Accessibility 100   Best Practices 100
+  /gallery                               SEO 100   Accessibility 100   Best Practices 100
+  /about                                 SEO 100   Accessibility 100   Best Practices 100
+  /contact                               SEO 100   Accessibility 100   Best Practices 100
+  /headlight-restoration-antioch-ca      SEO 100   Accessibility 100   Best Practices 100
+  /headlight-restoration-brentwood-ca    SEO 100   Accessibility 100   Best Practices 100
+  /headlight-restoration-pittsburg-ca    SEO 100   Accessibility 100   Best Practices 100
+  /headlight-restoration-oakley-ca       SEO 100   Accessibility 100   Best Practices 100
+
+   The SEO audits Lighthouse runs, all passed on every route: is-crawlable, document-title, meta-description, http-status-code, link-text, crawlable-anchors, robots-txt, image-alt, hreflang, canonical.
+   It leaves one to a person: structured-data. That is checked by npm run audit:seo, docs/qa/seo.txt.
+
+Accessibility, SEO and Best Practices are 100 on all fifteen routes. Performance meets the budget with the
+throttling applied. In the simulated mode it is 89 to 90, on the line, with LCP estimated at 3.5 seconds against
+1.3 measured. docs/HANDOVER.md section 10 explains the difference. A staging build scores lower for SEO on
+purpose: it says noindex, and Lighthouse marks that down.

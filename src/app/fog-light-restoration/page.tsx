@@ -7,7 +7,7 @@ import { Guarantee } from "@/components/sections/Guarantee";
 import { PageHero } from "@/components/ui/PageHero";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
-import { services } from "@/content/home";
+import { pricing, services } from "@/content/home";
 import { fog } from "@/content/pages";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/metadata";
@@ -16,11 +16,7 @@ import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 const PATH = "/fog-light-restoration";
 const service = services.items[1];
 
-export const metadata: Metadata = pageMetadata({
-  path: PATH,
-  title: fog.meta.title,
-  description: fog.meta.description,
-});
+export const metadata: Metadata = pageMetadata({ path: PATH });
 
 // The secondary service page. CONTENT.md 5
 // Kept short: four sections and a CTA. The process is the still variant, not the pinned
@@ -28,10 +24,10 @@ export const metadata: Metadata = pageMetadata({
 export default function FogLightRestorationPage() {
   return (
     <>
-      {/* No price in the structured data: the add-on price is still owed by the owner */}
+      {/* The add on has no price of its own yet, so the price given is the booking's */}
       <JsonLd
         data={[
-          serviceSchema({ path: PATH, name: service.title, description: fog.meta.description }),
+          serviceSchema({ path: PATH, name: service.title, addedToBookingFrom: pricing.price.value }),
           breadcrumbSchema(PATH),
         ]}
       />

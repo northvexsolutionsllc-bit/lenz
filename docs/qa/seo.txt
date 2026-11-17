@@ -4,13 +4,16 @@
 1. Sitemap
   ok    /sitemap.xml answers 200 as application/xml
   ok    it is an XML urlset in the sitemaps.org namespace, not an HTML page
-  ok    it lists all 12 routes, each once
+  ok    it lists all 15 routes, each once
         https://lenzrescue.com
         https://lenzrescue.com/headlight-restoration
         https://lenzrescue.com/fog-light-restoration
+        https://lenzrescue.com/tail-light-restoration
+        https://lenzrescue.com/marker-light-restoration
+        https://lenzrescue.com/headlight-restoration-cost
+        https://lenzrescue.com/vehicle-guide
         https://lenzrescue.com/dealer-and-auction
         https://lenzrescue.com/gallery
-        https://lenzrescue.com/vehicle-guide
         https://lenzrescue.com/about
         https://lenzrescue.com/contact
         https://lenzrescue.com/headlight-restoration-antioch-ca
@@ -23,9 +26,12 @@
   ok    / 200
   ok    /headlight-restoration 200
   ok    /fog-light-restoration 200
+  ok    /tail-light-restoration 200
+  ok    /marker-light-restoration 200
+  ok    /headlight-restoration-cost 200
+  ok    /vehicle-guide 200
   ok    /dealer-and-auction 200
   ok    /gallery 200
-  ok    /vehicle-guide 200
   ok    /about 200
   ok    /contact 200
   ok    /headlight-restoration-antioch-ca 200
@@ -44,25 +50,53 @@
   ok    Service: valid, 21 properties checked
   ok    FAQPage: valid, 19 properties checked
   ok    BreadcrumbList: valid, 7 properties checked
+  ok    Service: minPrice 125 USD
    /fog-light-restoration
   ok    AutoRepair: valid, 24 properties checked
   note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
-  ok    Service: valid, 17 properties checked
+  ok    Service: valid, 24 properties checked
+  ok    BreadcrumbList: valid, 7 properties checked
+  ok    Service: an add on, with no price of its own. The booking it is added to: minPrice 125 USD
+   /tail-light-restoration
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    Service: valid, 24 properties checked
+  ok    BreadcrumbList: valid, 7 properties checked
+  ok    Service: an add on, with no price of its own. The booking it is added to: minPrice 125 USD
+   /marker-light-restoration
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    Service: valid, 24 properties checked
+  ok    BreadcrumbList: valid, 7 properties checked
+  ok    Service: an add on, with no price of its own. The booking it is added to: minPrice 125 USD
+   /headlight-restoration-cost
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    FAQPage: valid, 16 properties checked
+  ok    BreadcrumbList: valid, 10 properties checked
+   /vehicle-guide
+  ok    AutoRepair: valid, 24 properties checked
+  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
+  ok    FAQPage: valid, 4 properties checked
   ok    BreadcrumbList: valid, 7 properties checked
    /dealer-and-auction
   ok    AutoRepair: valid, 24 properties checked
   note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
   ok    Service: valid, 17 properties checked
   ok    BreadcrumbList: valid, 7 properties checked
+  note  Service: no price. The trade price per unit is still owed by the owner.
    /gallery
   ok    AutoRepair: valid, 24 properties checked
   note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
   ok    BreadcrumbList: valid, 7 properties checked
-   /vehicle-guide
-  ok    AutoRepair: valid, 24 properties checked
-  note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
-  ok    FAQPage: valid, 4 properties checked
-  ok    BreadcrumbList: valid, 7 properties checked
+  ok    ImageObject: valid, 3 properties checked
+  ok    ImageObject: valid, 3 properties checked
+  ok    ImageObject: valid, 3 properties checked
+  ok    ImageObject: valid, 3 properties checked
+  ok    ImageObject: valid, 3 properties checked
+  ok    ImageObject: valid, 3 properties checked
+  ok    ImageObject: valid, 3 properties checked
+  ok    ImageObject: valid, 3 properties checked
    /about
   ok    AutoRepair: valid, 24 properties checked
   note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
@@ -76,50 +110,52 @@
   note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
   ok    Service: valid, 12 properties checked
   ok    BreadcrumbList: valid, 10 properties checked
+  ok    Service: minPrice 125 USD
    /headlight-restoration-brentwood-ca
   ok    AutoRepair: valid, 24 properties checked
   note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
   ok    Service: valid, 12 properties checked
   ok    BreadcrumbList: valid, 10 properties checked
+  ok    Service: minPrice 125 USD
    /headlight-restoration-pittsburg-ca
   ok    AutoRepair: valid, 24 properties checked
   note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
   ok    Service: valid, 12 properties checked
   ok    BreadcrumbList: valid, 10 properties checked
+  ok    Service: minPrice 125 USD
    /headlight-restoration-oakley-ca
   ok    AutoRepair: valid, 24 properties checked
   note  AutoRepair: no address, by design. Google lists an address as required for its local business result.
   ok    Service: valid, 12 properties checked
   ok    BreadcrumbList: valid, 10 properties checked
-   32 blocks on 12 routes.
+  ok    Service: minPrice 125 USD
+   49 blocks on 15 routes.
 
 3. Metadata
-  ok    /: no meta given in CONTENT.md for this route
-        Lenz Rescue | Mobile headlight restoration
-  ok    /headlight-restoration: title and description as CONTENT.md gives them
-        Headlight Restoration in Antioch and Brentwood CA | Lenz Rescue
-  ok    /fog-light-restoration: title and description as CONTENT.md gives them
-        Fog Light Restoration | Lenz Rescue, East Contra Costa
-  ok    /dealer-and-auction: title and description as CONTENT.md gives them
-        Dealer and Auction Headlight Reconditioning | Lenz Rescue
-  ok    /gallery: no meta given in CONTENT.md for this route
-        Gallery | Lenz Rescue
-  ok    /vehicle-guide: title and description as CONTENT.md gives them
-        Which Headlights Can Be Restored | Lenz Rescue Vehicle Guide
-  ok    /about: no meta given in CONTENT.md for this route
-        About | Lenz Rescue
-  ok    /contact: no meta given in CONTENT.md for this route
-        Contact | Lenz Rescue
-  ok    /headlight-restoration-antioch-ca: title from the CONTENT.md 8 pattern
-        Headlight Restoration in Antioch CA | Mobile, From $125 | Lenz Rescue
-  ok    /headlight-restoration-brentwood-ca: title from the CONTENT.md 8 pattern
-        Headlight Restoration in Brentwood CA | Mobile, From $125 | Lenz Rescue
-  ok    /headlight-restoration-pittsburg-ca: title from the CONTENT.md 8 pattern
-        Headlight Restoration in Pittsburg CA | Mobile, From $125 | Lenz Rescue
-  ok    /headlight-restoration-oakley-ca: title from the CONTENT.md 8 pattern
-        Headlight Restoration in Oakley CA | Mobile, From $125 | Lenz Rescue
+  ok    /: as SEO.md section 4 gives them. title 54, description 158
+  note  /: the description is 158 characters, and SEO.md sets the limit under 155. The string is SEO.md's own.
+  ok    /headlight-restoration: as SEO.md section 4 gives them. title 47, description 139
+  ok    /fog-light-restoration: as SEO.md section 4 gives them. title 49, description 132
+  ok    /tail-light-restoration: as SEO.md section 4 gives them. title 49, description 119
+  ok    /marker-light-restoration: as SEO.md section 4 gives them. title 42, description 107
+  ok    /headlight-restoration-cost: as SEO.md section 4 gives them. title 49, description 137
+  ok    /vehicle-guide: as SEO.md section 4 gives them. title 49, description 134
+  ok    /dealer-and-auction: as SEO.md section 4 gives them. title 51, description 113
+  ok    /gallery: as SEO.md section 4 gives them. title 45, description 102
+  ok    /about: as SEO.md section 4 gives them. title 46, description 125
+  ok    /contact: as SEO.md section 4 gives them. title 38, description 116
+  ok    /headlight-restoration-antioch-ca: as SEO.md section 4 gives them. title 46, description 119
+  ok    /headlight-restoration-brentwood-ca: as SEO.md section 4 gives them. title 48, description 121
+  ok    /headlight-restoration-pittsburg-ca: as SEO.md section 4 gives them. title 48, description 121
+  ok    /headlight-restoration-oakley-ca: as SEO.md section 4 gives them. title 45, description 118
 
-4. Alt text
+   Share image
+  ok    every route names the same one: https://lenzrescue.com/generated/share.a19866d5.jpg
+  ok    every route says it is 1200 by 630
+  ok    a plain request gets it: 200, image/jpeg, 1200 by 630, 101 KB
+  ok    it is described as a before and after pair: "Oxidized yellow headlight on a gray vehicle before restoration. The same gray vehicle headlight after multi-step restoration and UV coating."
+
+4. Images
   ok    13 different images, 13 different alt texts: no two images share one
   ok    51 image tags carry a description. 1 with empty alt text, as decoration: the hero backdrop.
   ok    the old site's alt text appears on no route
@@ -136,15 +172,17 @@
         after-04.jpg: The same maroon vehicle headlight after multi-step restoration and UV coating
         after-01.jpg: The same red vehicle headlight after multi-step restoration and UV coating
         gallery-02.jpg: White vehicle headlights restored on site
+  ok    all 14 image addresses answer a plain request with 200 and an image
+  ok    the home page preloads the hero poster, ahead of every script
 
 5. Location pages
-  ok    Antioch: opening of 77 words, names Somersville, Deer Valley, Hillcrest
+  ok    Antioch: opening of 84 words, names Somersville, Deer Valley, Hillcrest
         brief: Highway 4 commuting, Somersville, Deer Valley, Hillcrest
-  ok    Brentwood: opening of 83 words, names Balfour, Shadow Lakes, Brentwood Blvd
+  ok    Brentwood: opening of 88 words, names Balfour, Shadow Lakes, Brentwood Blvd
         brief: Vineyard and orchard road dust, Balfour, Shadow Lakes, Brentwood Blvd
-  ok    Pittsburg: opening of 82 words, names Railroad Ave, Bay Point edge, Los Medanos
+  ok    Pittsburg: opening of 87 words, names Railroad Ave, Bay Point edge, Los Medanos
         brief: Delta humidity and salt air, Railroad Ave, Bay Point edge, Los Medanos
-  ok    Oakley: opening of 85 words, names Main Street, Summer Lake, Laurel Rd
+  ok    Oakley: opening of 86 words, names Main Street, Summer Lake, Laurel Rd
         brief: Delta sun exposure, Main Street, Summer Lake, Laurel Rd
   ok    no two location pages share a paragraph, and none is another's with the city swapped
   note  on all four by design: "Text photos of both headlights and you will have a price back today." (the final call to action, CONTENT.md 3.12)
@@ -154,9 +192,12 @@
   ok    /: 11 sections, each in its place and laid out, no text held back
   ok    /headlight-restoration: 10 sections, each in its place and laid out, no text held back
   ok    /fog-light-restoration: 5 sections, each in its place and laid out, no text held back
+  ok    /tail-light-restoration: 5 sections, each in its place and laid out, no text held back
+  ok    /marker-light-restoration: 5 sections, each in its place and laid out, no text held back
+  ok    /headlight-restoration-cost: 8 sections, each in its place and laid out, no text held back
+  ok    /vehicle-guide: 4 sections, each in its place and laid out, no text held back
   ok    /dealer-and-auction: 3 sections, each in its place and laid out, no text held back
-  ok    /gallery: 3 sections, each in its place and laid out, no text held back
-  ok    /vehicle-guide: 3 sections, each in its place and laid out, no text held back
+  ok    /gallery: 4 sections, each in its place and laid out, no text held back
   ok    /about: 3 sections, each in its place and laid out, no text held back
   ok    /contact: 2 sections, each in its place and laid out, no text held back
   ok    /headlight-restoration-antioch-ca: 4 sections, each in its place and laid out, no text held back
@@ -168,9 +209,12 @@
   ok    /: no working note, no filename as text, no empty frame, nothing left empty
   ok    /headlight-restoration: no working note, no filename as text, no empty frame, nothing left empty
   ok    /fog-light-restoration: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /tail-light-restoration: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /marker-light-restoration: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /headlight-restoration-cost: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /vehicle-guide: no working note, no filename as text, no empty frame, nothing left empty
   ok    /dealer-and-auction: no working note, no filename as text, no empty frame, nothing left empty
   ok    /gallery: no working note, no filename as text, no empty frame, nothing left empty
-  ok    /vehicle-guide: no working note, no filename as text, no empty frame, nothing left empty
   ok    /about: no working note, no filename as text, no empty frame, nothing left empty
   ok    /contact: no working note, no filename as text, no empty frame, nothing left empty
   ok    /headlight-restoration-antioch-ca: no working note, no filename as text, no empty frame, nothing left empty
@@ -182,5 +226,89 @@
 8. The build carries no working notes
   ok    the pages as prerendered: none of "TODO", "likely:", "blocking for"
   ok    the script sent to the browser: none of "TODO", "likely:", "blocking for"
+
+9. On page rules, SEO.md section 5
+  ok    13 pages have a primary keyword and no two share one. The rest are marked brand by SEO.md.
+  LOW   /: one H1, ends with a way on. "mobile headlight restoration": not in the H1, as SEO.md 5.1 intends, not in the first 100 words
+  ok    /headlight-restoration: one H1, ends with a way on. "headlight restoration": in the H1, once in the first 100 words
+  LOW   /fog-light-restoration: one H1, ends with a way on. "fog light restoration": not in the H1, not in the first 100 words
+  ok    /tail-light-restoration: one H1, ends with a way on. "tail light restoration": in the H1, once in the first 100 words
+  ok    /marker-light-restoration: one H1, ends with a way on. "marker light restoration": in the H1, once in the first 100 words
+  ok    /headlight-restoration-cost: one H1, ends with a way on. "headlight restoration cost": in the H1, once in the first 100 words
+  LOW   /vehicle-guide: one H1, ends with a way on. "can foggy headlights be fixed": not in the H1, not in the first 100 words
+  LOW   /dealer-and-auction: one H1, ends with a way on. "dealer headlight restoration": not in the H1, not in the first 100 words
+  LOW   /gallery: one H1, ends with a way on. "headlight restoration before and after": not in the H1, not in the first 100 words
+  ok    /about: one H1, ends with a way on. No keyword: SEO.md marks this page as brand
+  ok    /contact: one H1, ends with a way on. No keyword: SEO.md marks this page as brand
+  ok    /headlight-restoration-antioch-ca: one H1, ends with a way on. "headlight restoration antioch": in the H1, once in the first 100 words
+  ok    /headlight-restoration-brentwood-ca: one H1, ends with a way on. "headlight restoration brentwood": in the H1, once in the first 100 words
+  ok    /headlight-restoration-pittsburg-ca: one H1, ends with a way on. "headlight restoration pittsburg": in the H1, once in the first 100 words
+  ok    /headlight-restoration-oakley-ca: one H1, ends with a way on. "headlight restoration oakley": in the H1, once in the first 100 words
+  note  "This is the step cheap jobs skip." is on 5 routes. It is CONTENT.md 3.6, word for word, and SEO.md rules the word out.
+  note  It was left as written, for the owner to decide: it is said of other people's work, not of this business.
+  note  LOW marks a page whose approved copy does not carry its keyword where SEO.md 5 wants it. 5 pages.
+  note  Their headings and body copy are CONTENT.md's, word for word, and were not rewritten for a keyword.
+
+Every route: title, description, their lengths, and the keyword it is for
+   /
+        title        ( 54)  Mobile Headlight Restoration, Antioch and Brentwood CA
+        description  (158)  We come to your car. Cloudy headlights restored from $125 with a 3 year guarantee. Serving Antioch, Brentwood, Pittsburg and Oakley. Text a photo for a quote.
+        keyword             mobile headlight restoration
+   /headlight-restoration
+        title        ( 47)  Headlight Restoration From $125, We Come To You
+        description  (139)  Four stage sanding, compound, polish and UV coating, done at your car in about an hour. 3 year guarantee. Text photos for a same day quote.
+        keyword             headlight restoration
+   /fog-light-restoration
+        title        ( 49)  Fog Light Restoration, Added To Any Headlight Job
+        description  (132)  Fog lights cloud over before headlights do. Same four stage process, same UV coating, same 3 year guarantee, done in the same visit.
+        keyword             fog light restoration
+   /tail-light-restoration
+        title        ( 49)  Tail Light Restoration, Mobile, East Contra Costa
+        description  (119)  Faded tail lights age a car from behind and cut how well you are seen. Restored on site, same visit as your headlights.
+        keyword             tail light restoration
+   /marker-light-restoration
+        title        ( 42)  Marker Light Restoration, Done At Your Car
+        description  (107)  Hazy side markers on the same four stage correction and UV coating as the headlights. Added to any booking.
+        keyword             marker light restoration
+   /headlight-restoration-cost
+        title        ( 49)  How Much Does Headlight Restoration Cost in 2027?
+        description  (137)  Real prices from a mobile restorer in East Contra Costa. From $125 a pair, what changes the price, and how it compares to new assemblies.
+        keyword             headlight restoration cost
+   /vehicle-guide
+        title        ( 49)  Which Headlights Can Be Restored, An Honest Guide
+        description  (134)  What restores well, what takes extra work, and what needs replacing instead. Written by the people who would rather turn the job down.
+        keyword             can foggy headlights be fixed
+   /dealer-and-auction
+        title        ( 51)  Dealer and Auction Headlight Reconditioning, Mobile
+        description  (113)  Per unit pricing, we work your row on site, every unit leaves matching. Serving dealers across East Contra Costa.
+        keyword             dealer headlight restoration
+   /gallery
+        title        ( 45)  Headlight Restoration Before and After Photos
+        description  (102)  Real lenses restored on site in Antioch, Brentwood, Pittsburg and Oakley. Drag the slider on any pair.
+        keyword             headlight restoration before and after
+   /about
+        title        ( 46)  About Lenz Rescue, A Family Run Local Business
+        description  (125)  Started so a seventeen year old would not have to take a job he hated. Mobile headlight restoration across East Contra Costa.
+        keyword             brand
+   /contact
+        title        ( 38)  Contact Lenz Rescue, Text 925 812 5524
+        description  (116)  Text photos of both headlights for a same day quote. Mobile service across Antioch, Brentwood, Pittsburg and Oakley.
+        keyword             brand
+   /headlight-restoration-antioch-ca
+        title        ( 46)  Headlight Restoration in Antioch CA, From $125
+        description  (119)  Mobile headlight restoration in Antioch. We come to your driveway, four stage correction, UV coating, 3 year guarantee.
+        keyword             headlight restoration antioch
+   /headlight-restoration-brentwood-ca
+        title        ( 48)  Headlight Restoration in Brentwood CA, From $125
+        description  (121)  Mobile headlight restoration in Brentwood. We come to your driveway, four stage correction, UV coating, 3 year guarantee.
+        keyword             headlight restoration brentwood
+   /headlight-restoration-pittsburg-ca
+        title        ( 48)  Headlight Restoration in Pittsburg CA, From $125
+        description  (121)  Mobile headlight restoration in Pittsburg. We come to your driveway, four stage correction, UV coating, 3 year guarantee.
+        keyword             headlight restoration pittsburg
+   /headlight-restoration-oakley-ca
+        title        ( 45)  Headlight Restoration in Oakley CA, From $125
+        description  (118)  Mobile headlight restoration in Oakley. We come to your driveway, four stage correction, UV coating, 3 year guarantee.
+        keyword             headlight restoration oakley
 
 PASS: nothing failed.

@@ -1,6 +1,6 @@
 import { locations } from "./locations";
 
-// Every indexable route, in the order of the site architecture table in CONTENT.md 1.
+// Every indexable route, in the order of the page map in SEO.md section 3.
 // The sitemap, the breadcrumbs and the audits all read this one list.
 
 export type SiteRoute = {
@@ -15,9 +15,12 @@ export const routes: SiteRoute[] = [
   { path: "/", name: "Home" },
   { path: "/headlight-restoration", name: "Headlight restoration" },
   { path: "/fog-light-restoration", name: "Fog light restoration" },
+  { path: "/tail-light-restoration", name: "Tail light restoration" },
+  { path: "/marker-light-restoration", name: "Marker light restoration" },
+  { path: "/headlight-restoration-cost", name: "Headlight restoration cost", parent: "/headlight-restoration" },
+  { path: "/vehicle-guide", name: "Vehicle guide" },
   { path: "/dealer-and-auction", name: "Dealer and auction" },
   { path: "/gallery", name: "Gallery" },
-  { path: "/vehicle-guide", name: "Vehicle guide" },
   { path: "/about", name: "About" },
   { path: "/contact", name: "Contact" },
   ...locations.map((location) => ({

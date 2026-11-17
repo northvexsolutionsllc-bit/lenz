@@ -3,9 +3,11 @@
 //   1. /sitemap.xml is real XML and lists every registered route, and nothing else.
 //   2. Every JSON-LD block on every route is valid against the schema.org vocabulary.
 //   3. Every route has a title, a description and a canonical URL, the titles are all
-//      different, and where CONTENT.md gives a meta title or description it is used
-//      word for word.
-//   4. Every image has descriptive alt text, and no two different images share one.
+//      different, and each title and description is the one docs/SEO.md section 4
+//      gives, to the character. Their lengths are printed. Every route names the same
+//      share image, which is 1200 by 630 and described as a before and after pair.
+//   4. Every image has descriptive alt text, no two different images share one, and
+//      every image address answers a plain request with 200 and an image.
 //   5. No two location pages share a paragraph, and no opening is another city's opening
 //      with the name swapped.
 //   6. Every route is whole with script off: every section is in its place and laid out,
@@ -15,6 +17,12 @@
 //      it, on any route or on the styleguide.
 //   8. The build itself carries no working notes: not in the pages it prerendered and
 //      not in the script it sends to the browser.
+//
+//   9. The on page rules in docs/SEO.md section 5: one H1 on every page, the page's
+//      primary keyword in the first 100 words of its body copy, every page ending with
+//      a way on, and none of the words SEO.md rules out.
+//
+// It ends with the table of every route: title, description, both lengths and keyword.
 //
 // It also works out where the build says it is served from, and holds it to the rules
 // for that host: the production host is indexable, and anything else is staging, which
@@ -34,25 +42,36 @@
 import fs from "node:fs";
 import path from "node:path";
 import { chromium, type Page } from "@playwright/test";
+import sharp from "sharp";
 import { locations } from "../src/content/locations";
 import { routes } from "../src/content/routes";
 import { site } from "../src/content/site";
 import { PRODUCTION_HOST } from "../src/lib/site-url";
+import { readPlan } from "./plan";
 import { startServer } from "./server";
 
-const CONTENT_FILE = path.join("docs", "CONTENT.md");
 const VOCABULARY_FILE = path.join("scripts", "data", "schemaorg.json");
 
 // CONTENT.md 9: the old site's alt text, which must not survive anywhere
 const OLD_ALT = ["Headlight restoration", "previous work"].join(" ");
 
-// Which CONTENT.md section holds the meta title and description of a route
-const META_SECTIONS: Record<string, string> = {
-  "/headlight-restoration": "4",
-  "/fog-light-restoration": "5",
-  "/dealer-and-auction": "6",
-  "/vehicle-guide": "7",
-};
+// SEO.md section 4: titles stay under 60 characters and descriptions under 155
+const TITLE_LIMIT = 60;
+const DESCRIPTION_LIMIT = 155;
+
+// SEO.md section 8: the share image is 1200 by 630
+const SHARE = { width: 1200, height: 630 };
+
+// SEO.md section 7: the price a service page gives, and the pages that give it differently
+const STARTING_PRICE = 125;
+const ADD_ONS = ["/fog-light-restoration", "/tail-light-restoration", "/marker-light-restoration"];
+const TRADE = "/dealer-and-auction";
+
+// SEO.md section 2 and the build plan: words that must not be on the site. "cheap" is
+// on the list too, and CONTENT.md itself uses it once, in a sentence about other
+// people's work. That one sentence is reported and not failed. Anywhere else it fails.
+const RULED_OUT = ["inspection", "discount", "lowest price", "near me"];
+const CHEAP_SENTENCE = "This is the step cheap jobs skip.";
 
 // Global lines that location pages are meant to share, with where each comes from
 const SHARED_BY_DESIGN: Record<string, string> = {
@@ -233,12 +252,16 @@ type PageFacts = {
   description: string | null;
   canonical: string | null;
   shareImage: string | null;
+  /** What the page says of its share image: width, height and description */
+  shareSays: { width: string | null; height: string | null; alt: string | null };
   robots: string | null;
   jsonLd: string[];
   images: Array<{ src: string; alt: string | null }>;
   paragraphs: string[];
   /** How the page stands with script off */
   whole: { sections: number; streamed: number; adrift: number; flat: number; hidden: string[] };
+  /** For the on page rules: headings, the opening of the body copy, and how the page ends */
+  onPage: { h1: number; heading: string; opening: string; wayOn: number; text: string };
   /** What is on show that should not be */
   unfinished: { notes: string[]; filenames: string[]; frames: number; boxes: string[]; empties: string[] };
   html: string;
@@ -256,6 +279,11 @@ async function readPage(page: Page, base: string, route: string): Promise<PageFa
       description: meta('meta[name="description"]'),
       canonical: document.querySelector('link[rel="canonical"]')?.getAttribute("href") ?? null,
       shareImage: meta('meta[property="og:image"]'),
+      shareSays: {
+        width: meta('meta[property="og:image:width"]'),
+        height: meta('meta[property="og:image:height"]'),
+        alt: meta('meta[property="og:image:alt"]'),
+      },
       robots: meta('meta[name="robots"]'),
       jsonLd: [...document.querySelectorAll('script[type="application/ld+json"]')].map((script) => script.textContent ?? ""),
       images: [...document.querySelectorAll("img")].map((img) => ({
@@ -281,7 +309,7 @@ async function readPage(page: Page, base: string, route: string): Promise<PageFa
           const parent = walker.currentNode.parentElement;
           if (!text || !parent) continue;
           // Helpers that are never meant to be seen
-          if (parent.closest(".sr-only, .counter-ghost, script, style, template, noscript")) continue;
+          if (parent.closest(".sr-only, script, style, template, noscript")) continue;
           let opacity = 1;
           let shown = true;
           for (let el: Element | null = parent; el; el = el.parentElement) {
@@ -299,6 +327,25 @@ async function readPage(page: Page, base: string, route: string): Promise<PageFa
           adrift: sections.filter((section) => !section.closest("main")).length,
           flat: sections.filter((section) => section.getClientRects().length === 0).length,
           hidden,
+        };
+      })(),
+      onPage: (() => {
+        // Body copy is the paragraphs of the page, in order. Headings, labels and the
+        // header and footer are not body copy.
+        const paragraphs = [...document.querySelectorAll("main p:not(.sr-only):not(.caps)")]
+          .filter((p) => p.getClientRects().length > 0)
+          .map((p) => (p.textContent ?? "").replace(/\s+/g, " ").trim())
+          .filter(Boolean);
+        const sections = [...document.querySelectorAll("main > section, main section")];
+        const last = sections[sections.length - 1];
+        return {
+          h1: document.querySelectorAll("h1").length,
+          heading: (document.querySelector("h1")?.textContent ?? "").replace(/\s+/g, " ").trim(),
+          opening: paragraphs.join(" ").split(" ").slice(0, 100).join(" "),
+          // A way on is a link to another page of the site, or a form to send. A link
+          // that only dials or texts is a call to action, and is not counted here.
+          wayOn: last ? last.querySelectorAll('a[href^="/"], form').length : 0,
+          text: (document.querySelector("main")?.textContent ?? "").replace(/\s+/g, " "),
         };
       })(),
       unfinished: (() => {
@@ -362,23 +409,8 @@ function imageFile(src: string): string {
 
 // ---------------------------------------------------------------------------------------
 
-function readContentMeta() {
-  const raw = fs.readFileSync(CONTENT_FILE, "utf8");
-  const meta: Record<string, { title?: string; description?: string }> = {};
-  let section = "";
-  let pattern = "";
-  for (const line of raw.split("\n")) {
-    const heading = /^## (\d+)\. /.exec(line);
-    if (heading) section = heading[1];
-    const title = /^- Meta title: `([^`]+)`/.exec(line);
-    const description = /^- Meta description: `([^`]+)`/.exec(line);
-    if (title) meta[section] = { ...meta[section], title: title[1] };
-    if (description) meta[section] = { ...meta[section], description: description[1] };
-    const located = /^`(Headlight Restoration in \[City\][^`]+)`/.exec(line);
-    if (located) pattern = located[1];
-  }
-  return { meta, pattern };
-}
+// The search plan is read straight from docs/SEO.md by scripts/plan.ts, so that the site
+// is held to the document and not to a copy of it.
 
 async function main() {
   const args = process.argv.slice(2);
@@ -386,7 +418,7 @@ async function main() {
   const baseArg = args.find((arg) => arg.startsWith("--base="))?.slice(7).replace(/\/$/, "") ?? null;
 
   const vocabulary = loadVocabulary();
-  const content = readContentMeta();
+  const plan = readPlan();
   const server = baseArg ? { base: baseArg, stop: () => undefined } : await startServer();
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 
@@ -465,6 +497,7 @@ async function main() {
       say(`   ${route}`);
       if (fact.jsonLd.length === 0) fail("no JSON-LD on the page");
       const seen: string[] = [];
+      const nodes: JsonObject[] = [];
       for (const text of fact.jsonLd) {
         blocks += 1;
         let node: unknown;
@@ -480,6 +513,7 @@ async function main() {
         }
         const [name] = typesOf(node);
         seen.push(name);
+        nodes.push(node);
         const problems: string[] = [];
         const notes: string[] = [];
         if (node["@context"] !== "https://schema.org") problems.push(`${name}: @context is not https://schema.org`);
@@ -490,15 +524,39 @@ async function main() {
         notes.forEach((entry) => note(entry));
       }
 
-      // CONTENT.md 10: what each page must carry
+      // SEO.md 7 and CONTENT.md 10: what each page must carry
       const needs = ["AutoRepair"];
       if (route !== "/") needs.push("BreadcrumbList");
-      if (["/headlight-restoration", "/vehicle-guide"].includes(route)) needs.push("FAQPage");
-      if (["/headlight-restoration", "/fog-light-restoration", "/dealer-and-auction"].includes(route) || route.endsWith("-ca")) {
-        needs.push("Service");
-      }
+      if (["/headlight-restoration-cost", "/vehicle-guide", "/headlight-restoration"].includes(route)) needs.push("FAQPage");
+      if (route === "/headlight-restoration" || ADD_ONS.includes(route) || route === TRADE || route.endsWith("-ca")) needs.push("Service");
+      if (route === "/gallery") needs.push("ImageObject");
       const absent = needs.filter((name) => !seen.includes(name));
       if (absent.length > 0) fail(`missing: ${absent.join(", ")}`);
+
+      // SEO.md 7: the price on a service page is minPrice 125, in USD. It is stated of
+      // the service the page is about only where $125 is that service's price: the
+      // headlight page and the city pages. An add on has no price of its own yet, so its
+      // page states the price of the booking it is added to. The trade price is not known.
+      const service = nodes.find((node) => typesOf(node).includes("Service"));
+      if (service) {
+        const priceOf = (node: unknown) => {
+          const spec = isObject(node) && isObject(node.offers) ? node.offers.priceSpecification : undefined;
+          return isObject(spec) ? `${String(spec.minPrice)} ${String(spec.priceCurrency)}` : null;
+        };
+        const own = priceOf(service);
+        const booking = priceOf(service.isRelatedTo);
+        const wanted = `${STARTING_PRICE} USD`;
+        if (ADD_ONS.includes(route)) {
+          if (own === null && booking === wanted) pass(`Service: an add on, with no price of its own. The booking it is added to: minPrice ${booking}`);
+          else fail(`Service: an add on must give the booking's price, ${wanted}, and none of its own. Own: ${own}. Booking: ${booking}`);
+        } else if (route === TRADE) {
+          if (own === null && booking === null) note("Service: no price. The trade price per unit is still owed by the owner.");
+          else fail(`Service: the trade page states a price, ${own ?? booking}, and none has been supplied`);
+        } else if (own === wanted) pass(`Service: minPrice ${own}`);
+        else fail(`Service: minPrice is ${own}, and SEO.md 7 says ${wanted}`);
+      }
+      // There are no reviews yet, and review markup without them is a manual penalty
+      if (/aggregateRating|"Review"/.test(fact.jsonLd.join(" "))) fail("carries rating or review markup, and there are no reviews");
     }
     say(`   ${blocks} blocks on ${facts.size} routes.`);
 
@@ -520,28 +578,55 @@ async function main() {
       if (twin) problems.push(`same title as ${twin}`);
       titles.set(fact.title, route);
 
-      const section = META_SECTIONS[route];
-      const given = section ? content.meta[section] : undefined;
-      let source = "no meta given in CONTENT.md for this route";
-      if (given) {
-        source = "title and description as CONTENT.md gives them";
-        if (given.title !== fact.title) problems.push(`title differs from CONTENT.md: "${given.title}"`);
-        if (given.description !== fact.description) problems.push("description differs from CONTENT.md");
-      }
-      const located = locations.find((entry) => `/${entry.slug}` === route);
-      if (located) {
-        source = "title from the CONTENT.md 8 pattern";
-        if (content.pattern.replace("[City]", located.city) !== fact.title) problems.push("title does not follow the CONTENT.md 8 pattern");
+      const given = plan.meta.get(route);
+      if (!given) problems.push("SEO.md section 4 gives this route no title or description");
+      else {
+        if (given.title !== fact.title) problems.push(`title is not the one in SEO.md: "${given.title}"`);
+        if (given.description !== fact.description) problems.push("description is not the one in SEO.md");
       }
 
-      if (problems.length === 0) pass(`${route}: ${source}`);
+      const lengths = `title ${fact.title.length}, description ${(fact.description ?? "").length}`;
+      if (problems.length === 0) pass(`${route}: as SEO.md section 4 gives them. ${lengths}`);
       else fail(`${route}: ${problems.join("; ")}`);
-      say(`        ${fact.title}`);
+      // The limits are SEO.md's own. A string of SEO.md's that is over one is reported, not changed.
+      if (fact.title.length >= TITLE_LIMIT) note(`${route}: the title is ${fact.title.length} characters, and SEO.md sets the limit under ${TITLE_LIMIT}`);
+      if ((fact.description ?? "").length >= DESCRIPTION_LIMIT) {
+        note(`${route}: the description is ${(fact.description ?? "").length} characters, and SEO.md sets the limit under ${DESCRIPTION_LIMIT}. The string is SEO.md's own.`);
+      }
     }
 
-    // ------------------------------------------------------------------ 4. alt text
+    // The share image. SEO.md section 8: on every page, 1200 by 630, with the before and
+    // after pair on it. The pair is the build's to choose, scripts/generate.ts. What can
+    // be checked from outside is that every page names one, that it is the size the page
+    // says it is, that a plain request gets it, and that its description is a pair's.
     say();
-    say("4. Alt text");
+    say("   Share image");
+    const shares = new Set([...facts.values()].map((fact) => fact.shareImage ?? ""));
+    const said = [...facts].filter(([, fact]) => fact.shareSays.width !== String(SHARE.width) || fact.shareSays.height !== String(SHARE.height));
+    if (shares.size === 1 && !shares.has("")) pass(`every route names the same one: ${[...shares][0]}`);
+    else fail(`the routes do not agree on a share image: ${[...shares].join(", ")}`);
+    if (said.length === 0) pass(`every route says it is ${SHARE.width} by ${SHARE.height}`);
+    else fail(`${said.map(([route]) => route).join(", ")}: the size given is not ${SHARE.width} by ${SHARE.height}`);
+    const shareUrl = [...shares][0] ?? "";
+    if (shareUrl) {
+      const local = `${server.base}${new URL(shareUrl).pathname}`;
+      const answer = await fetch(local);
+      const kind = answer.headers.get("content-type") ?? "";
+      if (answer.status === 200 && kind.startsWith("image/")) {
+        const size = await sharp(Buffer.from(await answer.arrayBuffer())).metadata();
+        const bytes = Number(answer.headers.get("content-length") ?? 0);
+        if (size.width === SHARE.width && size.height === SHARE.height) {
+          pass(`a plain request gets it: 200, ${kind}, ${size.width} by ${size.height}${bytes ? `, ${Math.round(bytes / 1024)} KB` : ""}`);
+        } else fail(`the file is ${size.width} by ${size.height}, not ${SHARE.width} by ${SHARE.height}`);
+      } else fail(`a plain request for it gets ${answer.status} ${kind}`);
+    }
+    const shareAlt = home.shareSays.alt ?? "";
+    if (/before restoration/.test(shareAlt) && /after/.test(shareAlt)) pass(`it is described as a before and after pair: "${shareAlt}"`);
+    else fail(`its description is not that of a before and after pair: "${shareAlt}"`);
+
+    // ------------------------------------------------------------------ 4. images
+    say();
+    say("4. Images");
     const byFile = new Map<string, Set<string>>();
     const byAlt = new Map<string, Set<string>>();
     let decorative = 0;
@@ -573,6 +658,30 @@ async function main() {
     pass(`${described} image tags carry a description. ${decorative} with empty alt text, as decoration: the hero backdrop.`);
     pass("the old site's alt text appears on no route");
     for (const [alt, files] of [...byAlt].sort()) say(`        ${[...files][0].replace("/media/", "")}: ${alt}`);
+
+    // SEO.md section 8: the old site's images could not be fetched by an automated
+    // client. Every address an image tag gives is asked for here with a plain request,
+    // no browser and no special headers, and must come back 200 as an image.
+    const addresses = new Set<string>();
+    for (const fact of facts.values()) for (const image of fact.images) if (image.src) addresses.add(image.src);
+    const refused: string[] = [];
+    for (const address of addresses) {
+      const answer = await fetch(new URL(address, server.base));
+      const kind = answer.headers.get("content-type") ?? "";
+      if (answer.status !== 200 || !kind.startsWith("image/")) refused.push(`${imageFile(address)} ${answer.status} ${kind}`);
+      await answer.arrayBuffer();
+    }
+    if (refused.length === 0) pass(`all ${addresses.size} image addresses answer a plain request with 200 and an image`);
+    else refused.forEach((entry) => fail(`a plain request is not served: ${entry}`));
+
+    // SEO.md section 8: the hero poster is preloaded, so that the picture behind the
+    // heading is on its way before the canvas script is. The link is in the page's head
+    // as served, ahead of any script.
+    const preload = /<link rel="preload" as="image"[^>]*hero-still[^>]*>/.exec(home.html)?.[0] ?? "";
+    const firstScript = home.html.search(/<script\b[^>]*\bsrc=/);
+    if (preload && home.html.indexOf(preload) < firstScript) pass("the home page preloads the hero poster, ahead of every script");
+    else if (preload) fail("the home page preloads the hero poster, but after a script");
+    else fail("the home page does not preload the hero poster");
 
     // ------------------------------------------------------------------ 5. location pages
     say();
@@ -674,6 +783,87 @@ async function main() {
     };
     report("the pages as prerendered", scan(path.join(".next", "server", "app"), /\.(html|rsc|body|meta)$/));
     report("the script sent to the browser", scan(path.join(".next", "static"), /\.(js|css)$/));
+
+    // ------------------------------------------------------------------ 9. on page rules
+    say();
+    say("9. On page rules, SEO.md section 5");
+    const keywordOf = (route: string) => {
+      const keyword = plan.keywords.get(route);
+      return keyword && keyword !== "brand" ? keyword : null;
+    };
+    const count = (text: string, phrase: string) => text.toLowerCase().split(phrase.toLowerCase()).length - 1;
+    // A keyword is what people type, not a sentence: "headlight restoration antioch". On
+    // the page it is used when its words come in that order with nothing between them
+    // but a joining word, as in "headlight restoration in Antioch". Writing it without
+    // the joining word would be the stuffing SEO.md section 5 rules out.
+    const JOINING = ["in", "the", "a", "an", "and", "of", "for", "to", "at", "on"];
+    const uses = (text: string, keyword: string) => {
+      const between = `(?:\\s+(?:${JOINING.join("|")})){0,2}\\s+`;
+      // A plural is the same word: "what headlight restoration costs" uses "cost"
+      const words = keyword.split(" ").map((word) => `${word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}s?`);
+      return (text.match(new RegExp(`\\b${words.join(between)}\\b`, "gi")) ?? []).length;
+    };
+
+    // SEO.md section 3: one primary keyword per page, and no two pages on the same one
+    const owners = new Map<string, string[]>();
+    for (const route of facts.keys()) {
+      const keyword = keywordOf(route);
+      if (keyword) owners.set(keyword, [...(owners.get(keyword) ?? []), route]);
+    }
+    const contested = [...owners].filter(([, held]) => held.length > 1);
+    if (contested.length === 0) pass(`${owners.size} pages have a primary keyword and no two share one. The rest are marked brand by SEO.md.`);
+    contested.forEach(([keyword, held]) => fail(`"${keyword}" is the primary keyword of ${held.join(" and ")}`));
+
+    let low = 0;
+    for (const [route, fact] of facts) {
+      const { h1, heading, opening, wayOn, text } = fact.onPage;
+      const problems: string[] = [];
+      if (h1 !== 1) problems.push(`${h1} H1 elements`);
+      if (wayOn === 0) problems.push("the last section has no link to another page and no form to send: a dead end");
+      for (const word of RULED_OUT) if (count(text, word) > 0) problems.push(`the page says "${word}", which SEO.md rules out`);
+      if (count(text.split(CHEAP_SENTENCE).join(" "), "cheap") > 0) problems.push('the page says "cheap", which SEO.md rules out');
+
+      const keyword = keywordOf(route);
+      if (problems.length > 0) {
+        fail(`${route}: ${problems.join(". ")}`);
+        continue;
+      }
+      if (!keyword) {
+        pass(`${route}: one H1, ends with a way on. No keyword: SEO.md marks this page as brand`);
+        continue;
+      }
+      const inHeading = uses(heading, keyword) > 0;
+      const times = uses(opening, keyword);
+      // SEO.md 5.1 excuses the home page's H1 by name
+      const headingOk = inHeading || route === "/";
+      const said = `"${keyword}": ${inHeading ? "in the H1" : route === "/" ? "not in the H1, as SEO.md 5.1 intends" : "not in the H1"}, ${
+        times === 0 ? "not in the first 100 words" : times === 1 ? "once in the first 100 words" : `${times} times in the first 100 words`
+      }`;
+      if (headingOk && times >= 1) pass(`${route}: one H1, ends with a way on. ${said}`);
+      else {
+        low += 1;
+        lines.push(`  LOW   ${route}: one H1, ends with a way on. ${said}`);
+      }
+    }
+    const cheap = [...facts].filter(([, fact]) => fact.onPage.text.includes(CHEAP_SENTENCE)).map(([route]) => route);
+    if (cheap.length > 0) {
+      note(`"${CHEAP_SENTENCE}" is on ${cheap.length} routes. It is CONTENT.md 3.6, word for word, and SEO.md rules the word out.`);
+      note("It was left as written, for the owner to decide: it is said of other people's work, not of this business.");
+    }
+    if (low > 0) {
+      note(`LOW marks a page whose approved copy does not carry its keyword where SEO.md 5 wants it. ${low} pages.`);
+      note("Their headings and body copy are CONTENT.md's, word for word, and were not rewritten for a keyword.");
+    }
+
+    // ------------------------------------------------------------------ the table
+    say();
+    say("Every route: title, description, their lengths, and the keyword it is for");
+    for (const [route, fact] of facts) {
+      say(`   ${route}`);
+      say(`        title        (${String(fact.title.length).padStart(3)})  ${fact.title}`);
+      say(`        description  (${String((fact.description ?? "").length).padStart(3)})  ${fact.description ?? ""}`);
+      say(`        keyword             ${plan.keywords.get(route) ?? "not in the SEO.md page map"}`);
+    }
 
     await context.close();
   } finally {

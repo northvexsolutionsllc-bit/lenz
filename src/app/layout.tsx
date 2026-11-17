@@ -7,7 +7,6 @@ import { SkipLink } from "@/components/ui/SkipLink";
 import { Clarity } from "@/components/providers/Clarity";
 import { PageTransition } from "@/components/providers/PageTransition";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { site } from "@/content/site";
 import { tokens } from "@/generated/tokens";
 import { hasMedia } from "@/lib/media";
 import { pageMetadata } from "@/lib/metadata";
@@ -23,7 +22,7 @@ import "./globals.css";
 // anywhere but the production host every page is marked noindex. See src/lib/site-url.ts.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  ...pageMetadata({ path: "/", title: `${site.name} | ${site.tagline}` }),
+  ...pageMetadata({ path: "/" }),
   alternates: undefined,
   icons: { icon: { url: "/generated/icon.svg", type: "image/svg+xml" } },
   ...(indexable ? {} : { robots: { index: false, follow: false } }),

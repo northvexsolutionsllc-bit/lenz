@@ -3,8 +3,8 @@
   1. CONTENT.md, read against the page
      5 /fog-light-restoration
        ok       Fog lights go cloudy too.
-       ok       Fog Light Restoration | Lenz Rescue, East Contra Costa
-       ok       Cloudy fog lights restored on site, added to any headlight booking. Same multi-step process, same UV coating, same 3 year guarantee.
+       replaced Fog Light Restoration | Lenz Rescue, East Contra Costa  (SEO.md section 4 gives this page's title and description)
+       replaced Cloudy fog lights restored on site, added to any headlight booking. Same multi-step process, same UV coating, same 3 year guarantee.  (SEO.md section 4 gives this page's title and description)
        ok       Fog lights sit lower, take more road spray and more grit, and usually go before the headlights do. They use the same plastic, so they take the same correction.
        ok       Added to a headlight booking.
      3.6 Process
@@ -39,6 +39,11 @@
        ok       Bay Point
      Taken from other sections
        ok       PRICING
+       ok       Headlight restoration
+       ok       From $125 a pair
+       ok       Fog, marker and tail lights
+       ok       Added to the same visit, priced per vehicle
+       ok       What headlight restoration costs
      2 Global
        ok       LENZ RESCUE
        ok       Mobile headlight restoration
@@ -51,11 +56,14 @@
        ok       Vehicle guide
        ok       About
        ok       Contact
+       ok       Tail light restoration
+       ok       Marker light restoration
+       ok       Headlight restoration cost
        ok       link tel:+19258125524
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (4 on the page)
 
   2. The page, read against CONTENT.md
-     content (45)
+     content (53)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -63,7 +71,7 @@
        "Gallery" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Vehicle guide" x3
-           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+           CONTENT.md line 376, first at ul.flex > li > a.nav-link
        "About" x3
            CONTENT.md section 2, first at ul.flex > li > a.nav-link
        "Contact" x3
@@ -107,9 +115,19 @@
        "Skipping stage four is why a thirty dollar kit lasts a season."
            CONTENT.md line 114, first at section.process > div.shell > p.small
        "PRICING"
-           CONTENT.md line 126, first at section.section > div.shell > p.eyebrow
+           CONTENT.md line 126, first at div.shell > div.flex > p.eyebrow
        "Added to a headlight booking."
-           CONTENT.md line 201, first at section.section > div.shell > h2.h2
+           CONTENT.md line 201, first at div.shell > div.flex > h2.h2
+       "Headlight restoration"
+           CONTENT.md line 94, first at ul.rule-list > li.price-row > h3.h3
+       "From $125 a pair"
+           CONTENT.md line 348, first at ul.rule-list > li.price-row > p.body
+       "Fog, marker and tail lights"
+           CONTENT.md line 349, first at ul.rule-list > li.price-row > h3.h3
+       "Added to the same visit, priced per vehicle"
+           CONTENT.md line 349, first at ul.rule-list > li.price-row > p.body
+       "What headlight restoration costs"
+           CONTENT.md line 393, first at p > a.text-link > span.text-link-label
        "THE GUARANTEE"
            CONTENT.md line 139, first at div.shell > div.flex > p.eyebrow
        "Three years."
@@ -142,8 +160,14 @@
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Fog light restoration"
            CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Tail light restoration"
+           CONTENT.md line 428, first at li > a.text-link > span.text-link-label
+       "Marker light restoration"
+           CONTENT.md line 429, first at li > a.text-link > span.text-link-label
        "Dealer and auction"
            CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "Headlight restoration cost"
+           CONTENT.md line 430, first at li > a.text-link > span.text-link-label
        "LenzRescue@gmail.com"
            CONTENT.md section 2, first at li > a.text-link > span.text-link-label
      interface (8)
@@ -160,12 +184,12 @@
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
        "Lenz Rescue on Instagram"
-           supplied in build: icon link name, as aria-label, first at ul.flex > li > a.icon-link
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
 
-  3. Document metadata
-       title        Fog Light Restoration | Lenz Rescue, East Contra Costa
-       description  Cloudy fog lights restored on site, added to any headlight booking. Same multi-step process, same UV coating, same 3 year guarantee.
+  3. Document metadata, against SEO.md section 4
+       ok       title        Fog Light Restoration, Added To Any Headlight Job
+       ok       description  Fog lights cloud over before headlights do. Same four stage process, same UV coating, same 3 year guarantee, done in the same visit.
 
-  PASS: 53 distinct strings (45 content, 8 interface), 0 problems.
+  PASS: 61 distinct strings (53 content, 8 interface), 0 problems.

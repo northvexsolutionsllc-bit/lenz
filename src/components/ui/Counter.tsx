@@ -21,7 +21,12 @@ type CounterProps = {
 // DESIGN.md 6: numeral, counts from 0 to its target when it enters the viewport,
 // 1200ms, ease-beam. It counts once. The final value is what the server renders, what
 // assistive technology reads, and what shows under reduced motion or without script.
-// A hidden copy of the final value reserves the width, so nothing shifts while it counts.
+//
+// The value is in the document once. Two more copies are needed, one for assistive
+// technology to read while the figure counts and one to hold the width so nothing
+// shifts, and both are drawn by CSS from data-final (see .counter in components.css).
+// Written into the markup they made the page read "$125$125$125" to anything that
+// takes its text, a search engine included.
 export function Counter({ value, prefix = "", suffix = "", className, decimals = 0, still = false }: CounterProps) {
   const reduced = useReducedMotion();
   const liveRef = useRef<HTMLSpanElement>(null);
@@ -86,11 +91,7 @@ export function Counter({ value, prefix = "", suffix = "", className, decimals =
   const final = `${prefix}${value.toFixed(decimals)}${suffix}`;
 
   return (
-    <span className={cx("counter numeral", className)}>
-      <span className="sr-only">{final}</span>
-      <span className="counter-ghost" aria-hidden="true">
-        {final}
-      </span>
+    <span className={cx("counter numeral", className)} data-final={final}>
       <span ref={liveRef} aria-hidden="true" data-counter-live>
         {final}
       </span>

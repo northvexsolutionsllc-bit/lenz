@@ -1,0 +1,198 @@
+/marker-light-restoration
+
+  1. CONTENT.md, read against the page
+     14 /marker-light-restoration
+       ok       Marker light restoration,
+       ok       added to any booking.
+       ok       Hazy side markers go on the same four stage correction and UV coating as the headlights. Marker light restoration is done at your car, in the same visit.
+     3.6 Process
+       ok       THE CORRECTION
+       ok       Four stages.
+       ok       In that order.
+       ok       Sand
+       ok       Wet sanding through progressive grits takes off the dead factory coating and the oxidized layer under it. This is the step that actually removes the yellow.
+       ok       Compound
+       ok       Machine compounding pulls out the sanding marks and brings the plastic back to a level surface.
+       ok       Polish
+       ok       A finer polish takes the surface from level to optically clear, so light passes straight through instead of scattering.
+       ok       Protect
+       ok       A UV protective coating goes on last. Without it a restored lens yellows again within a year. This is the step cheap jobs skip.
+       ok       Skipping stage four is why a thirty dollar kit lasts a season.
+     3.9 Guarantee
+       ok       THE GUARANTEE
+       ok       Three years.
+       ok       In writing.
+       ok       If a lens we restored starts hazing inside the coverage period, we come back and touch it up at no charge.
+     3.12 Final CTA
+       ok       Let's bring your headlights
+       ok       back to life.
+       ok       Text photos of both headlights and you will have a price back today.
+       ok       Text a photo for a quote
+       ok       Call 925-812-5524
+       ok       Antioch
+       ok       Brentwood
+       ok       Pittsburg
+       ok       Oakley
+       ok       Discovery Bay
+       ok       Bay Point
+     Taken from other sections
+       ok       PRICING
+       ok       Added to a headlight booking.
+       ok       Headlight restoration
+       ok       From $125 a pair
+       ok       Fog, marker and tail lights
+       ok       Added to the same visit, priced per vehicle
+       ok       What headlight restoration costs
+     2 Global
+       ok       LENZ RESCUE
+       ok       Mobile headlight restoration
+       ok       Text a photo for a quote
+       ok       925-812-5524
+       ok       LenzRescue@gmail.com
+       ok       Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area
+       ok       Services
+       ok       Gallery
+       ok       Vehicle guide
+       ok       About
+       ok       Contact
+       ok       Tail light restoration
+       ok       Marker light restoration
+       ok       Headlight restoration cost
+       ok       link tel:+19258125524
+       ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (4 on the page)
+
+  2. The page, read against CONTENT.md
+     content (55)
+       "LENZ RESCUE" x2
+           CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
+       "Services" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Gallery" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Vehicle guide" x3
+           CONTENT.md line 376, first at ul.flex > li > a.nav-link
+       "About" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "Contact" x3
+           CONTENT.md section 2, first at ul.flex > li > a.nav-link
+       "925-812-5524" x3
+           CONTENT.md section 2, first at div.shell > div.flex > a.nav-link
+       "Text a photo for a quote" x4
+           CONTENT.md line 45, first at a.btn > span.btn-face > span.caps
+       "Marker light restoration, added to any booking."
+           CONTENT.md strings in sequence, as aria-label, first at section.page-hero > div.shell > h1.display
+       "Marker light"
+           part of "Marker light restoration, added to any booking.", which is CONTENT.md strings in sequence, first at h1.display > div.line-mask > div.line
+       "restoration,"
+           part of "Marker light restoration, added to any booking.", which is CONTENT.md strings in sequence, first at h1.display > div.line-mask > div.line
+       "added to"
+           part of "Marker light restoration, added to any booking.", which is CONTENT.md strings in sequence, first at div.line-mask > div.line > span.accent
+       "any booking."
+           part of "Marker light restoration, added to any booking.", which is CONTENT.md strings in sequence, first at div.line-mask > div.line > span.accent
+       "Hazy side markers go on the same four stage correction and UV coating as the headlights. Marker light restoration is done at your car, in the same visit."
+           CONTENT.md line 403, first at section.page-hero > div.shell > p.body-l
+       "Call 925-812-5524" x2
+           CONTENT.md line 46, first at a.btn > span.btn-face > span.caps
+       "THE CORRECTION"
+           CONTENT.md line 108, first at section.process > div.shell > p.eyebrow
+       "Four stages."
+           CONTENT.md line 109, first at section.process > div.shell > h2.h2
+       "In that order."
+           CONTENT.md line 109, first at div.shell > h2.h2 > span.accent
+       "Sand"
+           CONTENT.md line 110, first at li.step-row > div.step-row-copy > h3.h3
+       "Wet sanding through progressive grits takes off the dead factory coating and the oxidized layer under it. This is the step that actually removes the yellow."
+           CONTENT.md line 110, first at li.step-row > div.step-row-copy > p.body
+       "Compound"
+           CONTENT.md line 111, first at li.step-row > div.step-row-copy > h3.h3
+       "Machine compounding pulls out the sanding marks and brings the plastic back to a level surface."
+           CONTENT.md line 111, first at li.step-row > div.step-row-copy > p.body
+       "Polish"
+           CONTENT.md line 112, first at li.step-row > div.step-row-copy > h3.h3
+       "A finer polish takes the surface from level to optically clear, so light passes straight through instead of scattering."
+           CONTENT.md line 112, first at li.step-row > div.step-row-copy > p.body
+       "Protect"
+           CONTENT.md line 113, first at li.step-row > div.step-row-copy > h3.h3
+       "A UV protective coating goes on last. Without it a restored lens yellows again within a year. This is the step cheap jobs skip."
+           CONTENT.md line 113, first at li.step-row > div.step-row-copy > p.body
+       "Skipping stage four is why a thirty dollar kit lasts a season."
+           CONTENT.md line 114, first at section.process > div.shell > p.small
+       "PRICING"
+           CONTENT.md line 126, first at div.shell > div.flex > p.eyebrow
+       "Added to a headlight booking."
+           CONTENT.md line 201, first at div.shell > div.flex > h2.h2
+       "Headlight restoration"
+           CONTENT.md line 94, first at ul.rule-list > li.price-row > h3.h3
+       "From $125 a pair"
+           CONTENT.md line 348, first at ul.rule-list > li.price-row > p.body
+       "Fog, marker and tail lights"
+           CONTENT.md line 349, first at ul.rule-list > li.price-row > h3.h3
+       "Added to the same visit, priced per vehicle"
+           CONTENT.md line 349, first at ul.rule-list > li.price-row > p.body
+       "What headlight restoration costs"
+           CONTENT.md line 393, first at p > a.text-link > span.text-link-label
+       "THE GUARANTEE"
+           CONTENT.md line 139, first at div.shell > div.flex > p.eyebrow
+       "Three years."
+           CONTENT.md line 140, first at div.shell > div.flex > h2.h2
+       "In writing."
+           CONTENT.md line 140, first at div.flex > h2.h2 > span.accent
+       "If a lens we restored starts hazing inside the coverage period, we come back and touch it up at no charge."
+           CONTENT.md line 141, first at div.shell > div.flex > p.body-l
+       "Let's bring your headlights"
+           CONTENT.md line 167, first at section#contact > div.shell > h2.h2
+       "back to life."
+           CONTENT.md line 167, first at div.shell > h2.h2 > span.accent
+       "Text photos of both headlights and you will have a price back today."
+           CONTENT.md line 168, first at section#contact > div.shell > p.body-l
+       "Antioch" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Brentwood" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Pittsburg" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Oakley" x2
+           CONTENT.md line 171, first at ul.flex > li > a.pill
+       "Discovery Bay"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Bay Point"
+           CONTENT.md line 171, first at ul.flex > li > span.pill
+       "Mobile headlight restoration"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
+           CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Fog light restoration"
+           CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Tail light restoration"
+           CONTENT.md line 428, first at li > a.text-link > span.text-link-label
+       "Marker light restoration"
+           CONTENT.md line 429, first at li > a.text-link > span.text-link-label
+       "Dealer and auction"
+           CONTENT.md line 96, first at li > a.text-link > span.text-link-label
+       "Headlight restoration cost"
+           CONTENT.md line 430, first at li > a.text-link > span.text-link-label
+       "LenzRescue@gmail.com"
+           CONTENT.md section 2, first at li > a.text-link > span.text-link-label
+     interface (8)
+       "Skip to content"
+           supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
+       "Primary"
+           supplied in build: name of the header navigation landmark, as aria-label, first at header.site-header > div.shell > nav.hidden
+       "Open menu"
+           supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
+       "Menu"
+           supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
+       "Cross-section of a headlight: the reflector, the bulb and the lens, with the layers the four stages work on"
+           supplied in build: name of the process figure, as aria-label, first at div.shell > figure.process-figure > svg.lens-figure
+       "Footer"
+           supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
+       "Lenz Rescue on Facebook"
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
+       "Lenz Rescue on Instagram"
+           supplied in build: icon link name, first at li > a.icon-link > span.sr-only
+
+  3. Document metadata, against SEO.md section 4
+       ok       title        Marker Light Restoration, Done At Your Car
+       ok       description  Hazy side markers on the same four stage correction and UV coating as the headlights. Added to any booking.
+
+  PASS: 63 distinct strings (55 content, 8 interface), 0 problems.
