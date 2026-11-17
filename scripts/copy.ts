@@ -34,6 +34,12 @@ type RouteSpec = {
   strings?: Pick[];
   /** Headings whose strings must not be on the page, with the reason */
   absent?: Array<{ section: string; reason: string }>;
+  /**
+   * Strings from the headings above that are held back for now: copy that only makes
+   * sense with a fact the owner has still to supply. They are allowed on the page and
+   * not required. Matched by how they start.
+   */
+  held?: Array<{ startsWith: string; reason: string }>;
 };
 
 const pick = (section: string, ...starts: string[]): Pick[] => starts.map((startsWith) => ({ section, startsWith }));
@@ -58,15 +64,22 @@ const ROUTES: Record<string, RouteSpec> = {
       ...pick("3.4", "Headlight restoration"),
       ...pick("7", "Replace instead", "Cracks through the lens"),
     ],
+    held: [{ startsWith: "How do I pay?", reason: "a question is not asked until the owner has supplied its answer" }],
   },
   "/fog-light-restoration": { sections: ["5", "3.6", "3.9", "3.12"], strings: pick("3.8", "PRICING") },
-  "/dealer-and-auction": { sections: ["6"], strings: pick("3.8", "PRICING") },
+  "/dealer-and-auction": {
+    sections: ["6"],
+    strings: pick("3.8", "PRICING"),
+    held: [
+      { startsWith: "Volume pricing", reason: "a heading with nothing under it: left out until the owner supplies the prices" },
+      { startsWith: "PRICING", reason: "the eyebrow of the volume pricing section, which is left out for now" },
+    ],
+  },
+  // The service names are the gallery's filter labels. The filter only shows once photos
+  // of more than one service exist, so the names are allowed here and not required.
   "/gallery": {
     sections: [],
-    strings: [
-      ...pick("3.5", "PREVIOUS WORK", "Drag it.", "That is the same lens.", "Every pair here"),
-      ...pick("3.4", "Headlight restoration", "Fog light restoration", "Dealer and auction"),
-    ],
+    strings: pick("3.5", "PREVIOUS WORK", "Drag it.", "That is the same lens.", "Every pair here"),
   },
   "/vehicle-guide": { sections: ["7"] },
   "/about": { sections: ["3.10", "3.12"] },
@@ -258,7 +271,7 @@ async function readPage(base: string, route: string) {
 
       const visit = (el: Element) => {
         if (SKIP.has(el.tagName)) return;
-        const chip = el.closest(".todo-chip") !== null;
+        const chip = el.closest(".dev-note") !== null;
 
         // Text that sits directly in this element, split wherever a child element interrupts it
         let run = "";
@@ -370,6 +383,11 @@ function audit(route: string, spec: RouteSpec, page: Awaited<ReturnType<typeof r
   out.push("  1. CONTENT.md, read against the page");
   const row = (text: string) => {
     const found = onPage(text);
+    const held = spec.held?.find((entry) => text.startsWith(entry.startsWith));
+    if (!found && held) {
+      out.push(`       held     ${text}  (${held.reason})`);
+      return;
+    }
     if (!found) failures += 1;
     out.push(`       ${found ? "ok     " : "MISSING"}  ${text}`);
   };

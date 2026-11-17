@@ -5,7 +5,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { hero } from "@/content/home";
 import { site } from "@/content/site";
 import { heroStill } from "@/generated/build";
@@ -51,7 +51,7 @@ export function Hero() {
             <div key={stat.label} className="hero-stat">
               <dt className="caps flex items-center gap-8">
                 {stat.label}
-                {stat.todo ? <TodoChip note={stat.todo} /> : null}
+                {stat.todo ? <DevNote note={stat.todo} /> : null}
               </dt>
               <dd>
                 <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />

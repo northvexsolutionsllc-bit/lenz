@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Section } from "@/components/ui/Section";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { guarantee } from "@/content/home";
 
 // Home, the guarantee. CONTENT.md 3.9
@@ -27,7 +27,7 @@ export function Guarantee({ band = false }: GuaranteeProps) {
         <div className="flex flex-col lg:col-span-5 lg:justify-end">
           <p className="body-l" data-reveal>
             {guarantee.body}
-            <TodoChip note={guarantee.todo} className="ml-8" />
+            <DevNote note={guarantee.todo} className="ml-8" />
           </p>
         </div>
       </div>

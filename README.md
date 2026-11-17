@@ -39,11 +39,13 @@ npm run audit:copy     # every word on every route against CONTENT.md
 npm run audit:seo      # sitemap, structured data, metadata, alt text, location pages
 npm run audit:a11y     # axe, a keyboard walk and contrast on every route, and the hero measured
 npm run audit:perf     # the budget in MOTION.md section 9, on the home route
-npm run audit:owner    # every placeholder and TODO still waiting on the owner
+npm run audit:owner    # everything still waiting on the owner, read from the source
 npm run shots          # QA screenshots of every route, saved to docs/qa/<route>/
 ```
 
 `dev`, `build` and `lint` first run `npm run generate`, which writes a few files derived from the source (see `scripts/generate.ts`). Those files are not committed.
+
+Set `NEXT_PUBLIC_SITE_URL` to the address the site is served from before building. Only `https://lenzrescue.com` is indexable: any other address builds a staging copy that says `noindex` on every page. See `docs/HANDOVER.md` section 1.
 
 Every audit except `audit:design` reads the production build in a browser, so run `npm run build` first. They need a Chromium for Playwright (`npx playwright install chromium`). `npm run shots -- /gallery --full` captures one route and also saves the page top to bottom.
 

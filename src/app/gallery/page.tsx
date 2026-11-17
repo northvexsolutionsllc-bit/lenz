@@ -21,7 +21,12 @@ export const metadata: Metadata = pageMetadata({
 
 // CONTENT.md gives this route a purpose ("Before and after work, filterable") but no copy
 // of its own, so it carries the home page's before and after copy, word for word.
+// Only the pairs and the tiles that have their photos are shown, and a part with none
+// is left out whole.
 export default function GalleryPage() {
+  const pairs = getPairs();
+  const tiles = getGalleryTiles();
+
   return (
     <>
       <JsonLd data={breadcrumbSchema(PATH)} />
@@ -30,29 +35,33 @@ export default function GalleryPage() {
         {beforeAfter.title.plain} <span className="accent">{beforeAfter.title.accent}</span>
       </PageHero>
 
-      <Section band>
-        <div className="shell">
-          <ul className="grid gap-24 lg:grid-cols-2">
-            {getPairs().map((pair) => (
-              <li key={pair.id} data-reveal>
-                <CompareSlider
-                  before={pair.before}
-                  after={pair.after}
-                  beforeAlt={pair.beforeAlt}
-                  afterAlt={pair.afterAlt}
-                  sizes="(min-width: 1024px) 46vw, 100vw"
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
+      {pairs.length > 0 ? (
+        <Section band>
+          <div className="shell">
+            <ul className="grid gap-24 lg:grid-cols-2">
+              {pairs.map((pair) => (
+                <li key={pair.id} data-reveal>
+                  <CompareSlider
+                    before={pair.before}
+                    after={pair.after}
+                    beforeAlt={pair.beforeAlt}
+                    afterAlt={pair.afterAlt}
+                    sizes="(min-width: 1024px) 46vw, 100vw"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Section>
+      ) : null}
 
-      <Section>
-        <div className="shell" data-reveal>
-          <GalleryGrid tiles={getGalleryTiles()} filterable />
-        </div>
-      </Section>
+      {tiles.length > 0 ? (
+        <Section>
+          <div className="shell" data-reveal>
+            <GalleryGrid tiles={tiles} filterable />
+          </div>
+        </Section>
+      ) : null}
     </>
   );
 }

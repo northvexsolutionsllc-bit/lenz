@@ -3,7 +3,7 @@ import { EnquiryForm } from "@/components/ui/EnquiryForm";
 import { Pill } from "@/components/ui/Pill";
 import { Section } from "@/components/ui/Section";
 import { TextLink } from "@/components/ui/TextLink";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { contact } from "@/content/contact";
 import { finalCta } from "@/content/home";
 import { site } from "@/content/site";
@@ -34,12 +34,16 @@ export function ContactDetails() {
                 </TextLink>
               </dd>
             </div>
-            <div className="flex flex-col items-start gap-8" data-reveal>
-              <dt className="caps">{contact.labels.hours}</dt>
-              <dd>
-                <TodoChip note={site.hours.todo} />
-              </dd>
-            </div>
+            {/* The hours are still owed. Until they exist the row is not shown at all. */}
+            {site.hours.text || site.hours.todo ? (
+              <div className="flex flex-col items-start gap-8" data-reveal>
+                <dt className="caps">{contact.labels.hours}</dt>
+                <dd className="body-l">
+                  {site.hours.text}
+                  <DevNote note={site.hours.todo} />
+                </dd>
+              </div>
+            ) : null}
           </dl>
 
           <div className="flex flex-col gap-16" data-reveal>
@@ -50,9 +54,11 @@ export function ContactDetails() {
                   <Pill href={area.href ?? undefined}>{area.label}</Pill>
                 </li>
               ))}
-              <li>
-                <TodoChip note={finalCta.todo} />
-              </li>
+              {finalCta.todo ? (
+                <li>
+                  <DevNote note={finalCta.todo} />
+                </li>
+              ) : null}
             </ul>
           </div>
         </div>

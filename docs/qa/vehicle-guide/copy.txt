@@ -88,12 +88,7 @@
            CONTENT.md line 171, first at ul.flex > li > a.pill
        "LenzRescue@gmail.com"
            CONTENT.md section 2, first at li > a.text-link > span.text-link-label
-     owner note (2)
-       "TODO"
-           the TODO(owner) text in CONTENT.md, verbatim, first at div.shell > p > span.todo-chip
-       "three photos needed, one per tier." x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.shell > p > span.todo-chip
-     interface (14)
+     interface (10)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
        "Primary"
@@ -104,18 +99,10 @@
            supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
        "01"
            DESIGN.md 6: the number of an item in a list, with its leading zero, first at li.tier > div.tier-copy > p.numeral
-       "guide-01.jpg"
-           supplied in build: slot filename for a vehicle guide photo, which DESIGN.md 5 does not name, first at div.placeholder-frame > p.caps > span.normal-case
-       "4/3" x3
-           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
        "02"
            DESIGN.md 6: the number of an item in a list, with its leading zero, first at li.tier > div.tier-copy > p.numeral
-       "guide-02.jpg"
-           supplied in build: slot filename for a vehicle guide photo, which DESIGN.md 5 does not name, first at div.placeholder-frame > p.caps > span.normal-case
        "03"
            DESIGN.md 6: the number of an item in a list, with its leading zero, first at li.tier > div.tier-copy > p.numeral
-       "guide-03.jpg"
-           supplied in build: slot filename for a vehicle guide photo, which DESIGN.md 5 does not name, first at div.placeholder-frame > p.caps > span.normal-case
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
@@ -127,4 +114,4 @@
        title        Which Headlights Can Be Restored | Lenz Rescue Vehicle Guide
        description  An honest guide to what restores well, what takes extra work, and what needs replacing. Plastic type, age, prior repairs and damage all change the result.
 
-  PASS: 45 distinct strings (29 content, 2 owner note, 14 interface), 0 problems.
+  PASS: 39 distinct strings (29 content, 10 interface), 0 problems.

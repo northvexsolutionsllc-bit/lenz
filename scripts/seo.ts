@@ -10,6 +10,15 @@
 //      with the name swapped.
 //   6. Every route is whole with script off: every section is in its place and laid out,
 //      and no text is held back waiting for script.
+//   7. Nothing unfinished is on show: no working note, no filename standing in for a
+//      photo, no empty frame, and no label, question or list item left with nothing in
+//      it, on any route or on the styleguide.
+//   8. The build itself carries no working notes: not in the pages it prerendered and
+//      not in the script it sends to the browser.
+//
+// It also works out where the build says it is served from, and holds it to the rules
+// for that host: the production host is indexable, and anything else is staging, which
+// must say noindex on every page and close robots.txt. See src/lib/site-url.ts.
 //
 //   npm run audit:seo
 //   npm run audit:seo -- --out=docs/qa       also save the report as docs/qa/seo.txt
@@ -28,6 +37,7 @@ import { chromium, type Page } from "@playwright/test";
 import { locations } from "../src/content/locations";
 import { routes } from "../src/content/routes";
 import { site } from "../src/content/site";
+import { PRODUCTION_HOST } from "../src/lib/site-url";
 import { startServer } from "./server";
 
 const CONTENT_FILE = path.join("docs", "CONTENT.md");
@@ -61,7 +71,12 @@ const fail = (text: string) => {
   lines.push(`  FAIL  ${text}`);
 };
 
-const absolute = (route: string) => `${site.url}${route === "/" ? "" : route}`;
+// The origin the build's own canonical addresses are on. Read from the home page.
+let ORIGIN = "";
+const absolute = (route: string) => `${ORIGIN}${route === "/" ? "" : route}`;
+
+// What must never reach a visitor: the marks of a working note, and a file's name
+const NOTE_MARKS = ["TODO", "likely:", "blocking for"];
 const squash = (text: string) => text.replace(/\s+/g, " ").trim();
 
 // ---------------------------------------------------------------------------------------
@@ -224,6 +239,8 @@ type PageFacts = {
   paragraphs: string[];
   /** How the page stands with script off */
   whole: { sections: number; streamed: number; adrift: number; flat: number; hidden: string[] };
+  /** What is on show that should not be */
+  unfinished: { notes: string[]; filenames: string[]; frames: number; boxes: string[]; empties: string[] };
   html: string;
 };
 
@@ -232,7 +249,7 @@ async function readPage(page: Page, base: string, route: string): Promise<PageFa
   // tsx compiles named functions with a call to a helper, __name, that only exists in
   // Node. The function below runs in the page, so the page is given a stand-in.
   await page.evaluate("globalThis.__name = (target) => target");
-  const facts = await page.evaluate(() => {
+  const facts = await page.evaluate((marks) => {
     const meta = (selector: string) => document.querySelector(selector)?.getAttribute("content") ?? null;
     return {
       title: document.title,
@@ -245,10 +262,12 @@ async function readPage(page: Page, base: string, route: string): Promise<PageFa
         src: img.getAttribute("src") ?? "",
         alt: img.getAttribute("alt"),
       })),
-      paragraphs: [...document.querySelectorAll("main p")].map((p) => {
+      // Body copy. A paragraph that exists only to describe a picture to a screen reader
+      // is not copy: the same photo on two pages is described the same way on both.
+      paragraphs: [...document.querySelectorAll("main p:not(.sr-only)")].map((p) => {
         const copy = p.cloneNode(true) as HTMLElement;
-        // Leave out what is not the paragraph's own copy: owner chips and hidden helpers
-        copy.querySelectorAll(".todo-chip, .sr-only").forEach((el) => el.remove());
+        // Leave out what is not the paragraph's own copy: development notes and hidden helpers
+        copy.querySelectorAll(".dev-note, .sr-only").forEach((el) => el.remove());
         return (copy.textContent ?? "").replace(/\s+/g, " ").trim();
       }),
       whole: (() => {
@@ -282,9 +301,56 @@ async function readPage(page: Page, base: string, route: string): Promise<PageFa
           hidden,
         };
       })(),
+      unfinished: (() => {
+        // Everything a visitor can read, piece by piece
+        const seen: string[] = [];
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+          const text = walker.currentNode.nodeValue?.replace(/\s+/g, " ").trim();
+          const parent = walker.currentNode.parentElement;
+          if (!text || !parent || parent.closest("script, style, template, noscript")) continue;
+          seen.push(text);
+        }
+        const notes = seen.filter((text) => marks.some((mark) => text.includes(mark)));
+        const filenames = seen.filter((text) => /[\w-]+\.(?:jpe?g|png|webp|avif|gif|svg)\b/i.test(text));
+
+        // A box with a border and nothing in it: a frame waiting for something
+        const boxes: string[] = [];
+        for (const el of document.body.querySelectorAll<HTMLElement>("*")) {
+          if (el.closest("svg, script, style, template, noscript") || /^(INPUT|TEXTAREA|SELECT|BUTTON|IMG|CANVAS|VIDEO|IFRAME|HR)$/.test(el.tagName)) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.width < 48 || rect.height < 48) continue;
+          const style = getComputedStyle(el);
+          const bordered = ["Top", "Right", "Bottom", "Left"].some((side) => {
+            const width = parseFloat(style.getPropertyValue(`border-${side.toLowerCase()}-width`));
+            return width > 0 && style.getPropertyValue(`border-${side.toLowerCase()}-style`) !== "none";
+          });
+          if (!bordered) continue;
+          if ((el.textContent ?? "").trim() !== "") continue;
+          if (el.querySelector("img, svg, canvas, video, iframe, input, textarea, select, button")) continue;
+          boxes.push(`${el.tagName.toLowerCase()}.${String(el.className).split(" ")[0]} ${Math.round(rect.width)}x${Math.round(rect.height)}`);
+        }
+        // A paragraph, a list item, a term or a heading with nothing in it: what is left
+        // behind when the thing it was there to hold has gone
+        const empties: string[] = [];
+        for (const el of document.body.querySelectorAll<HTMLElement>("p, li, dd, dt, h1, h2, h3, h4, h5, h6, figcaption, blockquote, td, th, label")) {
+          if (el.getClientRects().length === 0 || el.closest("svg, template, noscript")) continue;
+          if ((el.textContent ?? "").trim() !== "") continue;
+          if (el.querySelector("img, svg, canvas, video, iframe, input, textarea, select, button")) continue;
+          const before = el.previousElementSibling?.textContent?.replace(/\s+/g, " ").trim().slice(0, 40);
+          empties.push(`an empty <${el.tagName.toLowerCase()}>${before ? ` after "${before}"` : ""}`);
+        }
+        return {
+          notes: notes.map((text) => text.slice(0, 70)),
+          filenames: filenames.map((text) => text.slice(0, 70)),
+          frames: document.querySelectorAll(".placeholder-frame, .dev-note").length,
+          boxes,
+          empties,
+        };
+      })(),
       html: document.documentElement.outerHTML,
     };
-  });
+  }, NOTE_MARKS);
   return { status: response?.status() ?? 0, ...facts };
 }
 
@@ -328,6 +394,16 @@ async function main() {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
 
+    // ------------------------------------------------------------------ 0. the host
+    const home = await readPage(page, server.base, "/");
+    ORIGIN = home.canonical ? new URL(home.canonical).origin : "";
+    const production = ORIGIN !== "" && new URL(ORIGIN).hostname.replace(/^www\./, "") === PRODUCTION_HOST;
+    say("0. Where this build says it is served from");
+    if (!ORIGIN) fail("the home page has no canonical address, so the build does not say");
+    else if (production) pass(`${ORIGIN}. That is the production host, so the site is to be indexed.`);
+    else pass(`${ORIGIN}. That is not the production host, ${PRODUCTION_HOST}: this is a staging build, to be kept out of search.`);
+    say();
+
     // ------------------------------------------------------------------ 1. sitemap
     say("1. Sitemap");
     const sitemap = await fetch(`${server.base}/sitemap.xml`);
@@ -357,8 +433,15 @@ async function main() {
     listed.forEach((url) => say(`        ${url}`));
 
     const robots = await (await fetch(`${server.base}/robots.txt`)).text();
-    if (robots.includes(`Sitemap: ${site.url}/sitemap.xml`)) pass("/robots.txt points to it");
-    else fail("/robots.txt does not name the sitemap");
+    if (production) {
+      if (robots.includes(`Sitemap: ${ORIGIN}/sitemap.xml`)) pass("/robots.txt points to it");
+      else fail("/robots.txt does not name the sitemap");
+      if (/^Disallow: \/\s*$/m.test(robots)) fail("/robots.txt closes the whole site, on the production host");
+    } else if (/^Disallow: \/\s*$/m.test(robots) && !/^Allow:/m.test(robots)) {
+      pass("/robots.txt turns every crawler away from the whole site, as staging must");
+    } else {
+      fail("/robots.txt does not close the site, and this is a staging build");
+    }
 
     // ------------------------------------------------------------------ read every route
     const facts = new Map<string, PageFacts>();
@@ -429,7 +512,10 @@ async function main() {
       if (!fact.description) problems.push("no description");
       if (fact.canonical !== absolute(route)) problems.push(`canonical is ${fact.canonical}`);
       if (!fact.shareImage) problems.push("no share image");
-      if (fact.robots && /noindex/.test(fact.robots)) problems.push("marked noindex");
+      const noindex = /noindex/.test(fact.robots ?? "") && /nofollow/.test(fact.robots ?? "");
+      if (production && /noindex/.test(fact.robots ?? "")) problems.push("marked noindex, on the production host");
+      if (!production && !noindex) problems.push("not marked noindex and nofollow, on a staging build");
+      if (fact.canonical && new URL(fact.canonical).origin !== ORIGIN) problems.push(`canonical is on another host: ${fact.canonical}`);
       const twin = titles.get(fact.title);
       if (twin) problems.push(`same title as ${twin}`);
       titles.set(fact.title, route);
@@ -544,6 +630,50 @@ async function main() {
       if (problems.length > 0) fail(`${route}: ${problems.join(". ")}`);
       else pass(`${route}: ${sections} sections, each in its place and laid out, no text held back`);
     }
+
+    // ------------------------------------------------------------------ 7. nothing unfinished
+    say();
+    say("7. Nothing unfinished is on show");
+    const shown = new Map(facts);
+    shown.set("/styleguide", await readPage(page, server.base, "/styleguide"));
+    for (const [route, fact] of shown) {
+      const { notes, filenames, frames, boxes, empties } = fact.unfinished;
+      const problems: string[] = [];
+      if (notes.length > 0) problems.push(`${notes.length} working notes, the first being "${notes[0]}"`);
+      if (filenames.length > 0) problems.push(`${filenames.length} filenames as text, the first being "${filenames[0]}"`);
+      if (frames > 0) problems.push(`${frames} placeholder frames or note chips`);
+      // The styleguide is made of swatches, which are empty boxes on purpose
+      const swatches = route === "/styleguide";
+      if (boxes.length > 0 && !swatches) problems.push(`${boxes.length} empty bordered boxes, the first being ${boxes[0]}`);
+      if (empties.length > 0) problems.push(`${empties.length} elements with nothing in them, the first being ${empties[0]}`);
+      if (problems.length > 0) fail(`${route}: ${problems.join(". ")}`);
+      else pass(`${route}: no working note, no filename as text${swatches ? "" : ", no empty frame"}, nothing left empty`);
+    }
+
+    // ------------------------------------------------------------------ 8. the build itself
+    say();
+    say("8. The build carries no working notes");
+    const scan = (dir: string, wanted: RegExp) => {
+      const hits = new Map<string, number>();
+      const walk = (folder: string) => {
+        for (const entry of fs.readdirSync(folder, { withFileTypes: true })) {
+          const full = path.join(folder, entry.name);
+          if (entry.isDirectory()) walk(full);
+          else if (wanted.test(entry.name)) {
+            const text = fs.readFileSync(full, "utf8");
+            for (const mark of NOTE_MARKS) if (text.includes(mark)) hits.set(mark, (hits.get(mark) ?? 0) + 1);
+          }
+        }
+      };
+      if (fs.existsSync(dir)) walk(dir);
+      return hits;
+    };
+    const report = (label: string, hits: Map<string, number>) => {
+      if (hits.size === 0) pass(`${label}: none of ${NOTE_MARKS.map((mark) => `"${mark}"`).join(", ")}`);
+      else fail(`${label}: ${[...hits].map(([mark, count]) => `"${mark}" in ${count} files`).join(", ")}`);
+    };
+    report("the pages as prerendered", scan(path.join(".next", "server", "app"), /\.(html|rsc|body|meta)$/));
+    report("the script sent to the browser", scan(path.join(".next", "static"), /\.(js|css)$/));
 
     await context.close();
   } finally {

@@ -97,6 +97,15 @@ entry rather than deleting it, and update the file it affects.
     lists them by route and section. The list as it stood at handover is in HANDOVER.md section 9
     and in full in `docs/qa/owner.txt`.
 
+    **Reversed, 17 November 2026.** The build was put on a public staging address with the frames
+    and the chips still in it, and visitors could read the working notes. Nothing unfinished is
+    shown any more. The notes exist in development only: every one sits behind a check on
+    `NODE_ENV`, and a production build carries none of them, on the page or in its script. A media
+    slot with no file renders nothing, and the layout closes up around it. `PlaceholderFrame` is
+    deleted and the chip is now `DevNote`. What is still owed is listed by `npm run audit:owner`
+    from the source, and `npm run audit:seo` fails if a note, a filename or an empty frame reaches
+    a built page.
+
 15. **Reduced motion is a build requirement, not a nicety.** Spelled out per component in MOTION.md
     section 2 and checked in QA. A site whose whole concept is motion has to be usable without it.
 

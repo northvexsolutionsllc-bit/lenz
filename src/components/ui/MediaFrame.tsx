@@ -1,7 +1,16 @@
 import Image from "next/image";
 import { cx } from "@/lib/cx";
 import type { MediaSlot } from "@/lib/media";
-import { PlaceholderFrame, RATIO_CLASS, type MediaRatio } from "./PlaceholderFrame";
+
+export type MediaRatio = "16/9" | "4/3" | "3/2" | "4/5";
+
+// The four ratios in DESIGN.md 5, mapped to the aspect utilities defined in tokens.css
+export const RATIO_CLASS: Record<MediaRatio, string> = {
+  "16/9": "aspect-hero",
+  "4/3": "aspect-tile",
+  "3/2": "aspect-pair",
+  "4/5": "aspect-portrait",
+};
 
 export type MediaTone = "before" | "after";
 
@@ -23,20 +32,13 @@ type MediaFrameProps = {
 // shadow. The photo is never shown raw: a filter stack and a night multiply overlay sit
 // mixed phone photos together, and a tint marks before and after. On hover the overlay
 // lifts and the filter relaxes over 640ms: clarity on hover. All of it is CSS, see the
-// MediaFrame rules in components.css. Until the file exists, the slot shows its
-// PlaceholderFrame instead.
+// MediaFrame rules in components.css.
+//
+// A slot whose file has not been supplied renders nothing at all: no box, no frame and
+// no filename. Whatever holds it closes up around the gap, so the page looks finished
+// with the photos it has. The file drops in later under its name, with no code change.
 export function MediaFrame({ slot, ratio, alt, tone, sizes, flush = false, className }: MediaFrameProps) {
-  if (!slot.src) {
-    return (
-      <div
-        className={cx("media-frame media-frame-empty", RATIO_CLASS[ratio], className)}
-        data-tone={tone}
-        data-flush={flush ? "true" : undefined}
-      >
-        <PlaceholderFrame file={slot.file} ratio={ratio} className="h-full" />
-      </div>
-    );
-  }
+  if (!slot.src) return null;
 
   return (
     <div

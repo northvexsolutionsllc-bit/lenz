@@ -146,15 +146,6 @@
            CONTENT.md line 96, first at li > a.text-link > span.text-link-label
        "LenzRescue@gmail.com"
            CONTENT.md section 2, first at li > a.text-link > span.text-link-label
-     owner note (4)
-       "TODO" x3
-           the TODO(owner) text in CONTENT.md, verbatim, first at div.shell > h2.h2 > span.todo-chip
-       "the add-on price" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.shell > h2.h2 > span.todo-chip
-       "the guarantee has no published terms anywhere. Needed before launch: what is covered, what voids it, whether it transfers with the vehicle, and whether it covers physical damage. likely: covers oxidation and coating failure only, does not cover cracks, impact damage or internal moisture, stays with the original customer." x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body-l > span.todo-chip
-       "confirm the last two are actually served" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
      interface (8)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
@@ -177,4 +168,4 @@
        title        Fog Light Restoration | Lenz Rescue, East Contra Costa
        description  Cloudy fog lights restored on site, added to any headlight booking. Same multi-step process, same UV coating, same 3 year guarantee.
 
-  PASS: 57 distinct strings (45 content, 4 owner note, 8 interface), 0 problems.
+  PASS: 53 distinct strings (45 content, 8 interface), 0 problems.

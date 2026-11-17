@@ -1,6 +1,10 @@
 // Home page copy. docs/CONTENT.md section 3. Every string is verbatim.
 // A `todo` field holds the text that follows TODO(owner) in CONTENT.md, also verbatim. It
-// is what the TODO chip beside that item says when it is hovered or read aloud.
+// is what the note beside that item says, in development, when it is hovered or read aloud.
+
+// Owner notes are working notes. They exist in development only: this is false in a
+// production build, so every note below becomes null there and its text is not shipped.
+const DEV = process.env.NODE_ENV === "development";
 
 // 3.1 Hero
 export const hero = {
@@ -15,7 +19,7 @@ export const hero = {
       prefix: "",
       suffix: " HR",
       label: "TYPICAL VISIT",
-      todo: "likely: 45 to 60 minutes for a standard pair",
+      todo: DEV ? "likely: 45 to 60 minutes for a standard pair" : null,
     },
   ],
   cue: "SEE THE DIFFERENCE",
@@ -43,7 +47,7 @@ export const problem = {
       numeral: "Cost",
       title: "New assemblies are expensive",
       body: "Replacement housings on a common SUV run several hundred dollars per side before labor. Restoration is a fraction of that on the same lens.",
-      todo: "likely: quote a real replacement price for one common local vehicle so this line has a number in it",
+      todo: DEV ? "likely: quote a real replacement price for one common local vehicle so this line has a number in it" : null,
     },
   ],
 } as const;
@@ -84,11 +88,11 @@ export const beforeAfter = {
   body: "Every pair here was restored on site, in one visit, with no parts replaced.",
   button: "See the full gallery",
   // CONTENT.md section 9
-  todo: "the year, make, model and city for each of the existing five photos.",
+  todo: DEV ? "the year, make, model and city for each of the existing five photos." : null,
 } as const;
 
 // 3.6 Process
-export const process = {
+export const correction = {
   eyebrow: "THE CORRECTION",
   title: { plain: "Four stages.", accent: "In that order." },
   stages: [
@@ -144,7 +148,7 @@ export const pricing = {
     {
       title: "Fog lights can be added",
       body: "Priced per vehicle",
-      todo: "likely: a flat add-on such as $40 per pair",
+      todo: DEV ? "likely: a flat add-on such as $40 per pair" : null,
     },
     { title: "3 year guarantee", body: "Free touch-ups inside the coverage period", todo: null },
   ],
@@ -159,7 +163,7 @@ export const guarantee = {
   eyebrow: "THE GUARANTEE",
   title: { plain: "Three years.", accent: "In writing." },
   body: "If a lens we restored starts hazing inside the coverage period, we come back and touch it up at no charge.",
-  todo: "the guarantee has no published terms anywhere. Needed before launch: what is covered, what voids it, whether it transfers with the vehicle, and whether it covers physical damage. likely: covers oxidation and coating failure only, does not cover cracks, impact damage or internal moisture, stays with the original customer.",
+  todo: DEV ? "the guarantee has no published terms anywhere. Needed before launch: what is covered, what voids it, whether it transfers with the vehicle, and whether it covers physical damage. likely: covers oxidation and coating failure only, does not cover cracks, impact damage or internal moisture, stays with the original customer." : null,
 } as const;
 
 // 3.10 Story
@@ -176,8 +180,8 @@ export const reviews = {
   eyebrow: "WHAT PEOPLE SAY",
   title: { plain: "Ask the", accent: "neighbours." },
   link: "Read all reviews on Google",
-  todo: "blocking for launch. The current site has a Google QR code and zero visible reviews. Needed: the Google Business Profile URL, the current star rating and review count, and at least three full review texts with first names and city.",
-  // Fill these in to switch the section from its placeholder state to the real thing
+  todo: DEV ? "blocking for launch. The current site has a Google QR code and zero visible reviews. Needed: the Google Business Profile URL, the current star rating and review count, and at least three full review texts with first names and city." : null,
+  // Fill these in and the section renders. Until then it renders nothing.
   profileUrl: null as string | null,
   rating: null as number | null,
   count: null as number | null,
@@ -197,5 +201,5 @@ export const finalCta = {
     { label: "Discovery Bay", href: null },
     { label: "Bay Point", href: null },
   ],
-  todo: "confirm the last two are actually served",
+  todo: DEV ? "confirm the last two are actually served" : null,
 } as const;

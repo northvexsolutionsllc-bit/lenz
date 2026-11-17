@@ -292,18 +292,6 @@
     opacity: 1;
   }
 
-  /* --------------------------------------------------------- PlaceholderFrame */
-
-  .placeholder-frame {
-    display: grid;
-    place-items: center;
-    padding: 16px;
-    border: 1px dashed var(--beam-12);
-    border-radius: var(--radius-card);
-    background-color: var(--smoke);
-    text-align: center;
-  }
-
   /* ------------------------------------------------------------------- Header */
 
   /*
@@ -709,10 +697,13 @@
 }
 
 @layer components {
-  /* ----------------------------------------------------------------- TodoChip */
+  /* ----------------------------------------------------------------- DevNote */
 
-  /* A small oxide chip. Text on oxide is night, never beam. DESIGN.md 2.3 */
-  .todo-chip {
+  /*
+    A small oxide chip. Text on oxide is night, never beam. DESIGN.md 2.3
+    The component renders only in development, so this never reaches a visitor.
+  */
+  .dev-note {
     display: inline-flex;
     align-items: center;
     padding: 4px 8px;
@@ -722,7 +713,7 @@
     cursor: help;
   }
 
-  .caps.todo-chip {
+  .caps.dev-note {
     color: var(--night);
   }
 
@@ -886,8 +877,9 @@
     color: var(--tier);
   }
 
+  /* Copy beside its photo, once the tier has one. Without it the copy has the card. */
   @media (min-width: 1024px) {
-    .tier {
+    .tier[data-media="true"] {
       grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
       gap: 48px;
     }
@@ -917,10 +909,6 @@
     display: flex;
     gap: 4px;
     color: var(--xenon);
-  }
-
-  .review-placeholder {
-    min-height: 200px;
   }
 
   /* ------------------------------------------------------------------ Process */
@@ -1192,26 +1180,43 @@
     opacity: 0.08;
   }
 
-  /* An empty slot shows its PlaceholderFrame, which needs no overlay and no second border */
-  .media-frame-empty {
-    border: 0;
+  /*
+    A grid of tiles that never ends on a short row. Tiles that would start a row they
+    cannot fill are left off, at each width, unless they are the only row there is.
+    Used where the grid is a preview and the whole set is one link away.
+  */
+  @media (min-width: 640px) and (max-width: 1023.98px) {
+    .gallery-tidy > :nth-child(odd):nth-child(n + 3):last-child {
+      display: none;
+    }
   }
 
-  .media-frame-empty::before {
-    content: none;
+  @media (min-width: 1024px) {
+    .gallery-tidy > :nth-child(3n + 1):nth-child(n + 4):last-child,
+    .gallery-tidy > :nth-child(3n + 1):nth-child(n + 4):nth-last-child(2),
+    .gallery-tidy > :nth-child(3n + 2):nth-child(n + 4):last-child {
+      display: none;
+    }
   }
 
-  .media-frame-empty[data-flush="true"] .placeholder-frame {
-    border-radius: 0;
+  /* The work shown on a location page: as many columns as there are pairs, three at most */
+  .location-pairs {
+    display: grid;
+    gap: var(--grid-gap);
   }
 
-  /* In an empty slider each placeholder label keeps to its own side of the seam */
-  .compare-layer .placeholder-frame {
-    justify-items: start;
-  }
+  @media (min-width: 1024px) {
+    .location-pairs[data-count="3"] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 
-  .compare-after .placeholder-frame {
-    justify-items: end;
+    .location-pairs[data-count="2"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .location-pairs[data-count="1"] {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    }
   }
 
   /*

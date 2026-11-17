@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Section } from "@/components/ui/Section";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { pricing } from "@/content/home";
 import { fog } from "@/content/pages";
 
@@ -17,7 +17,7 @@ export function AddOnPricing() {
         <Eyebrow reveal>{pricing.eyebrow}</Eyebrow>
         <h2 id={titleId} className="h2" data-reveal>
           {fog.pricing.title}
-          <TodoChip note={fog.pricing.todo} className="ml-16" />
+          <DevNote note={fog.pricing.todo} className="ml-16" />
         </h2>
       </div>
     </Section>

@@ -1,8 +1,7 @@
 // The before and after pairs and the gallery tiles. DESIGN.md 5, CONTENT.md 9
 //
-// Slot numbers match the filenames in public/media. A slot with no file renders a
-// PlaceholderFrame. The first five slots are cut from the client's original composites
-// by scripts/media.ts.
+// Slot numbers match the filenames in public/media. A slot with no file renders nothing.
+// The first five slots are cut from the client's original composites by scripts/media.ts.
 //
 // TODO(owner): year, make, model and city for every photo (CONTENT.md 11, item 7). Until
 // they are supplied, alt text describes only what can be seen. Fill in the fields below

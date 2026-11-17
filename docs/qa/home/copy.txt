@@ -354,21 +354,6 @@
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "LenzRescue@gmail.com"
            CONTENT.md section 2, first at li > a.text-link > span.text-link-label
-     owner note (7)
-       "TODO" x6
-           the TODO(owner) text in CONTENT.md, verbatim, first at div.hero-stat > dt.caps > span.todo-chip
-       "likely: 45 to 60 minutes for a standard pair" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.hero-stat > dt.caps > span.todo-chip
-       "likely: quote a real replacement price for one common local vehicle so this line has a number in it" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.glass-card > p.body > span.todo-chip
-       "the year, make, model and city for each of the existing five photos." x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body > span.todo-chip
-       "likely: a flat add-on such as $40 per pair" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body > span.todo-chip
-       "the guarantee has no published terms anywhere. Needed before launch: what is covered, what voids it, whether it transfers with the vehicle, and whether it covers physical damage. likely: covers oxidation and coating failure only, does not cover cracks, impact damage or internal moisture, stays with the original customer." x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body-l > span.todo-chip
-       "confirm the last two are actually served" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
      pattern (8)
        "Oxidized yellow headlight on a gray vehicle before restoration"
            CONTENT.md line 272, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
@@ -386,7 +371,7 @@
            CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
        "Gray vehicle headlights restored on site"
            CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
-     interface (16)
+     interface (12)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
        "Primary"
@@ -403,16 +388,8 @@
            MOTION.md 6, first at div.compare > div.compare-layer > span.pill
        "AFTER"
            MOTION.md 6, first at div.compare > div.compare-layer > span.pill
-       "gallery-06.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "4/3"
-           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
        "Cross-section of a headlight: the reflector, the bulb and the lens, with the layers the four stages work on"
            supplied in build: name of the process figure, as aria-label, first at div.shell > figure.process-figure > svg.lens-figure
-       "owner.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "4/5"
-           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
@@ -424,4 +401,4 @@
        title        Lenz Rescue | Mobile headlight restoration
        description  Cloudy headlights cut how far you can see at night. We restore the lens you already have, at your driveway, for a fraction of what new assemblies cost.
 
-  PASS: 141 distinct strings (110 content, 7 owner note, 8 pattern, 16 interface), 0 problems.
+  PASS: 130 distinct strings (110 content, 8 pattern, 12 interface), 0 problems.

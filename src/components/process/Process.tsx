@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { StepRow } from "@/components/ui/StepRow";
-import { process } from "@/content/home";
+import { correction } from "@/content/home";
 import { cx } from "@/lib/cx";
 import { DUR, EASE } from "@/lib/gsap";
 import { whenIdle } from "@/lib/idle";
@@ -149,16 +149,16 @@ export function Process({ band = false, variant = "pinned", after }: ProcessProp
       data-pinned={pinned}
     >
       <div className="shell process-head">
-        <Eyebrow reveal>{process.eyebrow}</Eyebrow>
+        <Eyebrow reveal>{correction.eyebrow}</Eyebrow>
         <h2 id={titleId} className="h2" data-reveal>
-          {process.title.plain} <span className="accent">{process.title.accent}</span>
+          {correction.title.plain} <span className="accent">{correction.title.accent}</span>
         </h2>
       </div>
 
       <div id="process" className="process-stage">
         <div className="shell process-grid">
           <ol className="process-steps">
-            {process.stages.map((item, index) => (
+            {correction.stages.map((item, index) => (
               <StepRow
                 key={item.title}
                 number={index + 1}
@@ -178,7 +178,7 @@ export function Process({ band = false, variant = "pinned", after }: ProcessProp
 
       <div className="shell process-foot">
         <p className="small" data-reveal={still ? "" : undefined}>
-          {process.caption}
+          {correction.caption}
         </p>
         {after}
       </div>

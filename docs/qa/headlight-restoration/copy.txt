@@ -18,7 +18,7 @@
        ok       A kit will take the yellow off for a few months. The difference is the machine polish and the coating. Without those the plastic is left open and oxidizes faster than before.
        ok       What if my lens is cracked?
        ok       Then we tell you to replace it. A crack is below the surface we work on. See the vehicle guide.
-       ok       How do I pay?
+       held     How do I pay?  (a question is not asked until the owner has supplied its answer)
      3.5 Before and after
        ok       PREVIOUS WORK
        ok       Drag it.
@@ -103,7 +103,7 @@
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (4 on the page)
 
   2. The page, read against CONTENT.md
-     content (91)
+     content (90)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -138,19 +138,19 @@
            CONTENT.md line 109, first at section.process > div.shell > h2.h2
        "In that order."
            CONTENT.md line 109, first at div.shell > h2.h2 > span.accent
-       "Sand" x2
+       "Sand"
            CONTENT.md line 110, first at li.step-row > div.step-row-copy > h3.h3
        "Wet sanding through progressive grits takes off the dead factory coating and the oxidized layer under it. This is the step that actually removes the yellow."
            CONTENT.md line 110, first at li.step-row > div.step-row-copy > p.body
-       "Compound" x2
+       "Compound"
            CONTENT.md line 111, first at li.step-row > div.step-row-copy > h3.h3
        "Machine compounding pulls out the sanding marks and brings the plastic back to a level surface."
            CONTENT.md line 111, first at li.step-row > div.step-row-copy > p.body
-       "Polish" x2
+       "Polish"
            CONTENT.md line 112, first at li.step-row > div.step-row-copy > h3.h3
        "A finer polish takes the surface from level to optically clear, so light passes straight through instead of scattering."
            CONTENT.md line 112, first at li.step-row > div.step-row-copy > p.body
-       "Protect" x2
+       "Protect"
            CONTENT.md line 113, first at li.step-row > div.step-row-copy > h3.h3
        "A UV protective coating goes on last. Without it a restored lens yellows again within a year. This is the step cheap jobs skip."
            CONTENT.md line 113, first at li.step-row > div.step-row-copy > p.body
@@ -256,8 +256,6 @@
            part of "Then we tell you to replace it. A crack is below the surface", CONTENT.md line 190, first at ul.rule-list > li.flex > p.body
        "vehicle guide"
            part of "Then we tell you to replace it. A crack is below the surface", CONTENT.md line 190, first at p.body > a.text-link > span.text-link-label
-       "How do I pay?"
-           CONTENT.md line 191, first at ul.rule-list > li.flex > h3.h3
        "Let's bring your headlights"
            CONTENT.md line 167, first at section#contact > div.shell > h2.h2
        "back to life."
@@ -293,21 +291,6 @@
            CONTENT.md 4, section name, first at div.shell > div.flex > h2.h2
        "FAQ"
            CONTENT.md 4, section name, first at div.shell > div.flex > h2.h2
-     owner note (7)
-       "TODO" x6
-           the TODO(owner) text in CONTENT.md, verbatim, first at div.flex > p.body > span.todo-chip
-       "likely: a flat add-on such as $40 per pair" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body > span.todo-chip
-       "the year, make, model and city for each of the existing five photos." x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body > span.todo-chip
-       "the guarantee has no published terms anywhere. Needed before launch: what is covered, what voids it, whether it transfers with the vehicle, and whether it covers physical damage. likely: covers oxidation and coating failure only, does not cover cracks, impact damage or internal moisture, stays with the original customer." x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > p.body-l > span.todo-chip
-       "confirm" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at li.flex > p.body > span.todo-chip
-       "likely: cash, Venmo and card via Square, since both appear in the current footer" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at li.flex > p.body > span.todo-chip
-       "confirm the last two are actually served" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
      pattern (8)
        "Oxidized yellow headlight on a gray vehicle before restoration"
            CONTENT.md line 272, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
@@ -325,7 +308,7 @@
            CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
        "Gray vehicle headlights restored on site"
            CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
-     interface (19)
+     interface (12)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
        "Primary"
@@ -336,16 +319,6 @@
            supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
        "Cross-section of a headlight: the reflector, the bulb and the lens, with the layers the four stages work on"
            supplied in build: name of the process figure, as aria-label, first at div.shell > figure.process-figure > svg.lens-figure
-       "process-01.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "3/2" x4
-           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
-       "process-02.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "process-03.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "process-04.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
        "Reveal the restored headlight"
            MOTION.md 6, as aria-label, first at div.grid > div.lg:col-span-8 > div.compare
        "38 percent before, 62 percent after"
@@ -354,10 +327,6 @@
            MOTION.md 6, first at div.compare > div.compare-layer > span.pill
        "AFTER"
            MOTION.md 6, first at div.compare > div.compare-layer > span.pill
-       "gallery-06.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "4/3"
-           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
@@ -369,4 +338,4 @@
        title        Headlight Restoration in Antioch and Brentwood CA | Lenz Rescue
        description  Mobile headlight restoration from $125 with a 3 year guarantee. We come to you in Antioch, Brentwood, Pittsburg and Oakley. Text photos for a same day quote.
 
-  PASS: 128 distinct strings (91 content, 3 label, 7 owner note, 8 pattern, 19 interface), 0 problems.
+  PASS: 113 distinct strings (90 content, 3 label, 8 pattern, 12 interface), 0 problems.

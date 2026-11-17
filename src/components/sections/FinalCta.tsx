@@ -3,7 +3,7 @@ import { Pill } from "@/components/ui/Pill";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
 import { Section } from "@/components/ui/Section";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { finalCta } from "@/content/home";
 import { site } from "@/content/site";
 
@@ -46,9 +46,11 @@ export function FinalCta({ serviceArea = false }: FinalCtaProps) {
               <Pill href={area.href ?? undefined}>{area.label}</Pill>
             </li>
           ))}
-          <li>
-            <TodoChip note={finalCta.todo} />
-          </li>
+          {finalCta.todo ? (
+            <li>
+              <DevNote note={finalCta.todo} />
+            </li>
+          ) : null}
         </ul>
       </div>
     </Section>

@@ -32,8 +32,20 @@ Three things to know:
   image, the tab icon and the build date. `scripts/generate.ts` lists each one.
 - The build needs the dev dependencies, because `generate` runs on `tsx` and `sharp`. A host that
   installs with dev dependencies left out will fail at that step.
-- Every page is static. There is no database, no environment variable and no server code to
-  configure. The production address is one line, `url` in `src/content/site.ts`.
+- Every page is static. There is no database and no server code to configure.
+- There is one environment variable, and it matters: `NEXT_PUBLIC_SITE_URL`, the address the site is
+  served from. Set it wherever the site is deployed, and build again after changing it.
+
+  | Where | Value | What follows |
+  |---|---|---|
+  | Production | `https://lenzrescue.com` | Pages are indexable, `robots.txt` names the sitemap. |
+  | Staging | the staging address, for example `https://recipania.xyz` | Every page says `noindex, nofollow`, `robots.txt` closes the whole site, and canonical addresses are the staging host's own. |
+  | Not set | Netlify's or Vercel's own address for the site if there is one, otherwise `http://localhost:3000` | As staging. |
+
+  Only `lenzrescue.com`, with or without `www`, is ever indexable. A staging copy must not be
+  indexed and must not point at a domain that does not have these pages yet. The first line of the
+  build log says which address the build took and which of the two it is. The rule is in
+  `src/lib/site-url.ts`, and `npm run audit:seo` checks the built site against it.
 
 `AGENTS.md` in the repository root is written by `next dev` for coding agents and is ignored by git.
 Leave it alone.
@@ -51,10 +63,10 @@ finds a problem. All but the first two read the production build in a browser, s
 | `npm run lint` | ESLint, with the Next.js rules. |
 | `npm run audit:design` | Nothing on the ban list in DESIGN.md section 7: no colour outside `tokens.css`, no fourth font, no fourth radius, no spacing off the scale, no dashes, no placeholder copy, no console output, no unused dependency. |
 | `npm run audit:copy` | Every word on every route is in CONTENT.md, and every line CONTENT.md gives a route is on it. |
-| `npm run audit:seo` | The sitemap, the structured data, titles and descriptions, alt text, that no two location pages share a paragraph, and that every route is whole with script off. |
+| `npm run audit:seo` | Which host the build is for and that it follows the rules for it, the sitemap, the structured data, titles and descriptions, alt text, that no two location pages share a paragraph, that every route is whole with script off, and that nothing unfinished is on show: no working note, no filename as text, no empty frame. |
 | `npm run audit:a11y` | axe on every route at both sizes and with the menu open, a keyboard walk of every route, every contrast pair, and everything set over the hero beam measured against the pixels behind it. |
 | `npm run audit:perf` | The first five rows of the budget in MOTION.md section 9, on the home route. |
-| `npm run audit:owner` | Not a test. The list of everything still waiting on the owner. |
+| `npm run audit:owner` | Not a test, and it needs no build. The list of everything still waiting on the owner, read from the source. |
 | `npm run shots` | Screenshots of every route at 1440x900 and 390x844, each also under reduced motion, into `docs/qa/<route>/`. |
 
 Add `-- --out=docs/qa` to an audit to save its report beside the screenshots. The reports from the
@@ -145,10 +157,10 @@ npm run audit:seo
 ```
 
 **The prices that do not exist yet.** The fog light add-on price and the dealer volume pricing are
-owed by the owner and show as TODO chips. They have no layout either, because there has been nothing
-to lay out. When they arrive: write the copy into CONTENT.md sections 3.8, 5 and 6, add it to
-`pricing.inclusions` in `src/content/home.ts`, and to `fog.pricing` and `dealer.volume` in
-`src/content/pages.ts`, and set each `todo` to `null` or delete it. The chip goes with it. The two
+owed by the owner. They have no layout either, because there has been nothing to lay out. When they
+arrive: write the copy into CONTENT.md sections 3.8, 5 and 6, add it to `pricing.inclusions` in
+`src/content/home.ts`, and to `fog.pricing` and `dealer.volume` in `src/content/pages.ts`, and set
+each `todo` to `null` or delete it. The two
 service pages leave the price out of their structured data until then: pass `minPrice` to
 `serviceSchema` in their `page.tsx` once there is one.
 
@@ -184,8 +196,10 @@ A gallery tile is one photo of finished work, at 4/3.
    The audit fails if two different photos end up with the same alt text, which is what happens if
    two entries share a `description` and nothing else.
 
-The frame that read `gallery-06.jpg` is replaced by the photo. Nothing else changes. The home page
-and the headlight page show the first six tiles, `/gallery` shows all of them.
+The photo takes its place in the grid. Nothing else changes. A slot with no file shows nothing at
+all, so there is no gap to fill and no order to keep: photos can arrive one at a time. `/gallery`
+shows every tile that has a photo. The home page and the headlight page show up to six, in whole
+rows, so a tile that would start a row it cannot fill waits for the others.
 
 For a 13th tile, add an entry with `id: "13"` to the end of `gallery`, and add the slot to the list
 in DESIGN.md section 5.
@@ -236,6 +250,14 @@ build and run `audit:copy`, `audit:seo` and `audit:a11y`.
 
 - **CONTENT.md first.** The copy audit will fail on any word that is on the site and not in
   CONTENT.md. That is the point of it.
+- **Working notes are for development only.** Every `todo` in the content files sits behind a
+  check on `NODE_ENV`, and `DevNote`, the chip that shows one, renders only under `npm run dev`. In
+  a production build the notes are not there at all, not on the page and not in the script. A new
+  note must be written the same way: `todo: DEV ? "the note" : null`. `npm run audit:seo` fails if
+  one reaches a built page.
+- **A media slot with no file renders nothing.** No box, no frame, no filename. `MediaFrame` and
+  `CompareSlider` return nothing, and the lists that feed them only ever contain what exists. Do
+  not add a placeholder: the site has to look finished with the photos it has.
 - **No em dashes and no en dashes**, in copy, code, comments or commit messages.
   `npm run audit:design` checks every file, this one included.
 - **A page you have visited stays in the document, hidden.** That is how the router keeps it warm.
@@ -263,14 +285,15 @@ build and run `audit:copy`, `audit:seo` and `audit:a11y`.
 
 ## 9. What is still waiting on the owner
 
-Nothing asked for in CONTENT.md section 11 has arrived since the build began, so no placeholder and
-no TODO chip has been removed. At handover there are 32 placeholder frames and 32 TODO chips across
-the twelve routes. `docs/qa/owner.txt` lists every one by route and section, and
-`npm run audit:owner` writes that list again at any time. This is the same list by what to ask for.
+Nothing asked for in CONTENT.md section 11 has arrived since the build began. None of the gaps
+shows on the site: a fact that is still owed is simply not stated, and a photo that has not arrived
+is simply not there. `npm run audit:owner` lists every one of them from the source, and
+`docs/qa/owner.txt` is that list as it stands. Under `npm run dev` each owed fact also shows as a
+chip beside the thing it is about. This is the same list by what to ask for.
 
 **Photos and files, 18 from DESIGN.md section 5 and 3 more**
 
-| File | Ratio | Shows as a frame on |
+| File | Ratio | Where it goes once it arrives |
 |---|---|---|
 | `hero-poster.jpg` | 16/9 | Nowhere. A frame of the beam stands in behind the home hero. |
 | `before-02.jpg`, `after-02.jpg` | 3/2 | `/gallery`, the pairs. The original of pair 02 is split on a diagonal and could not be cut into a matching pair. |
@@ -282,14 +305,16 @@ the twelve routes. `docs/qa/owner.txt` lists every one by route and section, and
 | `logo.svg` | | Nowhere. The header sets the name in type and the tab icon is a generated mark. |
 | `guide-01.jpg` to `guide-03.jpg` | 4/3 | `/vehicle-guide`, one per tier. CONTENT.md asks for these three photos. The filenames and the ratio were chosen in the build, because DESIGN.md section 5 does not list them. |
 
-Also photos, but not new files: each of the four location pages has three open slots under "Drag
-it. That is the same lens." waiting to be told which existing pair was done in that city.
+Also photos, but not new files: nobody has said which existing pair was done in which city. Until
+then each location page shows three of the pairs there are, each page starting one further along,
+and nothing on the page says the photos were taken in that city. Once it is known, list a city's
+own pairs under `pairs` in `src/content/locations.ts` and its page shows those instead.
 
 **Facts, by the numbers in CONTENT.md section 11**
 
-| | Needed | Where the chip is |
+| | Needed | Where it belongs |
 |---|---|---|
-| 1 | Google profile URL, rating, review count and three reviews | No chip. The reviews section is built and held back. |
+| 1 | Google profile URL, rating, review count and three reviews | The reviews section, which is built and renders nothing until all four exist. |
 | 2 | Guarantee terms in writing | "Three years. In writing." on `/`, `/headlight-restoration` and `/fog-light-restoration`. |
 | 3 | Dealer volume pricing and minimum booking | "Volume pricing" on `/dealer-and-auction`. |
 | 4 | Business hours | "Hours" on `/contact`. |
@@ -306,8 +331,8 @@ Items 6, 9 and 10 are the photos and the logo above.
 **Not in CONTENT.md section 11, and still the owner's to confirm**
 
 - **The four location openings are drafts.** CONTENT.md gives the brief for each and not the text.
-  They are written to that brief, each carries a chip, and each is also that page's meta
-  description. They need reading by someone who knows the four towns.
+  They are written to that brief, and each is also that page's meta description. They need
+  reading by someone who knows the four towns.
 - **The service radius.** The structured data describes the service area as a circle of 16km around
   the midpoint of the four cities, because no radius has been stated. `src/content/area.ts`.
 
@@ -433,7 +458,7 @@ different.
   at five screen sizes. With the beam squashed and kept off the copy, all of it meets what WCAG
   asks except three pieces, which fall a little short of 4.5 to 1 at their worst point on some
   screens: the eyebrow at 4.31, the last words of the lead paragraph at 4.45, and the "TYPICAL
-  VISIT" label at 3.94. Two of the three are `.caps` text in beam at 54 percent, which has little
+  VISIT" label at 4.34. Two of the three are `.caps` text in beam at 54 percent, which has little
   to spare even on plain night, where it measures 5.59. The colours are DESIGN.md's and the haze is
   MOTION.md's, so neither was changed. The choices are to set `.caps` text over the hero in a
   stronger beam, to thin the haze, which is 30 percent oxide at its densest, or to accept it.

@@ -2,7 +2,7 @@ import { useId, type ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Section } from "@/components/ui/Section";
 import { TextLink } from "@/components/ui/TextLink";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 
 export type FaqItem = {
   question: string;
@@ -36,8 +36,12 @@ function withLinks(answer: string, links: FaqProps["links"]): ReactNode {
 
 // Questions and answers, always open: nothing to expand, so every answer is on the page
 // for a reader, a search engine and a visitor without script alike.
+//
+// A question whose answer is still owed by the owner is not asked: it is left out until
+// the answer exists. (In development it shows, with its note in the answer's place.)
 export function Faq({ eyebrow, title, items, links, band = false }: FaqProps) {
   const titleId = useId();
+  const answered = items.filter((item) => item.answer !== null || item.todo !== null);
 
   return (
     <Section band={band} labelledBy={titleId}>
@@ -50,12 +54,12 @@ export function Faq({ eyebrow, title, items, links, band = false }: FaqProps) {
         </div>
 
         <ul className="rule-list lg:col-span-8">
-          {items.map((item) => (
+          {answered.map((item) => (
             <li key={item.question} className="flex flex-col gap-8" data-reveal>
               <h3 className="h3">{item.question}</h3>
               <p className="body">
                 {item.answer ? withLinks(item.answer, links) : null}
-                {item.todo ? <TodoChip note={item.todo} className={item.answer ? "ml-8" : undefined} /> : null}
+                {item.todo ? <DevNote note={item.todo} className={item.answer ? "ml-8" : undefined} /> : null}
               </p>
             </li>
           ))}

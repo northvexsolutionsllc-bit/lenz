@@ -1,10 +1,13 @@
 // Global strings. docs/CONTENT.md section 2. Every string is verbatim.
 
+// Owner notes are working notes. They exist in development only: this is false in a
+// production build, so every note below becomes null there and its text is not shipped.
+const DEV = process.env.NODE_ENV === "development";
+
 const SMS_BODY = "Hi, I'd like a quote. Here are photos of both headlights.";
 
+// The address the site is served from is not copy. It is in src/lib/site-url.ts.
 export const site = {
-  // The production origin, from docs/AUDIT.md section 1
-  url: "https://lenzrescue.com",
   name: "Lenz Rescue",
   wordmark: "LENZ RESCUE",
   tagline: "Mobile headlight restoration",
@@ -26,8 +29,12 @@ export const site = {
   },
   serviceAreaLine:
     "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area",
-  // The hours themselves are a TODO(owner). This is the note that goes with it.
-  hours: { todo: "likely: after school weekdays, with full availability Saturday and Sunday" },
+  // The hours themselves are still owed by the owner. Put them in `text` when they are
+  // known, and the contact page shows them. Until then the row is left off the page.
+  hours: {
+    text: null as string | null,
+    todo: DEV ? "likely: after school weekdays, with full availability Saturday and Sunday" : null,
+  },
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61593077793567",
     instagram: "https://www.instagram.com/lenz_rescue2026/",

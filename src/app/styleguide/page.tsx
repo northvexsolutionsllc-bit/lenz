@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { ReviewPlaceholder } from "@/components/sections/Reviews";
 import { Specimen, State } from "@/components/styleguide/Specimen";
 import { CompareSlider } from "@/components/ui/CompareSlider";
 import { Counter } from "@/components/ui/Counter";
@@ -12,13 +11,12 @@ import { Icon } from "@/components/ui/Icon";
 import { Marquee } from "@/components/ui/Marquee";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Pill } from "@/components/ui/Pill";
-import { PlaceholderFrame } from "@/components/ui/PlaceholderFrame";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
 import { Stats } from "@/components/ui/Stats";
 import { StepRow } from "@/components/ui/StepRow";
 import { TextLink } from "@/components/ui/TextLink";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { hero, pricing } from "@/content/home";
 import { dealer, guide } from "@/content/pages";
 import { FEATURED_PAIR } from "@/content/media";
@@ -512,18 +510,6 @@ export default function StyleguidePage() {
         </Specimen>
 
         <Specimen
-          title="PlaceholderFrame"
-          spec="Correct aspect ratio, smoke fill, beam-12 dashed hairline, centred caps label with the expected filename and ratio. The four ratios are the only four that exist."
-        >
-          <div className="grid w-full grid-cols-2 gap-16">
-            <PlaceholderFrame file="hero-poster.jpg" ratio="16/9" />
-            <PlaceholderFrame file="gallery-01.jpg" ratio="4/3" />
-            <PlaceholderFrame file="before-01.jpg" ratio="3/2" />
-            <PlaceholderFrame file="owner.jpg" ratio="4/5" />
-          </div>
-        </Specimen>
-
-        <Specimen
           title="CompareSlider"
           spec="Before underneath, after clipped on top. Drag anywhere, click to position, arrows 4 percent, shift 12, Home and End. A 2px beam seam with the beam glow and a 44px smoke handle. BEFORE in oxide, AFTER in xenon. Opens from 100 to 38 once, on first scroll into view."
         >
@@ -540,7 +526,7 @@ export default function StyleguidePage() {
 
         <Specimen
           title="MediaFrame"
-          spec="10px frame, beam-12 hairline, no shadow. Filter stack and a night multiply overlay, oxide tint on before images, xenon tint on after images. Hover lifts the overlay and relaxes the filter over 640ms. An empty slot shows its PlaceholderFrame."
+          spec="10px frame, beam-12 hairline, no shadow. Filter stack and a night multiply overlay, oxide tint on before images, xenon tint on after images. Hover lifts the overlay and relaxes the filter over 640ms. A slot with no file renders nothing."
         >
           <div className="grid w-full grid-cols-2 gap-16">
             <State label="Before">
@@ -552,17 +538,20 @@ export default function StyleguidePage() {
           </div>
         </Specimen>
 
-        <Specimen
-          title="TodoChip"
-          spec="A small oxide chip reading TODO, with night text, beside every TODO(owner) item in CONTENT.md. The note is its tooltip. Removed in the final pass."
-        >
-          {todoStat?.todo ? (
-            <p className="caps flex items-center gap-8">
-              {todoStat.label}
-              <TodoChip note={todoStat.todo} />
-            </p>
-          ) : null}
-        </Specimen>
+        {/* The note is a development tool, so its specimen is too */}
+        {process.env.NODE_ENV === "development" ? (
+          <Specimen
+            title="DevNote"
+            spec="A small oxide chip reading TODO, with night text, beside every TODO(owner) item in CONTENT.md. The note is its tooltip. Development only: it renders nothing in a production build."
+          >
+            {todoStat?.todo ? (
+              <p className="caps flex items-center gap-8">
+                {todoStat.label}
+                <DevNote note={todoStat.todo} />
+              </p>
+            ) : null}
+          </Specimen>
+        ) : null}
 
         <Specimen
           title="Check row and caution callout"
@@ -623,14 +612,6 @@ export default function StyleguidePage() {
               />
             </div>
           )}
-        </Specimen>
-
-        <Specimen
-          title="Reviews, placeholder state"
-          spec="The state the reviews section holds until the client supplies the Google profile, the rating, the count and three review texts. It is kept out of the page order and only appears here."
-          stacked
-        >
-          <ReviewPlaceholder />
         </Specimen>
 
         <Specimen

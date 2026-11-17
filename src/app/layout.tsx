@@ -12,16 +12,21 @@ import { tokens } from "@/generated/tokens";
 import { hasMedia } from "@/lib/media";
 import { pageMetadata } from "@/lib/metadata";
 import { businessSchema } from "@/lib/schema";
+import { indexable, siteUrl } from "@/lib/site-url";
 import { archivo, instrumentSerif, jetbrainsMono } from "./fonts";
 import "./globals.css";
 
 // The defaults every route starts from. Each page then sets its own with pageMetadata.
 // The icon is drawn at build time by scripts/generate.ts.
+//
+// Canonical and share addresses are built on the host this build is served from, and
+// anywhere but the production host every page is marked noindex. See src/lib/site-url.ts.
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(siteUrl),
   ...pageMetadata({ path: "/", title: `${site.name} | ${site.tagline}` }),
   alternates: undefined,
   icons: { icon: { url: "/generated/icon.svg", type: "image/svg+xml" } },
+  ...(indexable ? {} : { robots: { index: false, follow: false } }),
 };
 
 export const viewport: Viewport = {

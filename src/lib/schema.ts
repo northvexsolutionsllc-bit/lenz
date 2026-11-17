@@ -2,16 +2,17 @@ import type { AutoRepair, BreadcrumbList, City, FAQPage, GeoCircle, Service, Wit
 import { cities, serviceCircle, STATE, type CityName } from "@/content/area";
 import { getRoute } from "@/content/routes";
 import { site } from "@/content/site";
+import { siteUrl } from "@/lib/site-url";
 
 // Structured data, as JSON-LD. CONTENT.md 10
 // Everything here is typed against schema.org with schema-dts, so a property that does
 // not belong to its type fails the build. "npm run audit:seo" then checks the rendered
 // blocks against the schema.org vocabulary itself.
 
-const absolute = (path: string) => `${site.url}${path === "/" ? "" : path}`;
+const absolute = (path: string) => `${siteUrl}${path === "/" ? "" : path}`;
 
 /** The business is described once, in the root layout, and referred to by this id elsewhere. */
-export const BUSINESS_ID = `${site.url}/#business`;
+export const BUSINESS_ID = `${siteUrl}/#business`;
 
 const city = (name: CityName): City => ({
   "@type": "City",
@@ -34,7 +35,7 @@ export function businessSchema(): WithContext<AutoRepair> {
     "@id": BUSINESS_ID,
     name: site.name,
     description: site.tagline,
-    url: site.url,
+    url: siteUrl,
     telephone: site.phone.href.replace("tel:", ""),
     email: site.email.display,
     priceRange: "$$",

@@ -1,13 +1,14 @@
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Section } from "@/components/ui/Section";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { guide } from "@/content/pages";
 import { resolveSlot } from "@/lib/media";
 
 // The three tiers of the vehicle guide. CONTENT.md 7
 // Each tier carries its assigned accent: xenon for what restores well, beam for what
 // takes extra work, oxide for what should be replaced. The accent colours the tier's
-// rule and its numeral, and nothing else. Each tier has one photo slot.
+// rule and its numeral, and nothing else. Each tier has one photo slot, and a tier
+// whose photo has not been supplied is its copy alone.
 //
 // Until a photo's subject is known, its alt text is the tier's own name and first
 // sentence, which describe the condition the photo is there to show.
@@ -17,7 +18,13 @@ export function Tiers() {
       <div className="shell flex flex-col gap-24">
         <ol className="flex flex-col gap-24">
           {guide.tiers.map((tier, index) => (
-            <li key={tier.title} className="tier" data-accent={tier.accent} data-reveal>
+            <li
+              key={tier.title}
+              className="tier"
+              data-accent={tier.accent}
+              data-media={resolveSlot(tier.image).src ? "true" : undefined}
+              data-reveal
+            >
               <div className="tier-copy">
                 <p className="numeral tier-numeral" aria-hidden="true">
                   {String(index + 1).padStart(2, "0")}
@@ -35,9 +42,7 @@ export function Tiers() {
             </li>
           ))}
         </ol>
-        <p data-reveal>
-          <TodoChip note={guide.photosTodo} />
-        </p>
+        <DevNote note={guide.photosTodo} />
       </div>
     </Section>
   );

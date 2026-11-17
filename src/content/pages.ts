@@ -4,6 +4,10 @@
 // CONTENT.md lists the sections of a page by name without always giving them a display
 // heading. Where it gives none, the heading is that section name, in sentence case.
 
+// Owner notes are working notes. They exist in development only: this is false in a
+// production build, so every note below becomes null there and its text is not shipped.
+const DEV = process.env.NODE_ENV === "development";
+
 // 4. /headlight-restoration
 export const headlight = {
   title: { plain: "Headlight restoration,", accent: "done at your car." },
@@ -19,7 +23,7 @@ export const headlight = {
     faq: "FAQ",
   },
   faq: [
-    { question: "How long does it take?", answer: "A standard pair takes about an hour.", todo: "confirm" },
+    { question: "How long does it take?", answer: "A standard pair takes about an hour.", todo: DEV ? "confirm" : null },
     {
       question: "Do I need to be there?",
       answer:
@@ -52,7 +56,7 @@ export const headlight = {
     {
       question: "How do I pay?",
       answer: null,
-      todo: "likely: cash, Venmo and card via Square, since both appear in the current footer",
+      todo: DEV ? "likely: cash, Venmo and card via Square, since both appear in the current footer" : null,
     },
   ],
 } as const;
@@ -68,7 +72,7 @@ export const fog = {
   lead: "Fog lights sit lower, take more road spray and more grit, and usually go before the headlights do. They use the same plastic, so they take the same correction.",
   pricing: {
     title: "Added to a headlight booking.",
-    todo: "the add-on price",
+    todo: DEV ? "the add-on price" : null,
   },
 } as const;
 
@@ -84,7 +88,7 @@ export const dealer = {
   points: ["Per unit pricing", "We work on your lot", "Consistent across the row"],
   volume: {
     title: "Volume pricing",
-    todo: "blocking for this page. Needed: per unit price at 5, 10 and 20+ units, minimum booking, and typical turnaround for a 20 car row.",
+    todo: DEV ? "blocking for this page. Needed: per unit price at 5, 10 and 20+ units, minimum booking, and typical turnaround for a 20 car row." : null,
   },
   cta: "Request trade pricing",
   // The short form the CTA routes to
@@ -121,7 +125,7 @@ export const guide = {
       image: "guide-03.jpg",
     },
   ],
-  photosTodo: "three photos needed, one per tier.",
+  photosTodo: DEV ? "three photos needed, one per tier." : null,
   // The closing callout, one string in CONTENT.md, shown as its question and its answer
   closing: {
     question: "Not sure which one you have?",

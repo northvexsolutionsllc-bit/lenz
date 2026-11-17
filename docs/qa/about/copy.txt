@@ -94,12 +94,7 @@
            CONTENT.md line 96, first at li > a.text-link > span.text-link-label
        "LenzRescue@gmail.com"
            CONTENT.md section 2, first at li > a.text-link > span.text-link-label
-     owner note (2)
-       "TODO"
-           the TODO(owner) text in CONTENT.md, verbatim, first at ul.flex > li > span.todo-chip
-       "confirm the last two are actually served" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
-     interface (9)
+     interface (7)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
        "Primary"
@@ -108,10 +103,6 @@
            supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
        "Menu"
            supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
-       "owner.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "4/5"
-           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
@@ -123,4 +114,4 @@
        title        About | Lenz Rescue
        description  Started after school. Run like a trade.
 
-  PASS: 40 distinct strings (29 content, 2 owner note, 9 interface), 0 problems.
+  PASS: 36 distinct strings (29 content, 7 interface), 0 problems.

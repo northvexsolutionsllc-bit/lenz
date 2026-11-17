@@ -6,9 +6,6 @@
        ok       Drag it.
        ok       That is the same lens.
        ok       Every pair here was restored on site, in one visit, with no parts replaced.
-       ok       Headlight restoration
-       ok       Fog light restoration
-       ok       Dealer and auction
      2 Global
        ok       LENZ RESCUE
        ok       Mobile headlight restoration
@@ -25,7 +22,7 @@
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (2 on the page)
 
   2. The page, read against CONTENT.md
-     content (24)
+     content (23)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -54,16 +51,14 @@
            part of "Drag it. That is the same lens.", which is CONTENT.md strings in sequence, first at div.line-mask > div.line > span.accent
        "Every pair here was restored on site, in one visit, with no parts replaced."
            CONTENT.md line 102, first at section.page-hero > div.shell > p.body-l
-       "Headlight restoration"
-           CONTENT.md line 94, first at div.flex > div.flex > button.pill
-       "Fog light restoration" x2
-           CONTENT.md line 95, first at div.flex > div.flex > button.pill
-       "Dealer and auction" x2
-           CONTENT.md line 96, first at div.flex > div.flex > button.pill
        "Mobile headlight restoration"
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
            CONTENT.md section 2, first at div.shell > div.flex > p.small
+       "Fog light restoration"
+           CONTENT.md line 95, first at li > a.text-link > span.text-link-label
+       "Dealer and auction"
+           CONTENT.md line 96, first at li > a.text-link > span.text-link-label
        "Antioch"
            CONTENT.md line 171, first at ul.flex > li > a.pill
        "Brentwood"
@@ -109,7 +104,7 @@
            CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
        "Gray vehicle headlights restored on site"
            CONTENT.md line 274, details still TODO(owner), as alt, first at li > div.media-frame > img
-     interface (26)
+     interface (11)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
        "Primary"
@@ -126,36 +121,6 @@
            MOTION.md 6, first at div.compare > div.compare-layer > span.pill
        "AFTER" x4
            MOTION.md 6, first at div.compare > div.compare-layer > span.pill
-       "before-02.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "after-02.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "3/2" x2
-           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
-       "before-06.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "after-06.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "Filter the gallery by service"
-           supplied in build: name of the filter group, as aria-label, first at div.shell > div.flex > div.flex
-       "All"
-           supplied in build: gallery filter, first at div.flex > div.flex > button.pill
-       "gallery-06.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "4/3" x7
-           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
-       "gallery-07.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "gallery-08.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "gallery-09.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "gallery-10.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "gallery-11.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
-       "gallery-12.jpg"
-           DESIGN.md 5, slot filename, first at div.placeholder-frame > p.caps > span.normal-case
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
@@ -167,4 +132,4 @@
        title        Gallery | Lenz Rescue
        description  Every pair here was restored on site, in one visit, with no parts replaced.
 
-  PASS: 67 distinct strings (24 content, 17 pattern, 26 interface), 0 problems.
+  PASS: 51 distinct strings (23 content, 17 pattern, 11 interface), 0 problems.

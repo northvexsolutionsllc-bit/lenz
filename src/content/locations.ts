@@ -14,7 +14,9 @@ import type { CityName } from "./area";
 
 // CONTENT.md 8, the TODO(owner) under the table
 export const openingTodo =
-  "confirm the local detail in each opening line is accurate before publishing. A location page with a wrong neighbourhood name is worse than no location page.";
+  process.env.NODE_ENV === "development"
+    ? "confirm the local detail in each opening line is accurate before publishing. A location page with a wrong neighbourhood name is worse than no location page."
+    : null;
 
 export type LocationContent = {
   /** The route, without the leading slash */

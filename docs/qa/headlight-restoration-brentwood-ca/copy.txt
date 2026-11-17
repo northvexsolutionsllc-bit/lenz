@@ -142,16 +142,26 @@
            CONTENT.md 8, the location table, first at ul.flex > li > span.pill
        "Brentwood Blvd"
            CONTENT.md 8, the location table, first at ul.flex > li > span.pill
-     owner note (4)
-       "TODO" x3
-           the TODO(owner) text in CONTENT.md, verbatim, first at div.shell > p.body-l > span.todo-chip
-       "confirm the local detail in each opening line is accurate before publishing. A location page with a wrong neighbourhood name is worse than no location page." x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.shell > p.body-l > span.todo-chip
-       "the year, make, model and city for each of the existing five photos." x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > h2.h2 > span.todo-chip
-       "confirm the last two are actually served" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
-     interface (10)
+     pattern (9)
+       "Oxidized yellow headlight on a dark red vehicle before restoration"
+           CONTENT.md line 272, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+       "The same dark red vehicle headlight after multi-step restoration and UV coating"
+           CONTENT.md line 273, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+       "Oxidized yellow headlight on a dark red vehicle before restoration. The same dark red vehicle headlight after multi-step restoration and UV coating."
+           CONTENT.md section 9 patterns, details still TODO(owner), first at ul.location-pairs > li > p.sr-only
+       "Oxidized yellow headlight on a maroon vehicle before restoration"
+           CONTENT.md line 272, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+       "The same maroon vehicle headlight after multi-step restoration and UV coating"
+           CONTENT.md line 273, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+       "Oxidized yellow headlight on a maroon vehicle before restoration. The same maroon vehicle headlight after multi-step restoration and UV coating."
+           CONTENT.md section 9 patterns, details still TODO(owner), first at ul.location-pairs > li > p.sr-only
+       "Oxidized yellow headlight on a gray vehicle before restoration"
+           CONTENT.md line 272, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+       "The same gray vehicle headlight after multi-step restoration and UV coating"
+           CONTENT.md line 273, details still TODO(owner), as alt, first at div.compare-layer > div.media-frame > img
+       "Oxidized yellow headlight on a gray vehicle before restoration. The same gray vehicle headlight after multi-step restoration and UV coating."
+           CONTENT.md section 9 patterns, details still TODO(owner), first at ul.location-pairs > li > p.sr-only
+     interface (11)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
        "Primary"
@@ -160,12 +170,14 @@
            supplied in build: menu button, as aria-label, first at div.shell > div.flex > button.menu-toggle
        "Menu"
            supplied in build: name of the menu navigation landmark, as aria-label, first at div.menu-sheet > nav.shell
-       "before-01.jpg .. -06.jpg" x3
-           DESIGN.md 5, the pair slots as it lists them, first at div.placeholder-frame > p.caps > span.normal-case
-       "after-01.jpg .. -06.jpg" x3
-           DESIGN.md 5, the pair slots as it lists them, first at div.placeholder-frame > p.caps > span.normal-case
-       "3/2" x3
-           DESIGN.md 5, slot ratio, first at div.placeholder-frame > p.caps > span
+       "Reveal the restored headlight" x3
+           MOTION.md 6, as aria-label, first at ul.location-pairs > li > div.compare
+       "38 percent before, 62 percent after" x3
+           supplied in build: slider value for screen readers, as aria-valuetext, first at ul.location-pairs > li > div.compare
+       "BEFORE" x3
+           MOTION.md 6, first at div.compare > div.compare-layer > span.pill
+       "AFTER" x3
+           MOTION.md 6, first at div.compare > div.compare-layer > span.pill
        "Footer"
            supplied in build: name of the footer navigation landmark, as aria-label, first at footer.site-footer > div.shell > nav.lg:col-span-3
        "Lenz Rescue on Facebook"
@@ -177,4 +189,4 @@
        title        Headlight Restoration in Brentwood CA | Mobile, From $125 | Lenz Rescue
        description  Brentwood still has working farm roads, and the dust that comes off the vineyards and orchards is fine enough to scour a headlight a little more every season. Over a few years that wears the factory coating thin, and the plastic underneath starts to yellow. We restore lenses on site across town, from Balfour to Shadow Lakes and along Brentwood Blvd. You do not have to drive anywhere. Text photos of both headlights and we will tell you what we are working with.
 
-  PASS: 60 distinct strings (1 DRAFT, 42 content, 3 label, 4 owner note, 10 interface), 0 problems.
+  PASS: 66 distinct strings (1 DRAFT, 42 content, 3 label, 9 pattern, 11 interface), 0 problems.

@@ -3,7 +3,7 @@ import { EnquiryForm } from "@/components/ui/EnquiryForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Section } from "@/components/ui/Section";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { pricing } from "@/content/home";
 import { dealer } from "@/content/pages";
 
@@ -35,9 +35,12 @@ export function TradePoints() {
   );
 }
 
-// Volume pricing. Blocked on the owner: the section holds its place and says so.
+// Volume pricing. Blocked on the owner: the per unit prices and the minimum booking have
+// not been supplied. A heading with nothing under it is worse than no section, so until
+// they exist the section is left out. (In development it holds its place, with its note.)
 export function VolumePricing() {
   const titleId = useId();
+  if (!dealer.volume.todo) return null;
 
   return (
     <Section labelledBy={titleId}>
@@ -45,7 +48,7 @@ export function VolumePricing() {
         <Eyebrow reveal>{pricing.eyebrow}</Eyebrow>
         <h2 id={titleId} className="h2" data-reveal>
           {dealer.volume.title}
-          <TodoChip note={dealer.volume.todo} className="ml-16" />
+          <DevNote note={dealer.volume.todo} className="ml-16" />
         </h2>
       </div>
     </Section>

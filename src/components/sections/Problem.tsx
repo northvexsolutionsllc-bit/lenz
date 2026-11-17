@@ -2,7 +2,7 @@ import { useId } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Section } from "@/components/ui/Section";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { problem } from "@/content/home";
 
 // Home, the problem. CONTENT.md 3.2
@@ -30,7 +30,7 @@ export function Problem() {
                 <h3 className="h3">{point.title}</h3>
                 <p className="body">
                   {point.body}
-                  {point.todo ? <TodoChip note={point.todo} className="ml-8" /> : null}
+                  {point.todo ? <DevNote note={point.todo} className="ml-8" /> : null}
                 </p>
               </GlassCard>
             </li>

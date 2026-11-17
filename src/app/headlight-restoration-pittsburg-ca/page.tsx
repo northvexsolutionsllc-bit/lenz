@@ -38,7 +38,7 @@ export default function PittsburgPage() {
         title={content.title}
         opening={content.opening}
         neighbourhoods={content.neighbourhoods}
-        pairs={content.pairs}
+        slug={content.slug}
       />
     </>
   );

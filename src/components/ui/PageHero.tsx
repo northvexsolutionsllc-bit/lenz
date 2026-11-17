@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { DisplayHeading } from "./DisplayHeading";
 import { Eyebrow } from "./Eyebrow";
-import { TodoChip } from "./TodoChip";
+import { DevNote } from "./DevNote";
 
 type PageHeroProps = {
   eyebrow?: string;
@@ -9,7 +9,7 @@ type PageHeroProps = {
   children: ReactNode;
   lead?: string;
   /** The owner note for a lead that is still to be confirmed. Shown as a TODO chip. */
-  leadTodo?: string;
+  leadTodo?: string | null;
   /** What follows the lead: buttons, for example. */
   actions?: ReactNode;
   /** Anything below the actions: a row of figures or a list of places. */
@@ -28,7 +28,7 @@ export function PageHero({ eyebrow, children, lead, leadTodo, actions, after }: 
         {lead ? (
           <p className="body-l">
             {lead}
-            {leadTodo ? <TodoChip note={leadTodo} className="ml-8" /> : null}
+            {leadTodo ? <DevNote note={leadTodo} className="ml-8" /> : null}
           </p>
         ) : null}
         {actions ? <div className="flex flex-wrap gap-12 pt-8">{actions}</div> : null}

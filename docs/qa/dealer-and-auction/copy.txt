@@ -12,7 +12,7 @@
        ok       Consistent across the row
        ok       Request trade pricing
      Taken from other sections
-       ok       PRICING
+       held     PRICING  (the eyebrow of the volume pricing section, which is left out for now)
      2 Global
        ok       LENZ RESCUE
        ok       Mobile headlight restoration
@@ -29,7 +29,7 @@
        ok       link sms:+19258125524?&body=Hi, I'd like a quote. Here are photos of both headlights. (2 on the page)
 
   2. The page, read against CONTENT.md
-     content (26)
+     content (25)
        "LENZ RESCUE" x2
            CONTENT.md section 2, first at header.site-header > div.shell > a.wordmark
        "Services" x3
@@ -62,8 +62,6 @@
            CONTENT.md line 214, first at li > div.glass-card > h2.h3
        "Consistent across the row"
            CONTENT.md line 214, first at li > div.glass-card > h2.h3
-       "PRICING"
-           CONTENT.md line 126, first at section.section > div.shell > p.eyebrow
        "Mobile headlight restoration"
            CONTENT.md section 2, first at div.shell > div.flex > p.small
        "Serving Antioch, Brentwood, Pittsburg, Oakley and the surrounding East County area"
@@ -82,20 +80,13 @@
            CONTENT.md line 171, first at ul.flex > li > a.pill
        "LenzRescue@gmail.com"
            CONTENT.md section 2, first at li > a.text-link > span.text-link-label
-     label (4)
-       "Volume pricing"
-           CONTENT.md 6, field name, first at section.section > div.shell > h2.h2
+     label (3)
        "Dealership"
            CONTENT.md 6, form field, first at form.form > label.field > span.caps
        "Lot address"
            CONTENT.md 6, form field, first at form.form > label.field > span.caps
        "Approximate units per month"
            CONTENT.md 6, form field, first at form.form > label.field > span.caps
-     owner note (2)
-       "TODO"
-           the TODO(owner) text in CONTENT.md, verbatim, first at div.shell > h2.h2 > span.todo-chip
-       "blocking for this page. Needed: per unit price at 5, 10 and 20+ units, minimum booking, and typical turnaround for a 20 car row." x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.shell > h2.h2 > span.todo-chip
      interface (10)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
@@ -122,4 +113,4 @@
        title        Dealer and Auction Headlight Reconditioning | Lenz Rescue
        description  Mobile headlight reconditioning for dealers and auction lots in East Contra Costa. Per unit pricing, we work your row on site, consistent finish across the inventory.
 
-  PASS: 42 distinct strings (26 content, 4 label, 2 owner note, 10 interface), 0 problems.
+  PASS: 38 distinct strings (25 content, 3 label, 10 interface), 0 problems.

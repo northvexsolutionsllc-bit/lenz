@@ -1,5 +1,5 @@
 import { Counter } from "./Counter";
-import { TodoChip } from "./TodoChip";
+import { DevNote } from "./DevNote";
 
 export type Stat = {
   value: number;
@@ -23,7 +23,7 @@ export function Stats({ items, className }: StatsProps) {
         <div key={stat.label} className="stat">
           <dt className="caps flex items-center gap-8">
             {stat.label}
-            {stat.todo ? <TodoChip note={stat.todo} /> : null}
+            {stat.todo ? <DevNote note={stat.todo} /> : null}
           </dt>
           <dd>
             <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />

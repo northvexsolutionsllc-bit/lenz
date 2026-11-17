@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GalleryGrid } from "@/components/ui/GalleryGrid";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
 import { Section } from "@/components/ui/Section";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { beforeAfter } from "@/content/home";
 import { FEATURED_PAIR } from "@/content/media";
 import { getGalleryTiles, getPair } from "@/lib/gallery";
@@ -15,7 +15,8 @@ type BeforeAfterProps = {
 };
 
 // Before and after. CONTENT.md 3.5
-// The slider, then a six tile grid, then the way through to the full gallery.
+// The slider, then up to six tiles of finished work in whole rows, then the way through
+// to the full gallery.
 export function BeforeAfter({ id }: BeforeAfterProps) {
   const titleId = useId();
   const pair = getPair(FEATURED_PAIR);
@@ -31,7 +32,7 @@ export function BeforeAfter({ id }: BeforeAfterProps) {
             </h2>
             <p className="body" data-reveal>
               {beforeAfter.body}
-              <TodoChip note={beforeAfter.todo} className="ml-8" />
+              <DevNote note={beforeAfter.todo} className="ml-8" />
             </p>
           </div>
 
@@ -47,7 +48,7 @@ export function BeforeAfter({ id }: BeforeAfterProps) {
         </div>
 
         <div data-reveal>
-          <GalleryGrid tiles={getGalleryTiles(6)} />
+          <GalleryGrid tiles={getGalleryTiles(6)} tidy />
         </div>
 
         <div data-reveal>

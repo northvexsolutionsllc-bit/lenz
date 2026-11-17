@@ -3,7 +3,7 @@ import { Counter } from "@/components/ui/Counter";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
 import { Section } from "@/components/ui/Section";
-import { TodoChip } from "@/components/ui/TodoChip";
+import { DevNote } from "@/components/ui/DevNote";
 import { pricing } from "@/content/home";
 
 // Home, pricing. CONTENT.md 3.8
@@ -40,7 +40,7 @@ export function Pricing({ band = true }: PricingProps) {
                   <h3 className="h3">{item.title}</h3>
                   <p className="body">
                     {item.body}
-                    {item.todo ? <TodoChip note={item.todo} className="ml-8" /> : null}
+                    {item.todo ? <DevNote note={item.todo} className="ml-8" /> : null}
                   </p>
                 </div>
               </li>

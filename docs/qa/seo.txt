@@ -1,3 +1,6 @@
+0. Where this build says it is served from
+  ok    https://lenzrescue.com. That is the production host, so the site is to be indexed.
+
 1. Sitemap
   ok    /sitemap.xml answers 200 as application/xml
   ok    it is an XML urlset in the sitemaps.org namespace, not an HTML page
@@ -118,7 +121,7 @@
 
 4. Alt text
   ok    13 different images, 13 different alt texts: no two images share one
-  ok    27 image tags carry a description. 1 with empty alt text, as decoration: the hero backdrop.
+  ok    51 image tags carry a description. 1 with empty alt text, as decoration: the hero backdrop.
   ok    the old site's alt text appears on no route
         gallery-03.jpg: Dark red vehicle headlights restored on site
         gallery-05.jpg: Gray vehicle headlights restored on site
@@ -151,7 +154,7 @@
   ok    /: 11 sections, each in its place and laid out, no text held back
   ok    /headlight-restoration: 10 sections, each in its place and laid out, no text held back
   ok    /fog-light-restoration: 5 sections, each in its place and laid out, no text held back
-  ok    /dealer-and-auction: 4 sections, each in its place and laid out, no text held back
+  ok    /dealer-and-auction: 3 sections, each in its place and laid out, no text held back
   ok    /gallery: 3 sections, each in its place and laid out, no text held back
   ok    /vehicle-guide: 3 sections, each in its place and laid out, no text held back
   ok    /about: 3 sections, each in its place and laid out, no text held back
@@ -160,5 +163,24 @@
   ok    /headlight-restoration-brentwood-ca: 4 sections, each in its place and laid out, no text held back
   ok    /headlight-restoration-pittsburg-ca: 4 sections, each in its place and laid out, no text held back
   ok    /headlight-restoration-oakley-ca: 4 sections, each in its place and laid out, no text held back
+
+7. Nothing unfinished is on show
+  ok    /: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /headlight-restoration: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /fog-light-restoration: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /dealer-and-auction: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /gallery: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /vehicle-guide: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /about: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /contact: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /headlight-restoration-antioch-ca: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /headlight-restoration-brentwood-ca: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /headlight-restoration-pittsburg-ca: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /headlight-restoration-oakley-ca: no working note, no filename as text, no empty frame, nothing left empty
+  ok    /styleguide: no working note, no filename as text, nothing left empty
+
+8. The build carries no working notes
+  ok    the pages as prerendered: none of "TODO", "likely:", "blocking for"
+  ok    the script sent to the browser: none of "TODO", "likely:", "blocking for"
 
 PASS: nothing failed.

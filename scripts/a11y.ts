@@ -457,7 +457,7 @@ async function heroItems(page: Page): Promise<HeroItem[]> {
         const node = walker.currentNode;
         const parent = node.parentElement;
         if (!node.nodeValue?.trim() || !parent) continue;
-        if (parent.closest(".todo-chip")) continue;
+        if (parent.closest(".dev-note")) continue;
         const hidden = parent.closest('[aria-hidden="true"], .sr-only');
         if (!hidden || parent.closest(".sr-only")) parts.push(node.nodeValue);
         if (parent.closest(".sr-only, .counter-ghost")) continue;

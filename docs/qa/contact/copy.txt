@@ -84,20 +84,11 @@
            CONTENT.md line 95, first at li > a.text-link > span.text-link-label
        "Dealer and auction"
            CONTENT.md line 96, first at li > a.text-link > span.text-link-label
-     label (3)
+     label (2)
        "Phone" x2
            CONTENT.md 2, field name, first at dl.rule-list > div.flex > dt.caps
        "Email"
            CONTENT.md 2, field name, first at dl.rule-list > div.flex > dt.caps
-       "Hours"
-           CONTENT.md 2, field name, first at dl.rule-list > div.flex > dt.caps
-     owner note (3)
-       "TODO" x2
-           the TODO(owner) text in CONTENT.md, verbatim, first at div.flex > dd > span.todo-chip
-       "likely: after school weekdays, with full availability Saturday and Sunday" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at div.flex > dd > span.todo-chip
-       "confirm the last two are actually served" x2
-           the TODO(owner) text in CONTENT.md, verbatim, as title, first at ul.flex > li > span.todo-chip
      interface (10)
        "Skip to content"
            supplied in build: skip link, first at a.skip-link > span.btn-face > span.caps
@@ -124,4 +115,4 @@
        title        Contact | Lenz Rescue
        description  Text photos of both headlights and you will have a price back today.
 
-  PASS: 42 distinct strings (26 content, 3 label, 3 owner note, 10 interface), 0 problems.
+  PASS: 38 distinct strings (26 content, 2 label, 10 interface), 0 problems.

@@ -23,6 +23,7 @@ import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 import { REST } from "../src/components/hero/beam-model";
+import { indexable, PRODUCTION_HOST, siteUrl } from "../src/lib/site-url";
 import { renderBeam } from "./beam-still";
 import { encodePng } from "./png";
 
@@ -150,7 +151,19 @@ function writeHeroStill(): string {
   return `/generated/${name}`;
 }
 
+// Says, in the build log, which host this build believes it is for and whether it will
+// let itself be indexed. A staging build that thinks it is production, or the reverse,
+// should be visible before it is deployed and not after.
+function announceSite() {
+  const given = process.env.NEXT_PUBLIC_SITE_URL ? "" : " (NEXT_PUBLIC_SITE_URL is not set)";
+  const mode = indexable
+    ? "the production host: pages are indexable"
+    : `not ${PRODUCTION_HOST}, so this is a staging build: every page is noindex and robots.txt is closed`;
+  console.info(`Site address: ${siteUrl}${given}. That is ${mode}.`);
+}
+
 async function main() {
+  announceSite();
   writeTokens();
   writeNoise();
   writeBuildInfo(writeHeroStill());

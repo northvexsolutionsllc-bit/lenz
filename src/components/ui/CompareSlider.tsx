@@ -16,7 +16,6 @@ import { afterQuiet } from "@/lib/routeQuiet";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { Icon } from "./Icon";
 import { MediaFrame } from "./MediaFrame";
-import { PlaceholderFrame } from "./PlaceholderFrame";
 
 // MOTION.md 6
 const REST = 38; // where the intro leaves the seam, in percent
@@ -57,8 +56,8 @@ const valueText = (value: number) => {
 // presentational to assistive technology, the two alt texts are also given as its
 // description.
 //
-// Until both photos of a pair exist there is nothing to compare, so the slot shows one
-// PlaceholderFrame naming the two files it is waiting for, and no control.
+// Until both photos of a pair exist there is nothing to compare, and the slider renders
+// nothing at all.
 export function CompareSlider({ before, after, beforeAlt, afterAlt, sizes, className }: CompareSliderProps) {
   const reduced = useReducedMotion();
   const describedBy = useId();
@@ -212,9 +211,8 @@ export function CompareSlider({ before, after, beforeAlt, afterAlt, sizes, class
     apply(next);
   };
 
-  if (!before.src || !after.src) {
-    return <PlaceholderFrame file={[before.file, after.file]} ratio="3/2" className={className} />;
-  }
+  // A pair is only a pair with both halves. Until both files exist there is no slider.
+  if (!before.src || !after.src) return null;
 
   return (
     <>

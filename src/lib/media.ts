@@ -2,8 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 // Server only. Client supplied media lives in public/media under the exact filenames
-// listed in DESIGN.md 5. A slot renders its PlaceholderFrame until its file exists, so
-// the real files drop in without a code change.
+// listed in DESIGN.md 5. A slot with no file renders nothing, and the real files drop in
+// later without a code change.
 
 const MEDIA_DIR = path.join(process.cwd(), "public", "media");
 
