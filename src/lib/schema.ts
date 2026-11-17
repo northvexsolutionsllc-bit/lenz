@@ -52,10 +52,10 @@ type ServiceInput = {
   description?: string;
   /** A location page serves one city. Every other service page serves all four. */
   city?: CityName;
-  /** The lowest price, in dollars, where the page states one */
+  /** The starting price, in dollars, where the page states one */
   minPrice?: number;
   /**
-   * For an add on: the lowest price of the headlight booking it is added to. The add on
+   * For an add on: the starting price of the headlight booking it is added to. The add on
    * has no price of its own yet, so the price is stated of the booking and not of it.
    */
   addedToBookingFrom?: number;
